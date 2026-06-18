@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-export const authGuard = () => {
+export const adminGuard = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
   const platformId = inject(PLATFORM_ID);
@@ -12,9 +12,9 @@ export const authGuard = () => {
     return true;
   }
 
-  if (auth.isLoggedIn()) {
+  if (auth.currentUser()?.role === 'ADMIN') {
     return true;
   }
 
-  return router.parseUrl('/auth/login');
+  return router.parseUrl('/');
 };

@@ -1,0 +1,50 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl text-gray-900" style="font-weight:500">Categorías</h1>
+      <p class="mt-1 text-sm text-gray-500" style="font-weight:400">Gestioná las categorías de productos</p>
+    </div>
+    <a routerLink="/admin/categories/new" class="rounded-lg bg-orange-500 px-4 py-2 text-sm text-white hover:bg-orange-600" style="font-weight:500">Nueva categoría</a>
+  </div>
+
+  @if (loading()) {
+    <p class="text-sm text-gray-400" style="font-weight:400">Cargando…</p>
+  } @else if (categories().length === 0) {
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 text-center">
+      <p class="text-sm text-gray-400" style="font-weight:400">No hay categorías registradas</p>
+    </div>
+  } @else {
+    <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-gray-100 bg-white text-left text-gray-400" style="font-weight:500">
+            <th class="px-6 py-3">Nombre</th>
+            <th class="px-6 py-3">Descripción</th>
+            <th class="text-center px-6 py-3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-50">
+          @for (cat of categories(); track cat.id) {
+            <tr class="hover:bg-gray-50">
+              <td class="truncate px-6 py-4 text-gray-900 max-w-[200px]" style="font-weight:500">{{ cat.name }}</td>
+              <td class="truncate px-6 py-4 text-gray-500 max-w-[300px]" style="font-weight:400">{{ cat.description || '—' }}</td>
+              <td class="text-center whitespace-nowrap px-6 py-4">
+                <a routerLink="/admin/categories/{{ cat.id }}/edit" class="mr-3 text-sm text-orange-500 hover:text-orange-600" style="font-weight:500">Editar</a>
+                <button (click)="delete(cat.id)" class="text-sm text-red-500 hover:text-red-600" style="font-weight:500">Eliminar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <p class="text-sm text-gray-400" style="font-weight:400">{{ categories().length }} categorías</p>
+      <div class="flex items-center gap-2">
+        <button (click)="prev()" [disabled]="page() === 0" class="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-600 hover:border-gray-300 disabled:opacity-40" style="font-weight:500">Anterior</button>
+        <span class="text-sm text-gray-500" style="font-weight:400">Pág. {{ page() + 1 }} de {{ totalPages() }}</span>
+        <button (click)="next()" [disabled]="page() >= totalPages() - 1" class="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-600 hover:border-gray-300 disabled:opacity-40" style="font-weight:500">Siguiente</button>
+      </div>
+    </div>
+  }
+</div>

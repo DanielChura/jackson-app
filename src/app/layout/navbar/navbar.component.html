@@ -1,0 +1,19 @@
+<nav class="border-b border-gray-200">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <div class="flex items-center gap-8">
+      <a routerLink="/"><app-icon name="sparkle" size="28" class="text-orange-500" /></a>
+      <div class="hidden items-center gap-6 md:flex">
+        <a routerLink="/products" class="text-sm text-gray-600 hover:text-gray-900" style="font-weight:500">Productos</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      @if (auth.currentUser(); as user) {
+        <span class="text-sm text-gray-500" style="font-weight:400">{{ user.email }}</span>
+        <button (click)="auth.logout()" class="text-sm text-gray-600 hover:text-gray-900" style="font-weight:500">Cerrar sesión</button>
+      } @else {
+        <a routerLink="/auth/login" class="text-sm text-gray-600 hover:text-gray-900" style="font-weight:500">Ingresar</a>
+        <a routerLink="/auth/register" class="rounded-lg bg-orange-500 px-4 py-2 text-sm text-white hover:bg-orange-600" style="font-weight:500">Crear cuenta</a>
+      }
+    </div>
+  </div>
+</nav>

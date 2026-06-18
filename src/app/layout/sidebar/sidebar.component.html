@@ -1,0 +1,47 @@
+<aside class="flex min-h-dvh w-64 flex-col bg-gray-900">
+  <div class="flex items-center gap-3 border-b border-gray-800 px-6 py-5">
+    <app-icon name="sparkle" size="24" class="text-orange-500" />
+    <span class="text-sm text-white" style="font-weight:500">Jackson Admin</span>
+  </div>
+
+  <nav class="flex-1 space-y-1 px-3 py-4">
+    <a routerLink="/admin" routerLinkActive="bg-gray-800 text-white" [routerLinkActiveOptions]="{exact:true}"
+       class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white" style="font-weight:500">
+      <app-icon name="layout-dashboard" size="18" /> Dashboard
+    </a>
+    <a routerLink="/admin/products" routerLinkActive="bg-gray-800 text-white"
+       class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white" style="font-weight:500">
+      <app-icon name="package" size="18" /> Productos
+    </a>
+    <a routerLink="/admin/brands" routerLinkActive="bg-gray-800 text-white"
+       class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white" style="font-weight:500">
+      <app-icon name="tag" size="18" /> Marcas
+    </a>
+    <a routerLink="/admin/categories" routerLinkActive="bg-gray-800 text-white"
+       class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white" style="font-weight:500">
+      <app-icon name="grid" size="18" /> Categorías
+    </a>
+    <a routerLink="/admin/orders" routerLinkActive="bg-gray-800 text-white"
+       class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white" style="font-weight:500">
+      <app-icon name="shopping-cart" size="18" /> Órdenes
+    </a>
+    <a routerLink="/admin/users" routerLinkActive="bg-gray-800 text-white"
+       class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white" style="font-weight:500">
+      <app-icon name="users" size="18" /> Usuarios
+    </a>
+    <a routerLink="/admin/inventory" routerLinkActive="bg-gray-800 text-white"
+       class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white" style="font-weight:500">
+      <app-icon name="clipboard-list" size="18" /> Inventario
+    </a>
+  </nav>
+
+  <div class="border-t border-gray-800 px-3 py-4">
+    <a routerLink="/" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white" style="font-weight:500">
+      <app-icon name="sparkle" size="18" /> Ir a la tienda
+    </a>
+    <button (click)="auth.logout()"
+            class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white" style="font-weight:500">
+      Cerrar sesión
+    </button>
+  </div>
+</aside>
