@@ -1,12 +1,15 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { BrandService } from '../../../../core/services/brand.service';
+import { ToastService } from '../../../../core/services/toast.service';
+import { ErrorService } from '../../../../core/services/error.service';
 
 @Component({
   selector: 'app-brand-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, SpinnerComponent],
   templateUrl: './brand-form.component.html',
 })
 export class BrandFormComponent {
@@ -14,6 +17,8 @@ export class BrandFormComponent {
   private readonly brandService = inject(BrandService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly toast = inject(ToastService);
+  private readonly errorService = inject(ErrorService);
 
   readonly isEdit = signal(false);
   readonly loading = signal(false);
@@ -56,8 +61,14 @@ export class BrandFormComponent {
       : this.brandService.create(payload);
 
     request.subscribe({
-      next: () => this.router.navigate(['/admin/brands']),
-      error: () => this.saving.set(false),
+      next: () => {
+        this.toast.show(this.isEdit() ? 'Marca actualizada' : 'Marca creada');
+        this.router.navigate(['/admin/brands']);
+      },
+      error: (err) => {
+        this.errorService.show(err.error);
+        this.saving.set(false);
+      },
     });
   }
 }

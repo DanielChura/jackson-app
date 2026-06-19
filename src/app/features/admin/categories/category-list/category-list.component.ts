@@ -1,21 +1,26 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
+import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { CategoryService } from '../../../../core/services/category.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { CategoryResponse } from '../../../../core/models';
 
 @Component({
   selector: 'app-category-list',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, SpinnerComponent, PaginatorComponent],
   templateUrl: './category-list.component.html',
 })
 export class CategoryListComponent {
   private readonly categoryService = inject(CategoryService);
+  private readonly toast = inject(ToastService);
 
   readonly categories = signal<CategoryResponse[]>([]);
   readonly loading = signal(false);
   readonly page = signal(0);
   readonly totalPages = signal(0);
+  readonly totalElements = signal(0);
 
   constructor() {
     this.load();
@@ -27,6 +32,7 @@ export class CategoryListComponent {
       next: (res) => {
         this.categories.set(res.content);
         this.totalPages.set(res.totalPages);
+        this.totalElements.set(res.totalElements);
         this.loading.set(false);
       },
       error: () => this.loading.set(false),
@@ -49,6 +55,11 @@ export class CategoryListComponent {
 
   delete(id: string) {
     if (!confirm('¿Eliminar esta categoría?')) return;
-    this.categoryService.delete(id).subscribe(() => this.load());
+    this.categoryService.delete(id).subscribe({
+      next: () => {
+        this.toast.show('Categoría eliminada');
+        this.load();
+      },
+    });
   }
 }

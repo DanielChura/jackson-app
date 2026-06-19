@@ -1,0 +1,48 @@
+<div class="mx-auto max-w-lg space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl text-gray-900" style="font-weight:500">Nuevo movimiento</h1>
+      <p class="mt-1 text-sm text-gray-500" style="font-weight:400">Registrá una entrada, salida o ajuste manual</p>
+    </div>
+    <a routerLink="/admin/inventory" class="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600 hover:border-gray-300" style="font-weight:500">Volver</a>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+    <div>
+      <label class="mb-1.5 block text-sm text-gray-700" style="font-weight:500">ID del producto</label>
+      <input formControlName="productId" type="text" placeholder="UUID del producto" class="w-full rounded-lg border border-gray-200 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500" />
+      @if (form.controls.productId.invalid && form.controls.productId.touched) {
+        <p class="mt-1 text-xs text-red-500" style="font-weight:400">Campo requerido</p>
+      }
+    </div>
+
+    <div>
+      <label class="mb-1.5 block text-sm text-gray-700" style="font-weight:500">Tipo de movimiento</label>
+      <select formControlName="movementType" class="w-full rounded-lg border border-gray-200 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500">
+        @for (mt of movementTypes; track mt.value) {
+          <option [value]="mt.value">{{ mt.label }}</option>
+        }
+      </select>
+    </div>
+
+    <div>
+      <label class="mb-1.5 block text-sm text-gray-700" style="font-weight:500">Cantidad</label>
+      <input formControlName="quantity" type="number" min="1" placeholder="1" class="w-full rounded-lg border border-gray-200 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500" />
+      @if (form.controls.quantity.invalid && form.controls.quantity.touched) {
+        <p class="mt-1 text-xs text-red-500" style="font-weight:400">Debe ser mayor a 0</p>
+      }
+    </div>
+
+    <div>
+      <label class="mb-1.5 block text-sm text-gray-700" style="font-weight:500">Razón</label>
+      <textarea formControlName="reason" rows="3" placeholder="Motivo del movimiento" class="w-full rounded-lg border border-gray-200 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"></textarea>
+      @if (form.controls.reason.invalid && form.controls.reason.touched) {
+        <p class="mt-1 text-xs text-red-500" style="font-weight:400">Campo requerido</p>
+      }
+    </div>
+
+    <button type="submit" [disabled]="loading()" class="w-full rounded-lg bg-orange-500 px-4 py-3 text-sm text-white hover:bg-orange-600 disabled:opacity-50" style="font-weight:500">
+      {{ loading() ? 'Guardando…' : 'Registrar movimiento' }}
+    </button>
+  </form>
+</div>

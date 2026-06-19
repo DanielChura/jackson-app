@@ -4,14 +4,17 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../../core/services/product.service';
 import { CategoryService } from '../../../../core/services/category.service';
 import { BrandService } from '../../../../core/services/brand.service';
+import { ToastService } from '../../../../core/services/toast.service';
+import { ErrorService } from '../../../../core/services/error.service';
 import { CreateProductRequest, CategoryResponse, BrandResponse } from '../../../../core/models';
 
+import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { StepIndicatorComponent } from '../../../../shared/components/step-indicator/step-indicator.component';
 
 @Component({
   selector: 'app-product-form',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, StepIndicatorComponent],
+  imports: [ReactiveFormsModule, RouterLink, StepIndicatorComponent, SpinnerComponent],
   templateUrl: './product-form.component.html',
 })
 export class ProductFormComponent {
@@ -21,6 +24,8 @@ export class ProductFormComponent {
   private readonly brandService = inject(BrandService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly toast = inject(ToastService);
+  private readonly errorService = inject(ErrorService);
 
   readonly isEdit = signal(false);
   readonly loading = signal(false);
@@ -90,13 +95,17 @@ export class ProductFormComponent {
 
     obs$.subscribe({
       next: (product) => {
+        this.toast.show(this.isEdit() ? 'Producto actualizado' : 'Producto creado');
         if (this.isEdit()) {
           this.router.navigate(['/admin/products', this.route.snapshot.paramMap.get('id')!, 'edit', 'images']);
         } else {
           this.router.navigate(['/admin/products/new/images', product.id]);
         }
       },
-      error: () => this.saving.set(false),
+      error: (err) => {
+        this.errorService.show(err.error);
+        this.saving.set(false);
+      },
     });
   }
 }

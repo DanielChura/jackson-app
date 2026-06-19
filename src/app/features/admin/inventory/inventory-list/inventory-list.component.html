@@ -1,0 +1,61 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl text-gray-900" style="font-weight:500">Inventario</h1>
+      <p class="mt-1 text-sm text-gray-500" style="font-weight:400">Historial de movimientos de stock</p>
+    </div>
+    <a routerLink="/admin/inventory/new" class="rounded-lg bg-orange-500 px-4 py-2 text-sm text-white hover:bg-orange-600" style="font-weight:500">Nuevo movimiento</a>
+  </div>
+
+  @if (loading()) {
+    <div class="flex justify-center py-12">
+      <app-spinner size="32" text="Cargando…" />
+    </div>
+  } @else if (movements().length === 0) {
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 text-center">
+      <p class="text-sm text-gray-400" style="font-weight:400">No hay movimientos registrados</p>
+    </div>
+  } @else {
+    <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-gray-100 bg-white text-left text-gray-400" style="font-weight:500">
+            <th class="px-6 py-3">Producto</th>
+            <th class="px-6 py-3">Tipo</th>
+            <th class="px-6 py-3 text-center">Cantidad</th>
+            <th class="px-6 py-3 text-center">Stock anterior</th>
+            <th class="px-6 py-3 text-center">Stock nuevo</th>
+            <th class="px-6 py-3">Razón</th>
+            <th class="px-6 py-3">Fecha</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-50">
+          @for (m of movements(); track m.id) {
+            <tr class="hover:bg-gray-50">
+              <td class="max-w-[150px] truncate px-6 py-4 text-gray-900" style="font-weight:500">{{ m.productId }}</td>
+              <td class="px-6 py-4">
+                <span class="inline-block rounded-full px-3 py-1 text-xs font-medium {{ movementColors[m.movementType] }}">
+                  {{ movementLabels[m.movementType] }}
+                </span>
+              </td>
+              <td class="px-6 py-4 text-center text-gray-900" style="font-weight:500">{{ m.quantity }}</td>
+              <td class="px-6 py-4 text-center text-gray-500" style="font-weight:400">{{ m.previousStock }}</td>
+              <td class="px-6 py-4 text-center text-gray-900" style="font-weight:500">{{ m.newStock }}</td>
+              <td class="max-w-[200px] truncate px-6 py-4 text-gray-500" style="font-weight:400">{{ m.reason }}</td>
+              <td class="px-6 py-4 text-gray-500" style="font-weight:400">{{ m.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <app-paginator
+      [page]="page()"
+      [totalPages]="totalPages()"
+      [totalElements]="totalElements()"
+      label="movimientos"
+      (prev)="prev()"
+      (next)="next()"
+    />
+  }
+</div>

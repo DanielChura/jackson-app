@@ -1,12 +1,15 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { CategoryService } from '../../../../core/services/category.service';
+import { ToastService } from '../../../../core/services/toast.service';
+import { ErrorService } from '../../../../core/services/error.service';
 
 @Component({
   selector: 'app-category-form',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, SpinnerComponent],
   templateUrl: './category-form.component.html',
 })
 export class CategoryFormComponent {
@@ -14,6 +17,8 @@ export class CategoryFormComponent {
   private readonly categoryService = inject(CategoryService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly toast = inject(ToastService);
+  private readonly errorService = inject(ErrorService);
 
   readonly isEdit = signal(false);
   readonly loading = signal(false);
@@ -56,8 +61,14 @@ export class CategoryFormComponent {
       : this.categoryService.create(payload);
 
     request.subscribe({
-      next: () => this.router.navigate(['/admin/categories']),
-      error: () => this.saving.set(false),
+      next: () => {
+        this.toast.show(this.isEdit() ? 'Categoría actualizada' : 'Categoría creada');
+        this.router.navigate(['/admin/categories']);
+      },
+      error: (err) => {
+        this.errorService.show(err.error);
+        this.saving.set(false);
+      },
     });
   }
 }
