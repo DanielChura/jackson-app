@@ -1,30 +1,29 @@
 # Product Images — Jackson Backend
 
-## Endpoints
+## Estado: Deprecado — Endpoints fusionados en Products
+
+El controlador independiente `ProductImageController` fue eliminado.
+Las imágenes ahora se manejan únicamente desde el endpoint de creación de productos.
+
+## Endpoints activos
 
 | Método | Ruta | Request | Response | Notas |
 |---|---|---|---|---|
-| GET | `/product-images/product/{id}` | — | `ProductImageResponse[]` | Todas las de un producto |
-| POST | `/product-images/product/{id}` | `CreateProductImageRequest` | `ProductImageResponse` | — |
-| GET | `/product-images` | query: `pageable` | `PagedResponse<ProductImageResponse>` | Listado paginado |
-| DELETE | `/product-images/{id}` | — | `object` vacío | — |
+| POST | `/products` | `multipart/form-data` (field `files`) | `ProductResponse` | Las imágenes se suben junto con el producto a Cloudinary |
+| GET | `/products/{id}/images` | — | `ProductImageResponse[]` | Lista imágenes de un producto |
+| DELETE | `/products/{id}/images/{imageId}` | — | `object` vacío | Elimina una imagen específica |
 
-## Shapes
+## Shape
 
 ```typescript
-interface CreateProductImageRequest {
-  url: string; // minLength 1
-  displayOrder: number; // int32
-}
-
 interface ProductImageResponse {
-  id: string; // UUID
-  productId: string; // UUID
+  id: string;
   url: string;
-  displayOrder: number; // int32
+  displayOrder: number;
 }
 ```
 
 ## Notas
 
-- Las rutas son `/product-images/product/{productId}`, **NO** `/products/{id}/images`.
+- `CreateProductImageRequest` fue eliminado — ya no existe.
+- Para subir una imagen suelta (fuera de creación de producto), usar `POST /upload`.

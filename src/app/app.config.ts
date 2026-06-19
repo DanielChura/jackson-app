@@ -4,12 +4,13 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 
 import { routes } from './app.routes';
 import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { provideClientHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withFetch(), withInterceptors([jwtInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([jwtInterceptor, errorInterceptor])),
     provideRouter(routes),
     provideClientHydration(),
   ],

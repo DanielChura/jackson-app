@@ -1,0 +1,59 @@
+<div class="mx-auto max-w-3xl">
+  <div class="mb-8">
+    <app-step-indicator [currentStep]="2" />
+  </div>
+
+  <h1 class="mb-2 text-center text-2xl text-gray-900" style="font-weight:500">Imágenes del producto</h1>
+  <p class="mb-6 text-center text-sm text-gray-400" style="font-weight:400">Sube hasta 10 imágenes para mostrar el producto. El orden de carga define la posición.</p>
+
+  @if (existingImages().length > 0) {
+    <div class="mb-6 rounded-2xl border border-gray-200 bg-white p-6">
+      <p class="mb-4 text-sm text-gray-900" style="font-weight:500">Imágenes actuales</p>
+      <div class="grid grid-cols-5 gap-4">
+        @for (img of existingImages(); track img.id) {
+          <div class="relative rounded-lg border border-gray-300 bg-gray-50">
+            <img [src]="img.url" class="h-28 w-full rounded-lg object-cover" alt="" />
+            <div class="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40 opacity-0 transition-opacity hover:opacity-100">
+              <button type="button" (click)="deleteExistingImage(img.id)" class="text-sm text-white" style="font-weight:500">Eliminar</button>
+            </div>
+            <span class="absolute -top-2.5 -left-2.5 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-sm text-white" style="font-weight:500">{{ img.displayOrder }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <div class="rounded-2xl border border-gray-200 bg-white p-6">
+    <p class="text-sm text-gray-900" style="font-weight:500">Agregar imágenes</p>
+    <div class="mt-4 grid grid-cols-5 gap-4">
+      @for (_ of [].constructor(10); track $index) {
+        @if (slotFiles()[$index]) {
+          <div class="relative rounded-lg border border-gray-300 bg-gray-50">
+            <img [src]="getObjectUrl($index, slotFiles()[$index]!)" class="h-28 w-full rounded-lg object-cover" alt="" />
+            <div class="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40 opacity-0 transition-opacity hover:opacity-100">
+              <button type="button" (click)="removeSlotFile($index)" class="text-sm text-white" style="font-weight:500">Quitar</button>
+            </div>
+            <span class="absolute -top-2.5 -left-2.5 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-sm text-white" style="font-weight:500">{{ $index + 1 }}</span>
+          </div>
+        } @else {
+          <label class="flex h-28 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-gray-300 text-lg text-gray-300 transition-colors hover:border-orange-500 hover:text-orange-500" style="font-weight:500">
+            {{ $index + 1 }}
+            <input type="file" accept="image/*" class="hidden" (change)="onFileSelected($index, $event)" />
+          </label>
+        }
+      }
+    </div>
+    <p class="mt-3 text-xs text-gray-400" style="font-weight:400">Haz clic en cada número para seleccionar una imagen. El orden se define por la posición.</p>
+  </div>
+
+  <div class="mt-6 flex items-center justify-center gap-3">
+    <button type="button" (click)="submit()" [disabled]="saving()"
+      class="rounded-lg bg-orange-500 px-4 py-2.5 text-sm text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60" style="font-weight:500">
+      {{ saving() ? 'Subiendo…' : 'Subir imágenes' }}
+    </button>
+    <button type="button" (click)="skip()"
+      class="rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-700 hover:border-gray-300" style="font-weight:500">
+      Omitir
+    </button>
+  </div>
+</div>

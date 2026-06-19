@@ -135,17 +135,12 @@ export interface ProductResponse {
   description: string;
   price: number;
   stock: number;
-  categoryName: string;
-  brandName: string;
+  category: CategoryResponse | null;
+  brand: BrandResponse | null;
   specifications?: Record<string, unknown>;
 }
 
 // ─── Product Images ───────────────────────────
-
-export interface CreateProductImageRequest {
-  url: string;
-  displayOrder: number;
-}
 
 export interface ProductImageResponse {
   id: string;

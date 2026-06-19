@@ -1,11 +1,19 @@
 # Jackson — Workflow de trabajo
 
-## Flujo (4 pasos)
+## Inicio de sesión
+
+Cuando digas *"lee las instrucciones"* o similar al iniciar un chat, yo debo:
+1. Leer este AGENTS.md
+2. Cargar el skill correspondiente (angular-expert)
+3. Confirmar que los leí y preguntar qué necesitas
+
+## Flujo (5 pasos)
 
 1. **Spec simple** — tú dices qué necesitas, ej: *"CRUD de categories: listar, crear, editar, eliminar"*
-2. **Yo pregunto si falta contexto** — si algo es ambiguo, pregunto antes de codificar
-3. **Implementación por slices** — cada entrega es ≤200 líneas, 1 responsabilidad por prompt
-4. **Tú revisas** — yo entrego código, tú dices si está bien o qué cambiar
+2. **Plan** — yo propongo el approach por escrito antes de codificar. Tú lo apruebas o lo ajustamos.
+3. **Yo pregunto si falta contexto** — si algo es ambiguo, pregunto antes de codificar
+4. **Implementación por slices** — cada entrega es ≤200 líneas, 1 responsabilidad por prompt. **Nunca implementar todo de golpe.**
+5. **Tú revisas** — yo entrego código, tú dices si está bien o qué cambiar
 
 ## Cómo promptearme
 
@@ -32,6 +40,14 @@
 - **Signals + services** — sin NgRx ni BehaviorSubject innecesarios
 - **≤200 líneas por entrega** — si un archivo excede, lo parto y pido confirmación
 - **Sin `ng build` ni `npm run build`** — usas `ng serve` en vivo, yo solo verifico con `ng typecheck` o `tsc --noEmit` si es necesario
+
+## Lecciones aprendidas (no repetir)
+
+- **Planificar antes de codificar** — siempre propongo el plan primero para que apruebes.
+- **No implementar todo de golpe** — un cambio por entrega, tú revisás antes de seguir.
+- **Preguntar por la versión más simple** — antes de implementar, pregunto "¿cuál es la versión más simple de esto?"
+- **Tono neutro siempre** — sin voseo, sin modismos regionales a menos que los pidas.
+- **Re-leer estas reglas antes de cada paso** — para no desviarme.
 
 ## Diseño — reglas establecidas
 
