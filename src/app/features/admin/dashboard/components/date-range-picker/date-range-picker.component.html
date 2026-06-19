@@ -1,0 +1,31 @@
+<div class="flex flex-wrap items-center gap-2">
+  @for (preset of presets; track preset.id) {
+    <button
+      (click)="selectPreset(preset.id)"
+      [class]="btnClass(preset.id)"
+      style="font-weight:500"
+    >
+      {{ preset.label }}
+    </button>
+  }
+
+  @if (activePreset() === 'custom') {
+    <div class="flex items-center gap-2">
+      <input
+        type="date"
+        [ngModel]="customDesde()"
+        (ngModelChange)="onCustomDesdeChange($event)"
+        class="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
+        style="font-weight:400"
+      />
+      <span class="text-sm text-gray-400">a</span>
+      <input
+        type="date"
+        [ngModel]="customHasta()"
+        (ngModelChange)="onCustomHastaChange($event)"
+        class="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
+        style="font-weight:400"
+      />
+    </div>
+  }
+</div>

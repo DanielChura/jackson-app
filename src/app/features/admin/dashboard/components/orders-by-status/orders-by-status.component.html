@@ -1,0 +1,34 @@
+<div class="rounded-2xl border border-gray-200 bg-white p-6 h-full flex flex-col gap-4">
+  <h2 class="text-lg text-gray-900" style="font-weight:500">Órdenes por Estado</h2>
+
+  @if (loading()) {
+    <div class="flex justify-center py-8">
+      <app-spinner size="24" text="Cargando…" />
+    </div>
+  } @else if (error()) {
+    <p class="text-sm text-red-500" style="font-weight:400">{{ error() }}</p>
+  } @else if (data()?.length === 0) {
+    <p class="text-sm text-gray-400" style="font-weight:400">Sin órdenes en el período seleccionado</p>
+  } @else {
+    <div class="relative flex-1" style="min-height:0">
+      <canvas #statusCanvas></canvas>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+      @for (entry of data()!; track entry.status) {
+        <button
+          (click)="statusClick.emit(entry.status)"
+          class="flex items-center gap-1.5 text-xs transition-colors hover:opacity-80"
+          style="font-weight:400"
+        >
+          <span
+            class="inline-block h-2.5 w-2.5 rounded-full"
+            [style.background-color]="colorFor(entry.status)"
+          ></span>
+          <span class="text-gray-600">{{ labelFor(entry.status) }}</span>
+          <span class="text-gray-900" style="font-weight:500">{{ entry.count }}</span>
+        </button>
+      }
+    </div>
+  }
+</div>

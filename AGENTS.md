@@ -45,9 +45,10 @@ Cuando digas *"lee las instrucciones"* o similar al iniciar un chat, yo debo:
 
 - **Planificar antes de codificar** — siempre propongo el plan primero para que apruebes.
 - **No implementar todo de golpe** — un cambio por entrega, tú revisás antes de seguir.
-- **Preguntar por la versión más simple** — antes de implementar, pregunto "¿cuál es la versión más simple de esto?"
-- **Tono neutro siempre** — sin voseo, sin modismos regionales a menos que los pidas.
+- **Preguntar por la versión más simple** — antes de implementar, pregunto "cuál es la versión más simple de esto?"
+- **Tono neutro siempre** — sin voseo, sin modismos regionales a que las pidas.
 - **Re-leer estas reglas antes de cada paso** — para no desviarme.
+- **`toSignal` con SSR** — nunca usar `requireSync: true`. En SSR, `toObservable` no emite sincrónicamente porque depende de `effect`. Siempre pasar `initialValue` para que el signal arranque con estado definido.
 
 ## Diseño — reglas establecidas
 
