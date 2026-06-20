@@ -1,6 +1,7 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import type { DateRange } from '../../dashboard.types';
+import { DashboardRangeService } from '../../../../../core/services/dashboard-range.service';
+import type { DateRange } from '../../../../../core/models';
 
 type PresetId = 'today' | '7d' | '30d' | 'month' | 'custom';
 
@@ -51,8 +52,7 @@ function computeRange(preset: PresetId): DateRange {
   templateUrl: './date-range-picker.component.html',
 })
 export class DateRangePickerComponent {
-  readonly range = input<DateRange>({ desde: '', hasta: '' });
-  readonly rangeChange = output<DateRange>();
+  private readonly rangeService = inject(DashboardRangeService);
 
   readonly presets = PRESETS;
   readonly activePreset = signal<PresetId>('30d');
@@ -62,11 +62,11 @@ export class DateRangePickerComponent {
   selectPreset(id: PresetId) {
     this.activePreset.set(id);
     if (id === 'custom') {
-      this.customDesde.set(this.range().desde || '');
-      this.customHasta.set(this.range().hasta || '');
+      this.customDesde.set(this.rangeService.range().desde || '');
+      this.customHasta.set(this.rangeService.range().hasta || '');
       return;
     }
-    this.rangeChange.emit(computeRange(id));
+    this.rangeService.setRange(computeRange(id));
   }
 
   onCustomDesdeChange(val: string) {
@@ -89,7 +89,7 @@ export class DateRangePickerComponent {
 
   private emitCustom() {
     if (this.customDesde() && this.customHasta()) {
-      this.rangeChange.emit({ desde: this.customDesde(), hasta: this.customHasta() });
+      this.rangeService.setRange({ desde: this.customDesde(), hasta: this.customHasta() });
     }
   }
 }

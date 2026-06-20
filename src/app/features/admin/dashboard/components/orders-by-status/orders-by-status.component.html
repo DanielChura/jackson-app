@@ -16,18 +16,14 @@
 
     <div class="flex flex-wrap gap-3">
       @for (entry of data()!; track entry.status) {
-        <button
-          (click)="statusClick.emit(entry.status)"
-          class="flex items-center gap-1.5 text-xs transition-colors hover:opacity-80"
-          style="font-weight:400"
-        >
+        <div class="flex items-center gap-1.5 text-xs" style="font-weight:400">
           <span
             class="inline-block h-2.5 w-2.5 rounded-full"
             [style.background-color]="colorFor(entry.status)"
           ></span>
           <span class="text-gray-600">{{ labelFor(entry.status) }}</span>
           <span class="text-gray-900" style="font-weight:500">{{ entry.count }}</span>
-        </button>
+        </div>
       }
     </div>
   }

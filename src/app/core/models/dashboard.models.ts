@@ -1,3 +1,5 @@
+import type { OrderStatus } from './order.models';
+
 export type Granularity = 'day' | 'week' | 'month';
 
 export interface DateRange {
@@ -27,7 +29,7 @@ export interface TopProductEntry {
 }
 
 export interface OrdersByStatusEntry {
-  status: DashboardOrderStatus;
+  status: OrderStatus;
   count: number;
 }
 
@@ -36,23 +38,16 @@ export interface RecentOrderEntry {
   orderNumber: string;
   customerName: string;
   total: number;
-  status: DashboardOrderStatus;
+  status: OrderStatus;
   orderedAt: string;
 }
 
-export type LoadState<T> =
-  | { loading: true; data: null; error: null }
-  | { loading: false; data: T; error: null }
-  | { loading: false; data: null; error: string };
-
-export type DashboardOrderStatus = 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
-
-export interface DashboardOrderStatusInfo {
+interface DashboardOrderStatusInfo {
   label: string;
   color: string;
 }
 
-export const DASHBOARD_ORDER_STATUS_MAP: Record<DashboardOrderStatus, DashboardOrderStatusInfo> = {
+export const DASHBOARD_ORDER_STATUS_MAP: Record<OrderStatus, DashboardOrderStatusInfo> = {
   PENDING: { label: 'Pendiente', color: 'text-amber-600 bg-amber-50' },
   PAID: { label: 'Pagado', color: 'text-blue-600 bg-blue-50' },
   SHIPPED: { label: 'Enviado', color: 'text-purple-600 bg-purple-50' },

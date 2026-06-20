@@ -49,6 +49,24 @@ Cuando digas *"lee las instrucciones"* o similar al iniciar un chat, yo debo:
 - **Tono neutro siempre** — sin voseo, sin modismos regionales a que las pidas.
 - **Re-leer estas reglas antes de cada paso** — para no desviarme.
 - **`toSignal` con SSR** — nunca usar `requireSync: true`. En SSR, `toObservable` no emite sincrónicamente porque depende de `effect`. Siempre pasar `initialValue` para que el signal arranque con estado definido.
+- **Revisar consistencia entre componentes antes de entregar** — verificar que todos los templates sigan el mismo patrón (loading/error/empty/data), estilos coincidan, y no haya componentes olvidados.
+- **Ser proactivo** — si veo algo mejorable (layout, patrón, redundancia), lo señalo antes de que el usuario lo pida.
+- **Verificar en runtime** — typecheck no alcanza. Errores como `requireSync` en SSR solo aparecen al ejecutar.
+- **Commits: antes de dar el mensaje, ejecutar `git status` + `git diff` y revisar TODOS los archivos cambiados, no solo los últimos.** El mensaje debe cubrir el conjunto completo de cambios, no solo los de la sesión actual.
+- **Formato commit: máximo 2 líneas. Primera línea tipo(scope): descripción concreta del cambio principal. Segunda línea opcional con detalles adicionales separados por guiones.** Ej: `refactor(dashboard): migrate to shared range service and extract Chart.js to config files` `- Split models into per-domain files, add SSR guards, move dashboard service to core/`. Sin demoras.
+
+## Convenciones
+
+- **`*.models.ts`** en `core/models/` para tipos que reflejan el contrato API (request/response)
+- **`*.types.ts`** dentro del feature para tipos UI, helpers, constantes de presentación (LoadState, colores, mapeos)
+- **Template de componentes con data async**: siempre estructura unificada:
+  ```
+  @if (loading()) { spinner }
+  @else if (error()) { mensaje }
+  @else if (data()) { contenido }
+  @else { vacio }
+  ```
+- **Sin sombras**, font-weight máx 500, Manrope, padding p-6 base, rounded-2xl cards
 
 ## Diseño — reglas establecidas
 

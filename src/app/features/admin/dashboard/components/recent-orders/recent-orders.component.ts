@@ -1,12 +1,12 @@
-import { Component, inject, output, computed } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { Component, inject, computed, PLATFORM_ID } from '@angular/core';
+import { DatePipe, isPlatformBrowser } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { of, map, catchError, startWith } from 'rxjs';
 import type { Observable } from 'rxjs';
-import { DashboardService } from '../../dashboard.service';
+import { DashboardService } from '../../../../../core/services/dashboard.service';
 import { SpinnerComponent } from '../../../../../shared/components/spinner/spinner.component';
-import { DASHBOARD_ORDER_STATUS_MAP } from '../../dashboard.types';
-import type { RecentOrderEntry, DashboardOrderStatus, LoadState } from '../../dashboard.types';
+import type { RecentOrderEntry, LoadState } from '../../../../../core/models';
+import { DASHBOARD_ORDER_STATUS_MAP } from '../../../../../core/models';
 
 @Component({
   selector: 'app-recent-orders',
@@ -16,20 +16,26 @@ import type { RecentOrderEntry, DashboardOrderStatus, LoadState } from '../../da
   templateUrl: './recent-orders.component.html',
 })
 export class RecentOrdersComponent {
+  private readonly platformId = inject(PLATFORM_ID);
   private readonly service = inject(DashboardService);
 
-  readonly orderClick = output<string>();
-
-  private state$ = this.service.getRecentOrders().pipe(
-    map((data): LoadState<RecentOrderEntry[]> => ({ loading: false, data, error: null })),
-    catchError(
-      (): Observable<LoadState<RecentOrderEntry[]>> =>
-        of({ loading: false, data: null, error: 'Error al cargar órdenes recientes' }),
-    ),
-    startWith<LoadState<RecentOrderEntry[]>>({ loading: true, data: null, error: null }),
+  private state$ = (isPlatformBrowser(this.platformId)
+    ? this.service.getRecentOrders().pipe(
+        map((data): LoadState<RecentOrderEntry[]> => ({ loading: false, data, error: null })),
+        catchError(
+          (err): Observable<LoadState<RecentOrderEntry[]>> => {
+            console.error('Error al cargar órdenes recientes:', err);
+            return of({ loading: false, data: null, error: 'Error al cargar órdenes recientes' });
+          },
+        ),
+        startWith<LoadState<RecentOrderEntry[]>>({ loading: true, data: null, error: null }),
+      )
+    : of<LoadState<RecentOrderEntry[]>>({ loading: true, data: null, error: null })
   );
 
-  private readonly state = toSignal(this.state$, { initialValue: { loading: true, data: null, error: null } as LoadState<RecentOrderEntry[]> });
+  private readonly state = toSignal(this.state$, {
+    initialValue: { loading: true, data: null, error: null } as LoadState<RecentOrderEntry[]>,
+  });
 
   readonly orders = computed(() => this.state().data ?? []);
   readonly loading = computed(() => this.state().loading);
@@ -40,6 +46,6 @@ export class RecentOrdersComponent {
   }
 
   statusInfo(status: string) {
-    return DASHBOARD_ORDER_STATUS_MAP[status as DashboardOrderStatus];
+    return DASHBOARD_ORDER_STATUS_MAP[status as keyof typeof DASHBOARD_ORDER_STATUS_MAP];
   }
 }

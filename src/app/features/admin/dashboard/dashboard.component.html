@@ -4,22 +4,22 @@
       <h1 class="text-2xl text-gray-900" style="font-weight: 500">Dashboard</h1>
       <p class="mt-1 text-sm text-gray-500" style="font-weight: 400">Resumen general del negocio</p>
     </div>
-    <app-date-range-picker [range]="range()" (rangeChange)="onRangeChange($event)" />
+    <app-date-range-picker />
   </div>
 
-  <app-kpi-cards [range]="range()" />
+  <app-kpi-cards />
 
   <div class="grid gap-6 lg:grid-cols-3 min-h-[300px]">
     <div class="lg:col-span-2">
-      <app-sales-chart [range]="range()" />
+      <app-sales-chart />
     </div>
     <div>
-      <app-orders-by-status [range]="range()" (statusClick)="onStatusClick($event)" />
+      <app-orders-by-status />
     </div>
   </div>
 
   <div class="grid gap-6 lg:grid-cols-2 min-h-[300px]">
-    <app-top-products [range]="range()" />
-    <app-recent-orders (orderClick)="onOrderClick($event)" />
+    <app-top-products />
+    <app-recent-orders />
   </div>
 </div>

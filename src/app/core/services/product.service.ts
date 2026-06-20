@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { CreateProductRequest, ProductResponse, ProductImageResponse, PagedResponse } from '../models';
 
@@ -8,8 +8,12 @@ export class ProductService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/products`;
 
-  getAll(page = 0, size = 20) {
-    return this.http.get<PagedResponse<ProductResponse>>(`${this.apiUrl}?page=${page}&size=${size}`);
+  getAll(page = 0, size = 20, filters?: { name?: string; category?: string; brand?: string }) {
+    let params = new HttpParams().set('page', page).set('size', size);
+    if (filters?.name) params = params.set('name', filters.name);
+    if (filters?.category) params = params.set('category', filters.category);
+    if (filters?.brand) params = params.set('brand', filters.brand);
+    return this.http.get<PagedResponse<ProductResponse>>(this.apiUrl, { params });
   }
 
   getById(id: string) {

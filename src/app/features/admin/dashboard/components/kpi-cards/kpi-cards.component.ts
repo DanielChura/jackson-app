@@ -1,12 +1,13 @@
-import { Component, inject, input, computed } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { Component, inject, computed, PLATFORM_ID } from '@angular/core';
+import { DecimalPipe, isPlatformBrowser } from '@angular/common';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { switchMap, of, map, catchError, startWith } from 'rxjs';
 import type { Observable } from 'rxjs';
-import { DashboardService } from '../../dashboard.service';
+import { DashboardService } from '../../../../../core/services/dashboard.service';
+import { DashboardRangeService } from '../../../../../core/services/dashboard-range.service';
 import { SpinnerComponent } from '../../../../../shared/components/spinner/spinner.component';
 import { IconComponent } from '../../../../../shared/icons/icon.component';
-import type { DashboardSummary, DateRange, LoadState } from '../../dashboard.types';
+import type { DashboardSummary, LoadState } from '../../../../../core/models';
 
 @Component({
   selector: 'app-kpi-cards',
@@ -16,23 +17,27 @@ import type { DashboardSummary, DateRange, LoadState } from '../../dashboard.typ
   host: { class: 'grid gap-4 sm:grid-cols-2 lg:grid-cols-5' },
 })
 export class KpiCardsComponent {
+  private readonly platformId = inject(PLATFORM_ID);
   private readonly service = inject(DashboardService);
+  private readonly rangeService = inject(DashboardRangeService);
 
-  readonly range = input<DateRange>({ desde: '', hasta: '' });
-
-  private state$ = toObservable(this.range).pipe(
-    switchMap(() =>
-      this.service.getSummary(this.range()).pipe(
-        map((data): LoadState<DashboardSummary> => ({ loading: false, data, error: null })),
-        catchError(
-          (): Observable<LoadState<DashboardSummary>> =>
-            of({ loading: false, data: null, error: 'Error al cargar el resumen' }),
+  private state$ = isPlatformBrowser(this.platformId)
+    ? toObservable(this.rangeService.range).pipe(
+        switchMap(() =>
+          this.service.getSummary(this.rangeService.range()).pipe(
+            map((data): LoadState<DashboardSummary> => ({ loading: false, data, error: null })),
+            catchError((err): Observable<LoadState<DashboardSummary>> => {
+              console.error('Error al cargar el resumen:', err);
+              return of({ loading: false, data: null, error: 'Error al cargar el resumen' });
+            }),
+            startWith<LoadState<DashboardSummary>>({ loading: true, data: null, error: null }),
+          ),
         ),
-        startWith<LoadState<DashboardSummary>>({ loading: true, data: null, error: null }),
-      ),
-    ),
-  );
-  private readonly state = toSignal(this.state$, { initialValue: { loading: true, data: null, error: null } as LoadState<DashboardSummary> });
+      )
+    : of<LoadState<DashboardSummary>>({ loading: true, data: null, error: null });
+  private readonly state = toSignal(this.state$, {
+    initialValue: { loading: true, data: null, error: null } as LoadState<DashboardSummary>,
+  });
 
   readonly data = computed(() => this.state().data);
   readonly loading = computed(() => this.state().loading);
