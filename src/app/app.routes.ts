@@ -27,7 +27,12 @@ export const routes: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('./features/dashboard/overview/overview.component').then((c) => c.OverviewComponent),
+          import('./features/home/home.component').then((c) => c.HomeComponent),
+      },
+      {
+        path: 'products',
+        redirectTo: '',
+        pathMatch: 'full',
       },
     ],
   },

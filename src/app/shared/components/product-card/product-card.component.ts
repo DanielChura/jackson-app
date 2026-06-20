@@ -20,7 +20,7 @@ import type { ProductResponse } from '../../../core/models';
           <span class="text-xs text-orange-500" style="font-weight:500">{{ product().category!.name }}</span>
         }
         <h3 class="text-gray-900" style="font-weight:500">{{ product().name }}</h3>
-        <p class="text-lg text-gray-900" style="font-weight:500">${{ product().price.toFixed(2) }}</p>
+        <p class="text-lg text-gray-900" style="font-weight:500">\${{ product().price.toFixed(2) }}</p>
       </div>
     </a>
   `,
