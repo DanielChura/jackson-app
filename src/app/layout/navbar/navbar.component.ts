@@ -8,7 +8,7 @@ import { CategoryNavComponent } from './category-nav/category-nav.component';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, IconComponent, UserMenuComponent, CategoryNavComponent],
+  imports: [RouterLink, IconComponent, UserMenuComponent, CategoryNavComponent],
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
@@ -17,17 +17,16 @@ export class NavbarComponent {
   protected readonly mobileMenuOpen = signal(false);
 
   readonly categoryLinks = [
-    { label: 'Guitarras', path: '/c/guitarras' },
-    { label: 'Pedales y amplificadores', path: '/c/pedales-amplificadores' },
-    { label: 'Teclados y sintetizadores', path: '/c/teclados-sintetizadores' },
-    { label: 'Equipo de grabación', path: '/c/equipo-grabacion' },
-    { label: 'Baterías', path: '/c/baterias' },
-    { label: 'Equipos de DJ y audio', path: '/c/equipos-dj-audio' },
-    { label: 'Más categorías', path: '/c/mas-categorias' },
+    { label: 'Guitarras', path: '/products?category=guitarras' },
+    { label: 'Baterías', path: '/products?category=baterias' },
+    { label: 'Teclados', path: '/products?category=teclados' },
+    { label: 'Audio y micrófonos', path: '/products?category=audio-microfonos' },
+    { label: 'Equipos de DJ', path: '/products?category=equipos-dj' },
+    { label: 'Accesorios', path: '/products?category=accesorios' },
   ];
 
   toggleMobileMenu() {
-    this.mobileMenuOpen.update(v => !v);
+    this.mobileMenuOpen.update((v) => !v);
   }
 
   closeMobileMenu() {

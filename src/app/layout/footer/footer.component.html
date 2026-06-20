@@ -1,3 +1,244 @@
-<footer class="border-t border-gray-200 py-6">
-  <p class="text-center text-sm text-gray-400" style="font-weight:400">&copy; 2025 Jackson. Todos los derechos reservados.</p>
+<footer class="border-t border-gray-200 bg-white">
+  <div class="mx-auto w-full max-w-[1600px] px-6 py-12">
+    <!-- 4-column grid -->
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+      <!-- Productos -->
+      <div>
+        <p class="mb-4 text-sm uppercase tracking-wider text-gray-900" style="font-weight: 500">
+          Productos
+        </p>
+        <ul class="space-y-3">
+          <li>
+            <a
+              routerLink="/products"
+              [queryParams]="{ category: 'guitarras' }"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Guitarras</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/products"
+              [queryParams]="{ category: 'baterias' }"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Baterías</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/products"
+              [queryParams]="{ category: 'teclados' }"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Teclados</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/products"
+              [queryParams]="{ category: 'audio-microfonos' }"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Audio</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/products"
+              [queryParams]="{ category: 'equipos-dj' }"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >DJ</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/products"
+              [queryParams]="{ category: 'accesorios' }"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Accesorios</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Ayuda -->
+      <div>
+        <p class="mb-4 text-sm uppercase tracking-wider text-gray-900" style="font-weight: 500">
+          Ayuda
+        </p>
+        <ul class="space-y-3">
+          <li>
+            <a
+              routerLink="/"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Envíos y entregas</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Métodos de pago</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Cambios y devoluciones</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Preguntas frecuentes</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Contacto</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Nosotros -->
+      <div>
+        <p class="mb-4 text-sm uppercase tracking-wider text-gray-900" style="font-weight: 500">
+          Nosotros
+        </p>
+        <ul class="space-y-3">
+          <li>
+            <a
+              routerLink="/"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Sobre Jackson</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Nuestras tiendas</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/"
+              class="text-sm text-gray-500 transition-colors hover:text-gray-900"
+              style="font-weight: 400"
+              >Trabajá con nosotros</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Redes -->
+      <div>
+        <p class="mb-4 text-sm uppercase tracking-wider text-gray-900" style="font-weight: 500">
+          Seguinos
+        </p>
+        <div class="flex gap-4">
+          <a
+            href="https://instagram.com/jacksonmusic"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            class="text-gray-400 transition-colors hover:text-orange-500"
+          >
+            <app-icon name="instagram" size="22" />
+          </a>
+          <a
+            href="https://facebook.com/jacksonmusic"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            class="text-gray-400 transition-colors hover:text-orange-500"
+          >
+            <app-icon name="facebook" size="22" />
+          </a>
+          <a
+            href="https://youtube.com/@jacksonmusic"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="YouTube"
+            class="text-gray-400 transition-colors hover:text-orange-500"
+          >
+            <app-icon name="youtube" size="22" />
+          </a>
+          <a
+            href="https://tiktok.com/@jacksonmusic"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+            class="text-gray-400 transition-colors hover:text-orange-500"
+          >
+            <app-icon name="tiktok" size="22" />
+          </a>
+        </div>
+        <a
+          href="https://wa.me/51999999999"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-6 inline-flex items-center gap-2 text-sm text-green-600 transition-colors hover:text-green-700"
+          style="font-weight: 500"
+        >
+          <app-icon name="whatsapp" size="18" />
+          Escríbenos por WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- Payment + Legal -->
+    <div class="mt-10 border-t border-gray-100 pt-8">
+      <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+        <div class="flex items-center gap-4">
+          <span class="text-sm text-gray-500" style="font-weight: 400">Pago seguro:</span>
+          <span class="text-xs text-gray-400" style="font-weight: 500">Visa</span>
+          <span class="text-xs text-gray-400" style="font-weight: 500">MC</span>
+          <span class="text-xs text-gray-400" style="font-weight: 500">Plin</span>
+          <span class="text-xs text-gray-400" style="font-weight: 500">Yape</span>
+        </div>
+      </div>
+      <div class="mt-4 flex flex-col items-center justify-between gap-2 sm:flex-row">
+        <p class="text-xs text-gray-400" style="font-weight: 400">
+          &copy; 2026 Jackson Music. Todos los derechos reservados.
+        </p>
+        <div class="flex gap-4">
+          <a
+            routerLink="/"
+            class="text-xs text-gray-400 transition-colors hover:text-gray-600"
+            style="font-weight: 400"
+            >Términos</a
+          >
+          <a
+            routerLink="/"
+            class="text-xs text-gray-400 transition-colors hover:text-gray-600"
+            style="font-weight: 400"
+            >Privacidad</a
+          >
+          <a
+            routerLink="/"
+            class="text-xs text-gray-400 transition-colors hover:text-gray-600"
+            style="font-weight: 400"
+            >Libro de Reclamaciones</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>

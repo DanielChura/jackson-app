@@ -7,7 +7,7 @@ import { StepIndicatorComponent } from '../../../../shared/components/step-indic
 @Component({
   selector: 'app-spec-step',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, StepIndicatorComponent],
+  imports: [ReactiveFormsModule, StepIndicatorComponent],
   templateUrl: './spec-step.component.html',
 })
 export class SpecStepComponent {

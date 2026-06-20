@@ -8,7 +8,7 @@ import { StepIndicatorComponent } from '../../../../shared/components/step-indic
 @Component({
   selector: 'app-image-upload',
   standalone: true,
-  imports: [RouterLink, StepIndicatorComponent],
+  imports: [StepIndicatorComponent],
   templateUrl: './image-upload.component.html',
 })
 export class ImageUploadComponent {
