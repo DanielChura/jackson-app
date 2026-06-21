@@ -10,7 +10,7 @@ import { icons, IconName } from './icons';
       [attr.viewBox]="icons[name()].viewBox"
       [attr.width]="size()"
       [attr.height]="size()"
-      fill="none"
+      [attr.fill]="fill()"
       stroke="currentColor"
       stroke-width="2"
       stroke-linecap="round"
@@ -25,6 +25,7 @@ import { icons, IconName } from './icons';
 export class IconComponent {
   name = input.required<IconName>();
   size = input<string | number>(24);
+  fill = input<string>('none');
 
   protected readonly icons = icons;
 }

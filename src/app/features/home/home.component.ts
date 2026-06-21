@@ -5,7 +5,6 @@ import { NewArrivalsComponent } from './sections/new-arrivals/new-arrivals.compo
 import { BestsellersComponent } from './sections/bestsellers/bestsellers.component';
 import { BrandStripComponent } from './sections/brand-strip/brand-strip.component';
 import { TestimonialsComponent } from './sections/testimonials/testimonials.component';
-import { WhyJacksonComponent } from './sections/why-jackson/why-jackson.component';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +16,6 @@ import { WhyJacksonComponent } from './sections/why-jackson/why-jackson.componen
     BestsellersComponent,
     BrandStripComponent,
     TestimonialsComponent,
-    WhyJacksonComponent,
   ],
   templateUrl: './home.component.html',
 })

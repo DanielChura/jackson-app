@@ -2,10 +2,11 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IconComponent } from '../../../../shared/icons/icon.component';
 
 interface Testimonial {
-  rating: number;
-  text: string;
-  author: string;
-  city: string;
+  type?: 'text' | 'image';
+  text?: string;
+  author?: string;
+  city?: string;
+  image?: string;
 }
 
 @Component({
@@ -17,52 +18,54 @@ interface Testimonial {
 export class TestimonialsComponent {
   protected readonly testimonials: Testimonial[] = [
     {
-      rating: 5,
-      text: 'Compré mi Fender Strat aquí — el precio fue el mejor que encontré en Lima. La entrega fue súper rápida.',
+      text: 'Compré mi Fender Strat aquí, el mejor precio que encontré en toda Lima y la entrega fue súper rápida. Sin duda volveré a comprar.',
       author: 'Carlos M.',
-      city: 'Lima',
+      city: 'Lima, Perú',
     },
     {
-      rating: 5,
-      text: 'Excelente atención. Me asesoraron para elegir mi primer teclado y no pudieron haber acertado más.',
+      text: 'Me asesoraron para elegir mi primer teclado y acertaron completamente en la recomendación. El envío a Arequipa llegó en menos de 48 horas.',
       author: 'Valeria R.',
-      city: 'Arequipa',
+      city: 'Arequipa, Perú',
     },
     {
-      rating: 4,
-      text: 'Los pedidos online llegan muy bien empacados. Ya he comprado 3 veces y todo perfecto.',
+      type: 'image',
+      image:
+        'https://scontent.flim18-1.fna.fbcdn.net/v/t39.99422-6/727884816_2113209826237901_1589096319711134015_n.png?stp=dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=a339uMIND_oQ7kNvwGnAssP&_nc_oc=Adq2Vlwhs5p8CunAsYsBfTMgMTx23VqVLfODH7AF4eNRfz977MXlJaInNk8Zr1Lt0eE&_nc_zt=14&_nc_ht=scontent.flim18-1.fna&_nc_gid=57eIJTWoTBexwlvD-KZW9A&_nc_ss=7b2a8&oh=00_Af9pQXXA3kVY62uFyljDuNpMvb6AMm6v18kHDc4FKc3PwQ&oe=6A3D5BC3',
+    },
+    {
+      text: 'He comprado tres veces, cuerdas baquetas y pedal, todo llegó en perfecto estado. Buenos precios y el servicio siempre es bueno.',
       author: 'Miguel Á.',
-      city: 'Trujillo',
+      city: 'Trujillo, Perú',
     },
     {
-      rating: 5,
-      text: 'Compré una batería electrónica y me la instalaron sin costo adicional. Servicio de primera.',
+      text: 'Compré una batería electrónica Roland, me dieron el mejor precio del mercado y además me la instalaron sin costo adicional. El servicio postventa es excepcional.',
       author: 'Andrea G.',
-      city: 'Lima',
+      city: 'Lima, Perú',
     },
     {
-      rating: 5,
-      text: 'El micrófono Shure SM58 que compré llegó al día siguiente. Muy recomendados.',
+      type: 'image',
+      image:
+        'https://scontent.flim18-1.fna.fbcdn.net/v/t39.99422-6/727602972_1739865884102640_4968615904578261494_n.png?stp=dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=Fy2g74NU4pMQ7kNvwH8r6T0&_nc_oc=AdpiV6GvoaR4pmwJPPSkBFs0iQKWabYkXAM3kIi-YgCH0h7AJYfoA_7EIm8Ycy0cvJ0&_nc_zt=14&_nc_ht=scontent.flim18-1.fna&_nc_gid=JcvgFHmu-dZqXRaaUYm9Ug&_nc_ss=7b2a8&oh=00_Af94Rbfx_HhGpVFdbrTyuBjA0SYgVmRRtniG10OLpZy6_A&oe=6A3D7AB1',
+    },
+    {
+      text: 'El Shure SM58 llegó al día siguiente perfectamente sellado y con garantía. Lo había visto en otras tiendas pero aquí conseguí mejor precio.',
       author: 'Diego P.',
-      city: 'Cusco',
+      city: 'Cusco, Perú',
     },
     {
-      rating: 4,
-      text: 'Buenos precios en accesorios. Compro seguido cuerdas y baquetas aquí.',
+      text: 'Compro seguido cuerdas y accesorios aquí, siempre hay variedad y buenos precios. El local es cómodo y la atención rápida sin vueltas.',
       author: 'Sofía L.',
-      city: 'Lima',
+      city: 'Lima, Perú',
     },
     {
-      rating: 5,
-      text: 'La asesoría fue clave para elegir mi interface de audio. Saben lo que venden.',
+      text: 'La asesoría fue clave para elegir mi interface Focusrite. El vendedor sabía lo que recomendaba y me explicó todo sin hacerme sentir perdido.',
       author: 'Renato F.',
-      city: 'Chiclayo',
+      city: 'Chiclayo, Perú',
     },
     {
-      rating: 4,
-      text: 'Primera vez comprando online y todo salió bien. El soporte por WhatsApp responde rápido.',
+      text: 'Mi primera compra online en Jackson y todo salió bien. El soporte por WhatsApp responde rápido y la página es fácil de usar.',
       author: 'Camila V.',
-      city: 'Huancayo',
+      city: 'Huancayo, Perú',
     },
   ];
 
@@ -76,9 +79,5 @@ export class TestimonialsComponent {
   scrollRight() {
     const container = this.scrollContainer.nativeElement;
     container.scrollBy({ left: container.clientWidth / 2, behavior: 'smooth' });
-  }
-
-  protected starsArray(rating: number): number[] {
-    return Array(rating).fill(0);
   }
 }
