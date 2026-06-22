@@ -1,0 +1,37 @@
+<div class="mx-auto w-full max-w-[1600px] px-6 py-8">
+  <h1 class="text-3xl text-jackson-text font-medium">Mis favoritos</h1>
+
+  @if (loading()) {
+    <div class="flex justify-center py-20">
+      <app-spinner size="32" text="Cargando favoritos..." />
+    </div>
+  } @else if (error(); as err) {
+    <div class="py-20 text-center">
+      <p class="text-jackson-text/40 font-normal">{{ err }}</p>
+      @if (err.includes('sesión')) {
+        <a
+          routerLink="/auth/login"
+          class="mt-4 inline-block text-jackson-navy hover:text-jackson-navy-hover underline font-medium"
+        >
+          Iniciar sesión
+        </a>
+      }
+    </div>
+  } @else if (products().length === 0) {
+    <div class="py-20 text-center">
+      <p class="text-jackson-text/40 font-normal">No tenés productos favoritos</p>
+      <a
+        routerLink="/products"
+        class="mt-4 inline-block text-jackson-navy hover:text-jackson-navy-hover underline font-medium"
+      >
+        Explorar productos
+      </a>
+    </div>
+  } @else {
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      @for (product of products(); track product.id) {
+        <app-product-card [product]="product" />
+      }
+    </div>
+  }
+</div>

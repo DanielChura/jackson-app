@@ -5,6 +5,7 @@ import { NewArrivalsComponent } from './sections/new-arrivals/new-arrivals.compo
 import { BestsellersComponent } from './sections/bestsellers/bestsellers.component';
 import { BrandStripComponent } from './sections/brand-strip/brand-strip.component';
 import { TestimonialsComponent } from './sections/testimonials/testimonials.component';
+import { TrustBarComponent } from './sections/trust-bar/trust-bar.component';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { TestimonialsComponent } from './sections/testimonials/testimonials.comp
     BestsellersComponent,
     BrandStripComponent,
     TestimonialsComponent,
+    TrustBarComponent,
   ],
   templateUrl: './home.component.html',
 })

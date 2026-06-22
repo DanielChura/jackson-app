@@ -26,13 +26,45 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import('./features/home/home.component').then((c) => c.HomeComponent),
+        loadComponent: () => import('./features/home/home.component').then((c) => c.HomeComponent),
       },
       {
         path: 'products',
-        redirectTo: '',
-        pathMatch: 'full',
+        loadComponent: () =>
+          import('./features/products/product-list/product-list.component').then(
+            (c) => c.ProductListComponent,
+          ),
+      },
+      {
+        path: 'products/:id',
+        loadComponent: () =>
+          import('./features/products/product-detail/product-detail.component').then(
+            (c) => c.ProductDetailComponent,
+          ),
+      },
+      {
+        path: 'cart',
+        loadComponent: () =>
+          import('./features/cart/cart-view/cart-view.component').then((c) => c.CartViewComponent),
+      },
+      {
+        path: 'favorites',
+        loadComponent: () =>
+          import('./features/favorites/favorites-list/favorites-list.component').then(
+            (c) => c.FavoritesListComponent,
+          ),
+      },
+      {
+        path: 'checkout',
+        loadComponent: () =>
+          import('./features/checkout/checkout.component').then((c) => c.CheckoutComponent),
+      },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./features/orders/order-list/order-list.component').then(
+            (c) => c.OrderListComponent,
+          ),
       },
     ],
   },
@@ -45,37 +77,33 @@ export const routes: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('./features/admin/dashboard/dashboard.component').then((c) => c.AdminDashboardComponent),
+          import('./features/admin/dashboard/dashboard.component').then(
+            (c) => c.AdminDashboardComponent,
+          ),
       },
       {
         path: 'products',
-        loadChildren: () =>
-          import('./features/admin/products/products.routes'),
+        loadChildren: () => import('./features/admin/products/products.routes'),
       },
       {
         path: 'brands',
-        loadChildren: () =>
-          import('./features/admin/brands/brands.routes'),
+        loadChildren: () => import('./features/admin/brands/brands.routes'),
       },
       {
         path: 'categories',
-        loadChildren: () =>
-          import('./features/admin/categories/categories.routes'),
+        loadChildren: () => import('./features/admin/categories/categories.routes'),
       },
       {
         path: 'orders',
-        loadChildren: () =>
-          import('./features/admin/orders/orders.routes'),
+        loadChildren: () => import('./features/admin/orders/orders.routes'),
       },
       {
         path: 'users',
-        loadChildren: () =>
-          import('./features/admin/users/users.routes'),
+        loadChildren: () => import('./features/admin/users/users.routes'),
       },
       {
         path: 'inventory',
-        loadChildren: () =>
-          import('./features/admin/inventory/inventory.routes'),
+        loadChildren: () => import('./features/admin/inventory/inventory.routes'),
       },
     ],
   },

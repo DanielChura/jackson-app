@@ -1,10 +1,10 @@
-<section class="bg-white">
+<section class="bg-jackson-white">
   <div class="mx-auto w-full max-w-[1600px] px-6 py-6 md:py-10">
     <div class="grid gap-8 sm:grid-cols-3">
       @for (item of trustItems; track item.label) {
         <div class="flex items-center gap-4">
-          <app-icon [name]="item.icon" size="28" class="shrink-0 text-gray-400" />
-          <span class="text-gray-700" style="font-weight: 500">{{ item.label }}</span>
+          <app-icon [name]="item.icon" size="28" class="shrink-0 text-jackson-cyan" />
+          <span class="text-jackson-text font-medium">{{ item.label }}</span>
         </div>
       }
     </div>

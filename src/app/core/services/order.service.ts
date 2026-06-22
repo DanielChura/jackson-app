@@ -1,7 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { OrderResponse, PagedResponse, UpdateOrderStatusRequest } from '../models';
+import {
+  OrderResponse,
+  PagedResponse,
+  UpdateOrderStatusRequest,
+  CreateOrderRequest,
+  CreateOrderDetailRequest,
+} from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
@@ -12,8 +18,22 @@ export class OrderService {
     return this.http.get<PagedResponse<OrderResponse>>(`${this.apiUrl}?page=${page}&size=${size}`);
   }
 
+  getByUser(userId: string, page = 0, size = 20) {
+    return this.http.get<PagedResponse<OrderResponse>>(
+      `${this.apiUrl}/user/${userId}?page=${page}&size=${size}`,
+    );
+  }
+
   getById(id: string) {
     return this.http.get<OrderResponse>(`${this.apiUrl}/${id}`);
+  }
+
+  create(payload: CreateOrderRequest) {
+    return this.http.post<OrderResponse>(this.apiUrl, payload);
+  }
+
+  addDetail(orderId: string, payload: CreateOrderDetailRequest) {
+    return this.http.post<OrderResponse>(`${this.apiUrl}/${orderId}/details`, payload);
   }
 
   updateStatus(id: string, payload: UpdateOrderStatusRequest) {

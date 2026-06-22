@@ -1,0 +1,107 @@
+<div class="mx-auto w-full max-w-[1600px] px-6 py-8">
+  <h1 class="text-3xl text-jackson-text font-medium">Checkout</h1>
+
+  @if (loading()) {
+    <div class="flex justify-center py-20">
+      <app-spinner size="32" text="Cargando..." />
+    </div>
+  } @else if (error(); as err) {
+    <div class="py-20 text-center">
+      <p class="text-jackson-text/40 font-normal">{{ err }}</p>
+      @if (err.includes('sesión')) {
+        <a
+          routerLink="/auth/login"
+          class="mt-4 inline-block text-jackson-navy hover:text-jackson-navy-hover underline font-medium"
+        >
+          Iniciar sesión
+        </a>
+      }
+      @if (err.includes('carrito')) {
+        <a
+          routerLink="/cart"
+          class="mt-4 inline-block text-jackson-navy hover:text-jackson-navy-hover underline font-medium"
+        >
+          Ir al carrito
+        </a>
+      }
+    </div>
+  } @else if (step() === 'done') {
+    <div class="py-20 text-center space-y-4">
+      <p class="text-xl text-jackson-text font-medium">¡Orden creada con éxito!</p>
+      <p class="text-jackson-text/60 font-normal">N° de orden: {{ orderId() }}</p>
+      <a
+        routerLink="/products"
+        class="inline-block text-jackson-navy hover:text-jackson-navy-hover underline font-medium"
+      >
+        Seguir comprando
+      </a>
+    </div>
+  } @else if (cart(); as c) {
+    @if (c.items.length === 0) {
+      <div class="py-20 text-center">
+        <p class="text-jackson-text/40 font-normal">Tu carrito está vacío</p>
+        <a
+          routerLink="/products"
+          class="mt-4 inline-block text-jackson-navy hover:text-jackson-navy-hover underline font-medium"
+        >
+          Ver productos
+        </a>
+      </div>
+    } @else {
+      <div class="mt-8 flex flex-col gap-10 lg:flex-row">
+        <div class="flex-1 space-y-8">
+          <div class="space-y-4">
+            <h2 class="text-lg text-jackson-text font-medium">Resumen del pedido</h2>
+            @for (item of c.items; track item.id) {
+              <div class="flex items-center justify-between border-b border-jackson-surface pb-3">
+                <div>
+                  <p class="text-jackson-text font-medium">Producto {{ item.productId }}</p>
+                  <p class="text-sm text-jackson-text/50 font-normal">
+                    {{ item.quantity }} x S/ {{ item.unitPrice }}
+                  </p>
+                </div>
+                <p class="text-jackson-text font-medium">S/ {{ item.subtotal }}</p>
+              </div>
+            }
+            <div class="flex justify-between pt-2">
+              <span class="text-lg text-jackson-text font-medium">Total</span>
+              <span class="text-lg text-jackson-text font-medium">S/ {{ c.total }}</span>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h2 class="text-lg text-jackson-text font-medium">Dirección de envío</h2>
+            <input
+              type="text"
+              [(ngModel)]="shippingAddress"
+              placeholder="Dirección completa"
+              class="w-full bg-jackson-surface text-jackson-text px-4 py-2.5 text-sm border-0 outline-none focus:bg-jackson-surface-focus transition-colors"
+            />
+          </div>
+
+          <div class="space-y-4">
+            <h2 class="text-lg text-jackson-text font-medium">Método de pago</h2>
+            <select
+              [(ngModel)]="paymentMethod"
+              class="w-full bg-jackson-surface text-jackson-text px-4 py-2.5 text-sm border-0 outline-none focus:bg-jackson-surface-focus transition-colors"
+            >
+              <option value="YAPE">Yape</option>
+              <option value="PLIN">Plin</option>
+              <option value="CASH">Efectivo</option>
+              <option value="BANK_TRANSFER">Transferencia bancaria</option>
+              <option value="CREDIT_CARD">Tarjeta de crédito</option>
+            </select>
+          </div>
+
+          <button
+            (click)="submitOrder()"
+            [disabled]="!shippingAddress.trim() || submitting()"
+            class="w-full bg-jackson-navy text-white px-6 py-3 text-sm font-medium transition-colors hover:bg-jackson-navy-hover disabled:opacity-50"
+          >
+            {{ submitting() ? 'Procesando...' : 'Confirmar pedido' }}
+          </button>
+        </div>
+      </div>
+    }
+  }
+</div>

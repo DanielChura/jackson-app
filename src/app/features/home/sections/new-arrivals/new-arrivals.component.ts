@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
-import { MOCK_PRODUCTS } from '../../../../core/data/products.mock';
+import { ProductService } from '../../../../core/services/product.service';
+import type { ProductResponse } from '../../../../core/models';
 
 @Component({
   selector: 'app-new-arrivals',
@@ -10,5 +11,22 @@ import { MOCK_PRODUCTS } from '../../../../core/data/products.mock';
   templateUrl: './new-arrivals.component.html',
 })
 export class NewArrivalsComponent {
-  protected readonly products = MOCK_PRODUCTS.slice(0, 4);
+  private readonly productService = inject(ProductService);
+
+  protected readonly products = signal<ProductResponse[]>([]);
+  protected readonly loading = signal(true);
+  protected readonly error = signal<string | null>(null);
+
+  constructor() {
+    this.productService.getAll(0, 5, 'createdAt,desc').subscribe({
+      next: (res) => {
+        this.products.set(res.content);
+        this.loading.set(false);
+      },
+      error: (err) => {
+        this.error.set(err.message ?? 'Error al cargar productos');
+        this.loading.set(false);
+      },
+    });
+  }
 }

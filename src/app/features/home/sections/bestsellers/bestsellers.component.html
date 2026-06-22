@@ -1,24 +1,34 @@
-<section class="mx-auto w-full max-w-[1600px] px-6 py-6 md:py-10">
+<section class="bg-jackson-white mx-auto w-full max-w-[1600px] px-6 py-6 md:py-10">
   <div class="flex items-center justify-between">
-    <h2 class="text-2xl text-gray-900 md:text-3xl" style="font-weight: 500">Los más vendidos</h2>
+    <h2 class="text-2xl text-jackson-text md:text-3xl font-medium">Los más vendidos</h2>
     <a
       routerLink="/products"
-      class="hidden text-sm text-orange-500 hover:text-orange-600 sm:inline"
-      style="font-weight: 500"
+      class="hidden text-sm text-jackson-navy hover:text-jackson-navy-hover underline font-medium sm:inline"
     >
       Ver todos
     </a>
   </div>
-  <div class="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-    @for (product of products; track product.id) {
-      <app-product-card [product]="product" />
-    }
-  </div>
+
+  @if (loading()) {
+    <div class="mt-16 flex items-center justify-center">
+      <span class="text-jackson-text/40 font-medium">Cargando productos...</span>
+    </div>
+  } @else if (error(); as err) {
+    <div class="mt-16 flex items-center justify-center">
+      <span class="text-jackson-text/40 font-medium">{{ err }}</span>
+    </div>
+  } @else {
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+      @for (product of products(); track product.id) {
+        <app-product-card [product]="product" />
+      }
+    </div>
+  }
+
   <div class="mt-6 text-center sm:hidden">
     <a
       routerLink="/products"
-      class="text-sm text-orange-500 hover:text-orange-600"
-      style="font-weight: 500"
+      class="text-sm text-jackson-navy hover:text-jackson-navy-hover underline font-medium"
     >
       Ver todos
     </a>

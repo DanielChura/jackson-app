@@ -1,0 +1,66 @@
+<div class="mx-auto w-full max-w-[1600px] px-6 py-8">
+  <button
+    (click)="goBack()"
+    class="text-sm text-jackson-navy hover:text-jackson-navy-hover underline font-medium mb-8 inline-block"
+  >
+    ← Volver
+  </button>
+
+  @if (loading()) {
+    <div class="flex justify-center py-20">
+      <app-spinner size="32" text="Cargando producto..." />
+    </div>
+  } @else if (error(); as err) {
+    <div class="py-20 text-center">
+      <p class="text-jackson-text/40 font-normal">{{ err }}</p>
+    </div>
+  } @else if (product(); as p) {
+    <div class="flex flex-col gap-10 lg:flex-row lg:gap-16">
+      <div class="w-full lg:w-1/2">
+        <div class="aspect-[3/4] bg-jackson-surface overflow-hidden">
+          @if (p.image) {
+            <img [src]="p.image" [alt]="p.name" class="h-full w-full object-cover" />
+          } @else {
+            <div class="flex h-full items-center justify-center text-jackson-text/30 font-medium">
+              Sin imagen
+            </div>
+          }
+        </div>
+      </div>
+      <div class="w-full lg:w-1/2 flex flex-col gap-6">
+        @if (p.category) {
+          <span class="text-sm text-jackson-cyan font-medium">{{ p.category.name }}</span>
+        }
+        <h1 class="text-3xl text-jackson-text font-medium">{{ p.name }}</h1>
+        <p class="text-2xl text-jackson-text font-medium">S/ {{ p.price }}</p>
+        <p class="text-base text-jackson-text/70 font-normal leading-relaxed">
+          {{ p.description }}
+        </p>
+        <div class="flex items-center gap-3">
+          @if (p.stock > 0) {
+            <span class="text-sm text-jackson-cyan font-medium"
+              >Stock: {{ p.stock }} unidad(es)</span
+            >
+          } @else {
+            <span class="text-sm text-jackson-text/40 font-normal">Agotado</span>
+          }
+        </div>
+        @if (p.brand) {
+          <p class="text-sm text-jackson-text/50 font-normal">Marca: {{ p.brand.name }}</p>
+        }
+        <div class="flex gap-4 pt-4">
+          <button
+            class="bg-jackson-navy text-white px-8 py-3 text-sm font-medium transition-colors hover:bg-jackson-navy-hover"
+          >
+            Agregar al carrito
+          </button>
+          <button
+            class="border border-jackson-navy text-jackson-navy px-8 py-3 text-sm font-medium transition-colors hover:bg-jackson-navy hover:text-white"
+          >
+            ♥ Favoritos
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

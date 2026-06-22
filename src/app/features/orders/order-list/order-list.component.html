@@ -1,0 +1,73 @@
+<div class="mx-auto w-full max-w-[1600px] px-6 py-8">
+  <h1 class="text-3xl text-jackson-text font-medium">Mis órdenes</h1>
+
+  @if (loading()) {
+    <div class="flex justify-center py-20">
+      <app-spinner size="32" text="Cargando órdenes..." />
+    </div>
+  } @else if (error(); as err) {
+    <div class="py-20 text-center">
+      <p class="text-jackson-text/40 font-normal">{{ err }}</p>
+      @if (err.includes('sesión')) {
+        <a
+          routerLink="/auth/login"
+          class="mt-4 inline-block text-jackson-navy hover:text-jackson-navy-hover underline font-medium"
+        >
+          Iniciar sesión
+        </a>
+      }
+    </div>
+  } @else if (orders().length === 0) {
+    <div class="py-20 text-center">
+      <p class="text-jackson-text/40 font-normal">No tenés órdenes aún</p>
+      <a
+        routerLink="/products"
+        class="mt-4 inline-block text-jackson-navy hover:text-jackson-navy-hover underline font-medium"
+      >
+        Empezar a comprar
+      </a>
+    </div>
+  } @else {
+    <div class="mt-8 space-y-4">
+      @for (order of orders(); track order.id) {
+        <div class="border border-jackson-surface p-6 space-y-3">
+          <div class="flex items-center justify-between">
+            <p class="text-jackson-text font-medium">Orden #{{ order.orderNumber }}</p>
+            <span
+              class="text-xs font-medium px-3 py-1 bg-jackson-surface"
+              [class]="
+                order.status === 'PAID' || order.status === 'DELIVERED'
+                  ? 'text-jackson-cyan'
+                  : order.status === 'CANCELLED'
+                    ? 'text-jackson-text/40'
+                    : 'text-jackson-navy'
+              "
+            >
+              {{ order.status }}
+            </span>
+          </div>
+          <p class="text-sm text-jackson-text/50 font-normal">
+            {{ order.orderedAt | date: 'dd/MM/yyyy HH:mm' }}
+          </p>
+          <p class="text-sm text-jackson-text/60 font-normal">
+            {{ order.items.length }} producto(s)
+          </p>
+          <div class="flex items-center justify-between pt-2 border-t border-jackson-surface">
+            <span class="text-jackson-text font-medium">Total</span>
+            <span class="text-lg text-jackson-text font-medium">S/ {{ order.total }}</span>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="mt-8">
+      <app-paginator
+        [page]="page()"
+        [totalPages]="totalPages()"
+        [totalElements]="totalElements()"
+        label="órdenes"
+        (prev)="prev()"
+        (next)="next()"
+      />
+    </div>
+  }
+</div>

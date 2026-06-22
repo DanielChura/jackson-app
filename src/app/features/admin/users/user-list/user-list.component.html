@@ -1,7 +1,7 @@
 <div class="space-y-6">
   <div>
-    <h1 class="text-2xl text-gray-900" style="font-weight:500">Usuarios</h1>
-    <p class="mt-1 text-sm text-gray-500" style="font-weight:400">Gestioná los usuarios registrados</p>
+    <h1 class="text-2xl text-jackson-text font-medium">Usuarios</h1>
+    <p class="mt-1 text-sm text-jackson-text/50 font-normal">Gestioná los usuarios registrados</p>
   </div>
 
   @if (loading()) {
@@ -9,33 +9,46 @@
       <app-spinner size="32" text="Cargando…" />
     </div>
   } @else if (users().length === 0) {
-    <div class="rounded-2xl border border-gray-200 bg-white p-6 text-center">
-      <p class="text-sm text-gray-400" style="font-weight:400">No hay usuarios registrados</p>
+    <div class="border border-jackson-surface bg-jackson-white p-6 text-center">
+      <p class="text-sm text-jackson-text/40 font-normal">No hay usuarios registrados</p>
     </div>
   } @else {
-    <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+    <div class="overflow-hidden border border-jackson-surface bg-jackson-white">
       <table class="w-full text-sm">
         <thead>
-          <tr class="border-b border-gray-100 bg-white text-left text-gray-400" style="font-weight:500">
+          <tr
+            class="border-b border-jackson-surface bg-jackson-white text-left text-jackson-text/50 font-medium"
+          >
             <th class="px-6 py-3">Nombre</th>
             <th class="px-6 py-3">Email</th>
             <th class="px-6 py-3">Rol</th>
             <th class="px-6 py-3 text-center">Acciones</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-50">
+        <tbody class="divide-y divide-jackson-surface">
           @for (user of users(); track user.id) {
-            <tr class="hover:bg-gray-50">
-              <td class="px-6 py-4 text-gray-900" style="font-weight:500">{{ user.firstName }}</td>
-              <td class="px-6 py-4 text-gray-500" style="font-weight:400">{{ user.email }}</td>
+            <tr class="hover:bg-jackson-surface">
+              <td class="px-6 py-4 text-jackson-text font-medium">{{ user.firstName }}</td>
+              <td class="px-6 py-4 text-jackson-text/60 font-normal">{{ user.email }}</td>
               <td class="px-6 py-4">
-                <span class="inline-block rounded-full px-3 py-1 text-xs font-medium"
-                  [class]="user.roleName === 'ADMIN' ? 'text-orange-600 bg-orange-50' : 'text-gray-600 bg-gray-100'">
+                <span
+                  class="inline-block px-3 py-1 text-xs font-medium"
+                  [class]="
+                    user.roleName === 'ADMIN'
+                      ? 'text-jackson-navy bg-jackson-surface'
+                      : 'text-jackson-text/60 bg-jackson-surface'
+                  "
+                >
                   {{ user.roleName }}
                 </span>
               </td>
               <td class="whitespace-nowrap px-6 py-4 text-center">
-                <button (click)="delete(user.id)" class="text-sm text-red-500 hover:text-red-600" style="font-weight:500">Eliminar</button>
+                <button
+                  (click)="delete(user.id)"
+                  class="text-sm text-jackson-text/50 hover:text-jackson-text font-medium"
+                >
+                  Eliminar
+                </button>
               </td>
             </tr>
           }

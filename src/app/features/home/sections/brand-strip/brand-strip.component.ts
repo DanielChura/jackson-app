@@ -1,12 +1,8 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IconComponent } from '../../../../shared/icons/icon.component';
-
-interface BrandData {
-  name: string;
-  slug: string;
-  image: string;
-}
+import { BrandService } from '../../../../core/services/brand.service';
+import type { BrandResponse } from '../../../../core/models';
 
 @Component({
   selector: 'app-brand-strip',
@@ -15,58 +11,26 @@ interface BrandData {
   templateUrl: './brand-strip.component.html',
 })
 export class BrandStripComponent {
-  protected readonly brands: BrandData[] = [
-    {
-      name: 'FENDER',
-      slug: 'fender',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_khUbKFSLuLxKVOyKHScYy7SMSyZmmQgC_w&s',
-    },
-    {
-      name: 'Gibson',
-      slug: 'gibson',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_khUbKFSLuLxKVOyKHScYy7SMSyZmmQgC_w&s',
-    },
-    {
-      name: 'YAMAHA',
-      slug: 'yamaha',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_khUbKFSLuLxKVOyKHScYy7SMSyZmmQgC_w&s',
-    },
-    {
-      name: 'Roland',
-      slug: 'roland',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_khUbKFSLuLxKVOyKHScYy7SMSyZmmQgC_w&s',
-    },
-    {
-      name: 'MARSHALL',
-      slug: 'marshall',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_khUbKFSLuLxKVOyKHScYy7SMSyZmmQgC_w&s',
-    },
-    {
-      name: 'SHURE',
-      slug: 'shure',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_khUbKFSLuLxKVOyKHScYy7SMSyZmmQgC_w&s',
-    },
-    {
-      name: 'AKG',
-      slug: 'akg',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_khUbKFSLuLxKVOyKHScYy7SMSyZmmQgC_w&s',
-    },
-    {
-      name: 'PIONEER',
-      slug: 'pioneer',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_khUbKFSLuLxKVOyKHScYy7SMSyZmmQgC_w&s',
-    },
-  ];
+  private readonly brandService = inject(BrandService);
+
+  protected readonly brands = signal<BrandResponse[]>([]);
+  protected readonly loading = signal(true);
+  protected readonly error = signal<string | null>(null);
 
   @ViewChild('scrollContainer') scrollContainer!: ElementRef<HTMLDivElement>;
+
+  constructor() {
+    this.brandService.getAll(0, 20).subscribe({
+      next: (res) => {
+        this.brands.set(res.content);
+        this.loading.set(false);
+      },
+      error: (err) => {
+        this.error.set(err.message ?? 'Error al cargar marcas');
+        this.loading.set(false);
+      },
+    });
+  }
 
   scrollLeft() {
     const container = this.scrollContainer.nativeElement;
