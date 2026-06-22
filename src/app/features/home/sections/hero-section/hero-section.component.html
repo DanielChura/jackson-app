@@ -1,15 +1,39 @@
 <div class="mx-auto w-full max-w-[1600px] px-6">
-  <a
-    routerLink="/products"
-    class="block w-full rounded-none"
-    aria-label="Ver ofertas"
+  <div
+    class="relative w-full overflow-hidden"
+    (mouseenter)="stopAutoPlay()"
+    (mouseleave)="startAutoPlay()"
   >
-    <img
-      src="https://audiomusicacl.vtexassets.com/assets/vtex.file-manager-graphql/images/746a971b-33b8-43b9-90d8-f3967353bab0___940d8209f7638868239d5209ac6c3f8d.png"
-      alt="Promociones Jackson Music"
-      class="w-full h-auto object-contain"
-      loading="eager"
-      fetchpriority="high"
-    />
-  </a>
+    <div
+      class="flex transition-transform duration-500 ease-out"
+      [style.transform]="'translateX(-' + currentIndex() * 100 + '%)'"
+    >
+      @for (slide of slides(); track $index) {
+        <div class="w-full shrink-0">
+          <a [routerLink]="slide.link" class="block w-full">
+            <picture>
+              <source media="(max-width: 767px)" [srcset]="slide.mobileImageUrl" />
+              <img
+                [src]="slide.imageUrl"
+                [alt]="slide.alt"
+                class="w-full h-auto object-contain"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </picture>
+          </a>
+        </div>
+      }
+    </div>
+    <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-3">
+      @for (slide of slides(); track $index) {
+        <button
+          (click)="goToSlide($index)"
+          [attr.aria-label]="'Ir a la promoción ' + slide.label"
+          class="h-3 w-3 rounded-full transition-colors duration-200"
+          [class]="currentIndex() === $index ? 'bg-orange-500' : 'bg-gray-200 hover:bg-gray-300'"
+        ></button>
+      }
+    </div>
+  </div>
 </div>

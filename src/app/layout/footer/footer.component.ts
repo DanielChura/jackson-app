@@ -22,42 +22,55 @@ interface SocialLink {
   templateUrl: './footer.component.html',
 })
 export class FooterComponent {
-  protected readonly categories: FooterLink[] = [
-    { label: 'Guitarras', route: '/products', queryParams: { category: 'guitarras' } },
-    { label: 'Baterías', route: '/products', queryParams: { category: 'baterias' } },
-    { label: 'Teclados', route: '/products', queryParams: { category: 'teclados' } },
-    { label: 'Audio', route: '/products', queryParams: { category: 'audio-microfonos' } },
-    { label: 'DJ', route: '/products', queryParams: { category: 'equipos-dj' } },
-    { label: 'Accesorios', route: '/products', queryParams: { category: 'accesorios' } },
+  currentYear = new Date().getFullYear();
+
+  // Lista expandida de categorías estratégicas de alto tráfico
+  categories: FooterLink[] = [
+    {
+      label: 'Guitarras Eléctricas',
+      route: '/catalogo',
+      queryParams: { cat: 'guitarras-electricas' },
+    },
+    {
+      label: 'Guitarras Acústicas',
+      route: '/catalogo',
+      queryParams: { cat: 'guitarras-acusticas' },
+    },
+    { label: 'Bajos Eléctricos', route: '/catalogo', queryParams: { cat: 'bajos-electricos' } },
+    { label: 'Pianos & Teclados', route: '/catalogo', queryParams: { cat: 'teclados' } },
+    { label: 'Baterías & Percusión', route: '/catalogo', queryParams: { cat: 'baterias' } },
+    { label: 'Equipos de Audio & DJ', route: '/catalogo', queryParams: { cat: 'pro-audio' } },
+    { label: 'Accesorios Premium', route: '/catalogo', queryParams: { cat: 'accesorios' } },
   ];
 
-  protected readonly brands: FooterLink[] = [
-    { label: 'Fender', route: '/products', queryParams: { brand: 'fender' } },
-    { label: 'Gibson', route: '/products', queryParams: { brand: 'gibson' } },
-    { label: 'Yamaha', route: '/products', queryParams: { brand: 'yamaha' } },
-    { label: 'Roland', route: '/products', queryParams: { brand: 'roland' } },
-    { label: 'Marshall', route: '/products', queryParams: { brand: 'marshall' } },
-    { label: 'Shure', route: '/products', queryParams: { brand: 'shure' } },
+  // Lista expandida de marcas premium para posicionamiento SEO
+  brands: FooterLink[] = [
+    { label: 'Fender Custom Shop', route: '/catalogo', queryParams: { brand: 'fender' } },
+    { label: 'Gibson USA', route: '/catalogo', queryParams: { brand: 'gibson' } },
+    { label: 'Yamaha Music', route: '/catalogo', queryParams: { brand: 'yamaha' } },
+    { label: 'Roland', route: '/catalogo', queryParams: { brand: 'roland' } },
+    { label: 'Ibanez Guitars', route: '/catalogo', queryParams: { brand: 'ibanez' } },
+    { label: 'Taylor Guitars', route: '/catalogo', queryParams: { brand: 'taylor' } },
+    { label: 'Pioneer DJ', route: '/catalogo', queryParams: { brand: 'pioneer-dj' } },
+    { label: 'Shure Microphones', route: '/catalogo', queryParams: { brand: 'shure' } },
   ];
 
-  protected readonly legalLinks: FooterLink[] = [
-    { label: 'Términos y condiciones', route: '/' },
-    { label: 'Política de privacidad', route: '/' },
-    { label: 'Libro de Reclamaciones', route: '/' },
+  support: FooterLink[] = [
+    { label: 'Centro de Soporte Especializado', route: '/soporte' },
+    { label: 'Seguimiento de Envíos en Lima', route: '/pedidos/rastreo' },
+    { label: 'Taller de Luthier & Garantías', route: '/luthier' },
+    { label: 'Políticas de Devolución', route: '/devoluciones' },
   ];
 
-  protected readonly socialLinks: SocialLink[] = [
-    { name: 'Instagram', icon: 'instagram', url: 'https://instagram.com/jacksonmusic' },
-    { name: 'Facebook', icon: 'facebook', url: 'https://facebook.com/jacksonmusic' },
-    { name: 'YouTube', icon: 'youtube', url: 'https://youtube.com/@jacksonmusic' },
-    { name: 'TikTok', icon: 'tiktok', url: 'https://tiktok.com/@jacksonmusic' },
-    { name: 'WhatsApp', icon: 'whatsapp', url: 'https://wa.me/51999999999' },
+  legal: FooterLink[] = [
+    { label: 'Términos y Condiciones', route: '/legal/terminos' },
+    { label: 'Políticas de Privacidad', route: '/legal/privacidad' },
+    { label: 'Libro de Reclamaciones', route: '/legal/reclamaciones' },
   ];
 
-  protected readonly contactInfo: { label: string; href?: string; icon: string }[] = [
-    { label: 'ventas@jacksonmusic.pe', href: 'mailto:ventas@jacksonmusic.pe', icon: 'mail' },
-    { label: '(01) 555-1234', href: 'tel:+5115551234', icon: 'phone' },
-    { label: 'Escríbenos por WhatsApp', href: 'https://wa.me/51999999999', icon: 'whatsapp' },
-    { label: 'Av. La Marina 1234, Lima', icon: 'map-pin' },
+  socialLinks = [
+    { name: 'Instagram', url: 'https://instagram.com/jacksonmusic', icon: 'instagram' },
+    { name: 'Facebook', url: 'https://facebook.com/jacksonmusic', icon: 'facebook' },
+    { name: 'YouTube', url: 'https://youtube.com/jacksonmusic', icon: 'youtube' },
   ];
 }

@@ -1,104 +1,152 @@
-<footer class="bg-white">
-  <div class="mx-auto w-full max-w-[1600px] px-6 py-28">
-    <div class="grid grid-cols-1 gap-16 sm:grid-cols-2 lg:grid-cols-5">
-      <!-- Brand + Social -->
-      <div class="space-y-6">
-        <h3 class="text-sm font-medium text-orange-500">Jackson Music</h3>
-        <p class="text-sm leading-relaxed text-gray-500">
-          Tienda de instrumentos musicales en Lima. Fender, Gibson, Yamaha y las marcas que suenan
-          bien.
-        </p>
-        <div class="flex items-center gap-4">
+<footer aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Pie de página de Jackson Music Store</h2>
+
+  <!-- NEWSLETTER: Fondo navy para alto impacto -->
+  <div class="bg-jackson-navy">
+    <div class="mx-auto w-full max-w-[1600px] px-6 py-14 lg:py-16">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+        <div class="max-w-xl">
+          <h3 class="text-xl font-medium tracking-tight text-white lg:text-2xl">
+            Únete a la comunidad de músicos más selecta de Lima
+          </h3>
+          <p class="mt-2 text-base leading-relaxed text-white/80">
+            Contenido técnico de luthier, lanzamientos exclusivos y 10% de descuento en accesorios.
+          </p>
+        </div>
+        <div class="w-full max-w-md">
+          <form class="flex flex-col gap-2.5 sm:flex-row">
+            <label for="email-address-footer" class="sr-only">Correo electrónico</label>
+            <input
+              id="email-address-footer"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="Tu correo electrónico"
+              class="w-full rounded-none border-0 bg-white px-4 py-2.5 text-sm text-jackson-text placeholder-jackson-text/40 focus:outline-none focus:ring-2 focus:ring-jackson-orange transition-colors"
+            />
+            <button
+              type="submit"
+              class="flex items-center justify-center rounded-none bg-jackson-orange px-6 py-2.5 text-sm font-medium text-jackson-text transition-colors hover:bg-jackson-orange-bg shrink-0 focus-visible:outline-white"
+            >
+              Suscribirse
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUMNAS DE LINKS -->
+  <div class="bg-jackson-white">
+    <div class="mx-auto w-full max-w-[1600px] px-6 py-16 lg:py-20">
+      <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="space-y-5">
+          <h4 class="text-sm font-medium tracking-wider text-jackson-navy uppercase">Categorías</h4>
+          <ul class="space-y-3">
+            @for (cat of categories; track cat.label) {
+              <li>
+                <a
+                  [routerLink]="cat.route"
+                  [queryParams]="cat.queryParams"
+                  class="inline-block text-sm text-jackson-text/60 transition-colors hover:text-jackson-navy"
+                >
+                  {{ cat.label }}
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+        <div class="space-y-5">
+          <h4 class="text-sm font-medium tracking-wider text-jackson-navy uppercase">
+            Marcas de Alta Gama
+          </h4>
+          <ul class="space-y-3">
+            @for (brand of brands; track brand.label) {
+              <li>
+                <a
+                  [routerLink]="brand.route"
+                  [queryParams]="brand.queryParams"
+                  class="inline-block text-sm text-jackson-text/60 transition-colors hover:text-jackson-navy"
+                >
+                  {{ brand.label }}
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+        <div class="space-y-5">
+          <h4 class="text-sm font-medium tracking-wider text-jackson-navy uppercase">Asistencia</h4>
+          <ul class="space-y-3">
+            @for (item of support; track item.label) {
+              <li>
+                <a
+                  [routerLink]="item.route"
+                  class="inline-block text-sm text-jackson-text/60 transition-colors hover:text-jackson-navy"
+                >
+                  {{ item.label }}
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+        <div class="space-y-5">
+          <h4 class="text-sm font-medium tracking-wider text-jackson-navy uppercase">Contacto</h4>
+          <address class="not-italic space-y-3 text-sm text-jackson-text/60">
+            <p class="leading-relaxed">
+              Av. Angamos Oeste 1234,<br />
+              Miraflores, Lima - Perú
+            </p>
+            <div class="space-y-2">
+              <p class="text-sm text-jackson-text/40">RUC: 20601234567</p>
+              <a
+                href="https://wa.me/51999999999"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 text-sm text-jackson-text/60 transition-colors hover:text-jackson-navy"
+              >
+                <span class="font-medium text-jackson-text">WhatsApp:</span>
+                <span>+51 999 999 999</span>
+              </a>
+            </div>
+          </address>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BARRA INFERIOR: copyright + legal + redes -->
+  <div class="bg-jackson-white">
+    <div class="mx-auto w-full max-w-[1600px] px-6 py-6">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
+          <span class="text-sm text-jackson-text/40">
+            &copy; {{ currentYear }} Jackson Music Store S.A.C.
+          </span>
+          <div class="flex flex-wrap gap-x-6 gap-y-2">
+            @for (leg of legal; track leg.label) {
+              <a
+                [routerLink]="leg.route"
+                class="text-sm text-jackson-text/60 transition-colors hover:text-jackson-navy"
+              >
+                {{ leg.label }}
+              </a>
+            }
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
           @for (s of socialLinks; track s.name) {
             <a
               [href]="s.url"
               target="_blank"
               rel="noopener noreferrer"
               [attr.aria-label]="s.name"
-              class="text-gray-400 transition-colors hover:text-orange-500"
+              class="flex h-10 w-10 items-center justify-center text-jackson-navy transition-colors hover:text-jackson-text"
             >
-              <app-icon [name]="s.icon" size="22" />
+              <app-icon [name]="s.icon" size="20" stroke-width="2" />
             </a>
           }
         </div>
-      </div>
-
-      <!-- Categorías -->
-      <div class="space-y-6">
-        <h3 class="text-sm font-medium text-orange-500">Categorías</h3>
-        <ul class="space-y-3">
-          @for (cat of categories; track cat.label) {
-            <li>
-              <a
-                [routerLink]="cat.route"
-                [queryParams]="cat.queryParams"
-                class="text-sm text-gray-500 transition-colors hover:text-orange-500"
-              >
-                {{ cat.label }}
-              </a>
-            </li>
-          }
-        </ul>
-      </div>
-
-      <!-- Marcas -->
-      <div class="space-y-6">
-        <h3 class="text-sm font-medium text-orange-500">Marcas</h3>
-        <ul class="space-y-3">
-          @for (brand of brands; track brand.label) {
-            <li>
-              <a
-                [routerLink]="brand.route"
-                [queryParams]="brand.queryParams"
-                class="text-sm text-gray-500 transition-colors hover:text-orange-500"
-              >
-                {{ brand.label }}
-              </a>
-            </li>
-          }
-        </ul>
-      </div>
-
-      <!-- Legal -->
-      <div class="space-y-6">
-        <h3 class="text-sm font-medium text-orange-500">Legal</h3>
-        <ul class="space-y-3">
-          @for (legal of legalLinks; track legal.label) {
-            <li>
-              <a
-                [routerLink]="legal.route"
-                class="text-sm text-gray-500 transition-colors hover:text-orange-500"
-              >
-                {{ legal.label }}
-              </a>
-            </li>
-          }
-        </ul>
-      </div>
-
-      <!-- Contacto -->
-      <div class="space-y-6">
-        <h3 class="text-sm font-medium text-orange-500">Contacto</h3>
-        <ul class="space-y-4">
-          @for (item of contactInfo; track $index) {
-            <li>
-              @if (item.href) {
-                <a
-                  [href]="item.href"
-                  class="flex items-center gap-3 text-sm text-gray-500 transition-colors hover:text-orange-500"
-                >
-                  <app-icon [name]="item.icon" size="16" class="shrink-0 text-gray-400" />
-                  <span>{{ item.label }}</span>
-                </a>
-              } @else {
-                <span class="flex items-center gap-3 text-sm text-gray-500">
-                  <app-icon [name]="item.icon" size="16" class="shrink-0 text-gray-400" />
-                  <span>{{ item.label }}</span>
-                </span>
-              }
-            </li>
-          }
-        </ul>
       </div>
     </div>
   </div>
