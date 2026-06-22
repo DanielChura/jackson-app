@@ -31,7 +31,7 @@ export class FavoritesListComponent {
       return;
     }
 
-    this.favoriteService.getByUser(user.email).subscribe({
+    this.favoriteService.getMine().subscribe({
       next: (favs) => {
         if (favs.length === 0) {
           this.loading.set(false);

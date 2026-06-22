@@ -10,7 +10,7 @@
     >
       @for (slide of slides(); track $index) {
         <div class="w-full shrink-0">
-          <a [routerLink]="slide.link" class="block w-full">
+          <a [routerLink]="slide.routerLink" [queryParams]="slide.queryParams" class="block w-full">
             <picture>
               <source media="(max-width: 767px)" [srcset]="slide.mobileImageUrl" />
               <img

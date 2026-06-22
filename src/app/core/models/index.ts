@@ -12,3 +12,4 @@ export * from './inventory.models';
 export * from './favorite.models';
 export * from './dashboard.models';
 export * from './reviews.models';
+export * from './stripe.models';

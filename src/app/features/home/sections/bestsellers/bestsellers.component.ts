@@ -23,8 +23,8 @@ export class BestsellersComponent {
         this.products.set(res.content);
         this.loading.set(false);
       },
-      error: (err) => {
-        this.error.set(err.message ?? 'Error al cargar productos');
+      error: () => {
+        this.error.set('Error al cargar productos');
         this.loading.set(false);
       },
     });

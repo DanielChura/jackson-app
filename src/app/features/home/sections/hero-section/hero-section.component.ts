@@ -1,6 +1,15 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+interface HeroSlide {
+  label: string;
+  imageUrl: string;
+  mobileImageUrl: string;
+  routerLink: string;
+  queryParams: Record<string, string>;
+  alt: string;
+}
+
 @Component({
   selector: 'app-hero-section',
   standalone: true,
@@ -11,14 +20,15 @@ export class HeroSectionComponent {
   currentIndex = signal<number>(0);
   private autoPlayInterval: any;
 
-  slides = signal<any[]>([
+  slides = signal<HeroSlide[]>([
     {
       label: 'Reloop DJ',
       imageUrl:
         'https://audiomusicacl.vtexassets.com/assets/vtex.file-manager-graphql/images/746a971b-33b8-43b9-90d8-f3967353bab0___940d8209f7638868239d5209ac6c3f8d.png',
       mobileImageUrl:
         'https://audiomusicacl.vtexassets.com/assets/vtex.file-manager-graphql/images/746a971b-33b8-43b9-90d8-f3967353bab0___940d8209f7638868239d5209ac6c3f8d.png',
-      link: '/products/reloop',
+      routerLink: '/products',
+      queryParams: { brand: 'reloop' },
       alt: 'Nuevas llegadas Reloop DJ',
     },
     {
@@ -27,7 +37,8 @@ export class HeroSectionComponent {
         'https://audiomusicacl.vtexassets.com/assets/vtex.file-manager-graphql/images/746a971b-33b8-43b9-90d8-f3967353bab0___940d8209f7638868239d5209ac6c3f8d.png',
       mobileImageUrl:
         'https://audiomusicacl.vtexassets.com/assets/vtex.file-manager-graphql/images/746a971b-33b8-43b9-90d8-f3967353bab0___940d8209f7638868239d5209ac6c3f8d.png',
-      link: '/catalogo/guitarras',
+      routerLink: '/products',
+      queryParams: { category: 'guitarras' },
       alt: 'Especial de Guitarras Eléctricas',
     },
   ]);

@@ -60,7 +60,10 @@ export class OrderListComponent {
         this.totalElements.set(res.totalElements);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false),
+      error: () => {
+        this.loading.set(false);
+        this.toast.show('No se pudieron cargar las órdenes', 'error');
+      },
     });
   }
 
@@ -73,7 +76,10 @@ export class OrderListComponent {
         this.toast.show(`Orden ${order.orderNumber} actualizada a ${this.statusLabels[newStatus]}`);
         this.load();
       },
-      error: () => this.updatingId.set(null),
+      error: () => {
+        this.updatingId.set(null);
+        this.toast.show('No se pudo actualizar la orden', 'error');
+      },
     });
   }
 

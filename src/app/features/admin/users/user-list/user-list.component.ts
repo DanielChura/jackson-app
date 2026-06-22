@@ -34,7 +34,10 @@ export class UserListComponent {
         this.totalElements.set(res.totalElements);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false),
+      error: () => {
+        this.loading.set(false);
+        this.toast.show('No se pudieron cargar los usuarios', 'error');
+      },
     });
   }
 
@@ -45,6 +48,7 @@ export class UserListComponent {
         this.toast.show('Usuario eliminado');
         this.load();
       },
+      error: () => this.toast.show('No se pudo eliminar el usuario', 'error'),
     });
   }
 

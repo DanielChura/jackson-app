@@ -28,31 +28,35 @@ export class FooterComponent {
   categories: FooterLink[] = [
     {
       label: 'Guitarras Eléctricas',
-      route: '/catalogo',
-      queryParams: { cat: 'guitarras-electricas' },
+      route: '/products',
+      queryParams: { category: 'guitarras-electricas' },
     },
     {
       label: 'Guitarras Acústicas',
-      route: '/catalogo',
-      queryParams: { cat: 'guitarras-acusticas' },
+      route: '/products',
+      queryParams: { category: 'guitarras-acusticas' },
     },
-    { label: 'Bajos Eléctricos', route: '/catalogo', queryParams: { cat: 'bajos-electricos' } },
-    { label: 'Pianos & Teclados', route: '/catalogo', queryParams: { cat: 'teclados' } },
-    { label: 'Baterías & Percusión', route: '/catalogo', queryParams: { cat: 'baterias' } },
-    { label: 'Equipos de Audio & DJ', route: '/catalogo', queryParams: { cat: 'pro-audio' } },
-    { label: 'Accesorios Premium', route: '/catalogo', queryParams: { cat: 'accesorios' } },
+    {
+      label: 'Bajos Eléctricos',
+      route: '/products',
+      queryParams: { category: 'bajos-electricos' },
+    },
+    { label: 'Pianos & Teclados', route: '/products', queryParams: { category: 'teclados' } },
+    { label: 'Baterías & Percusión', route: '/products', queryParams: { category: 'baterias' } },
+    { label: 'Equipos de Audio & DJ', route: '/products', queryParams: { category: 'pro-audio' } },
+    { label: 'Accesorios Premium', route: '/products', queryParams: { category: 'accesorios' } },
   ];
 
   // Lista expandida de marcas premium para posicionamiento SEO
   brands: FooterLink[] = [
-    { label: 'Fender Custom Shop', route: '/catalogo', queryParams: { brand: 'fender' } },
-    { label: 'Gibson USA', route: '/catalogo', queryParams: { brand: 'gibson' } },
-    { label: 'Yamaha Music', route: '/catalogo', queryParams: { brand: 'yamaha' } },
-    { label: 'Roland', route: '/catalogo', queryParams: { brand: 'roland' } },
-    { label: 'Ibanez Guitars', route: '/catalogo', queryParams: { brand: 'ibanez' } },
-    { label: 'Taylor Guitars', route: '/catalogo', queryParams: { brand: 'taylor' } },
-    { label: 'Pioneer DJ', route: '/catalogo', queryParams: { brand: 'pioneer-dj' } },
-    { label: 'Shure Microphones', route: '/catalogo', queryParams: { brand: 'shure' } },
+    { label: 'Fender Custom Shop', route: '/products', queryParams: { brand: 'fender' } },
+    { label: 'Gibson USA', route: '/products', queryParams: { brand: 'gibson' } },
+    { label: 'Yamaha Music', route: '/products', queryParams: { brand: 'yamaha' } },
+    { label: 'Roland', route: '/products', queryParams: { brand: 'roland' } },
+    { label: 'Ibanez Guitars', route: '/products', queryParams: { brand: 'ibanez' } },
+    { label: 'Taylor Guitars', route: '/products', queryParams: { brand: 'taylor' } },
+    { label: 'Pioneer DJ', route: '/products', queryParams: { brand: 'pioneer-dj' } },
+    { label: 'Shure Microphones', route: '/products', queryParams: { brand: 'shure' } },
   ];
 
   support: FooterLink[] = [

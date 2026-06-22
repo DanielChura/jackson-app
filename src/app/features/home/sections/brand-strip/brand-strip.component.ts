@@ -25,8 +25,8 @@ export class BrandStripComponent {
         this.brands.set(res.content);
         this.loading.set(false);
       },
-      error: (err) => {
-        this.error.set(err.message ?? 'Error al cargar marcas');
+      error: () => {
+        this.error.set('Error al cargar marcas');
         this.loading.set(false);
       },
     });

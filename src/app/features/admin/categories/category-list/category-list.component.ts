@@ -35,7 +35,10 @@ export class CategoryListComponent {
         this.totalElements.set(res.totalElements);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false),
+      error: () => {
+        this.loading.set(false);
+        this.toast.show('No se pudieron cargar las categorías', 'error');
+      },
     });
   }
 
@@ -60,6 +63,7 @@ export class CategoryListComponent {
         this.toast.show('Categoría eliminada');
         this.load();
       },
+      error: () => this.toast.show('No se pudo eliminar la categoría', 'error'),
     });
   }
 }

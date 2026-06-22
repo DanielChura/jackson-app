@@ -25,17 +25,6 @@
         </a>
       }
     </div>
-  } @else if (step() === 'done') {
-    <div class="py-20 text-center space-y-4">
-      <p class="text-xl text-jackson-text font-medium">¡Orden creada con éxito!</p>
-      <p class="text-jackson-text/60 font-normal">N° de orden: {{ orderId() }}</p>
-      <a
-        routerLink="/products"
-        class="inline-block text-jackson-navy hover:text-jackson-navy-hover underline font-medium"
-      >
-        Seguir comprando
-      </a>
-    </div>
   } @else if (cart(); as c) {
     @if (c.items.length === 0) {
       <div class="py-20 text-center">
@@ -79,26 +68,12 @@
             />
           </div>
 
-          <div class="space-y-4">
-            <h2 class="text-lg text-jackson-text font-medium">Método de pago</h2>
-            <select
-              [(ngModel)]="paymentMethod"
-              class="w-full bg-jackson-surface text-jackson-text px-4 py-2.5 text-sm border-0 outline-none focus:bg-jackson-surface-focus transition-colors"
-            >
-              <option value="YAPE">Yape</option>
-              <option value="PLIN">Plin</option>
-              <option value="CASH">Efectivo</option>
-              <option value="BANK_TRANSFER">Transferencia bancaria</option>
-              <option value="CREDIT_CARD">Tarjeta de crédito</option>
-            </select>
-          </div>
-
           <button
             (click)="submitOrder()"
             [disabled]="!shippingAddress.trim() || submitting()"
             class="w-full bg-jackson-navy text-white px-6 py-3 text-sm font-medium transition-colors hover:bg-jackson-navy-hover disabled:opacity-50"
           >
-            {{ submitting() ? 'Procesando...' : 'Confirmar pedido' }}
+            {{ submitting() ? 'Redirigiendo a Stripe...' : 'Pagar con Stripe' }}
           </button>
         </div>
       </div>

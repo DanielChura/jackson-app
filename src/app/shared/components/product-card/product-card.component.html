@@ -1,18 +1,14 @@
 <a [routerLink]="['/products', product().id]" class="flex flex-col rounded-none bg-jackson-white">
   <div class="relative aspect-[3/4] overflow-hidden rounded-none bg-jackson-surface">
-    @if (product().image) {
+    @if ((product().images ?? []).length > 0) {
       <img
-        [src]="product().image"
+        [src]="product().images[0].url"
         [alt]="product().name"
         class="h-full w-full object-cover"
         loading="lazy"
       />
     } @else {
-      <div class="flex h-full items-center justify-center">
-        @if (iconName(); as icon) {
-          <app-icon [name]="icon" size="48" class="text-jackson-text/30" />
-        }
-      </div>
+      <app-no-image-placeholder text="Sin imagen" />
     }
   </div>
 

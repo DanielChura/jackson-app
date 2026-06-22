@@ -8,8 +8,9 @@ export class FavoriteService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/favorites`;
 
-  getByUser(userId: string) {
-    return this.http.get<FavoriteResponse[]>(`${this.apiUrl}/user/${userId}`);
+  /** Obtiene los favoritos del usuario autenticado (userId se extrae del JWT en backend). */
+  getMine() {
+    return this.http.get<FavoriteResponse[]>(`${this.apiUrl}/mine`);
   }
 
   add(payload: CreateFavoriteRequest) {

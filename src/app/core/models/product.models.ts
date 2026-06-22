@@ -20,7 +20,7 @@ export interface ProductResponse {
   stock: number;
   category: CategoryResponse | null;
   brand: BrandResponse | null;
-  image?: string;
+  images: ProductImageResponse[];
   specifications?: Record<string, unknown>;
 }
 

@@ -35,7 +35,10 @@ export class BrandListComponent {
         this.totalElements.set(res.totalElements);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false),
+      error: () => {
+        this.loading.set(false);
+        this.toast.show('No se pudieron cargar las marcas', 'error');
+      },
     });
   }
 
@@ -60,6 +63,7 @@ export class BrandListComponent {
         this.toast.show('Marca eliminada');
         this.load();
       },
+      error: () => this.toast.show('No se pudo eliminar la marca', 'error'),
     });
   }
 }

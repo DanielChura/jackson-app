@@ -36,12 +36,20 @@
           [queryParams]="{ category: cat.id }"
           class="relative aspect-[3/4] w-[calc(50%-0.5rem)] shrink-0 snap-start overflow-hidden md:w-[calc(25%-0.9375rem)]"
         >
-          <img
-            [src]="cat.imageUrl ?? ''"
-            [alt]="cat.name"
-            class="h-full w-full object-cover"
-            loading="lazy"
-          />
+          @if (cat.imageUrl) {
+            <img
+              [src]="cat.imageUrl"
+              [alt]="cat.name"
+              class="h-full w-full object-cover"
+              loading="lazy"
+            />
+          } @else {
+            <div class="flex h-full w-full items-center justify-center bg-jackson-surface">
+              <span class="text-sm text-jackson-text/30 font-medium text-center px-4 leading-tight">
+                {{ cat.name }}
+              </span>
+            </div>
+          }
         </a>
       }
     </div>

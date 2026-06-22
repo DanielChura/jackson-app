@@ -20,6 +20,45 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'admin',
+    canActivate: [authGuard, adminGuard],
+    loadComponent: () =>
+      import('./layout/admin-layout/admin-layout.component').then((c) => c.AdminLayoutComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/admin/dashboard/dashboard.component').then(
+            (c) => c.AdminDashboardComponent,
+          ),
+      },
+      {
+        path: 'products',
+        loadChildren: () => import('./features/admin/products/products.routes'),
+      },
+      {
+        path: 'brands',
+        loadChildren: () => import('./features/admin/brands/brands.routes'),
+      },
+      {
+        path: 'categories',
+        loadChildren: () => import('./features/admin/categories/categories.routes'),
+      },
+      {
+        path: 'orders',
+        loadChildren: () => import('./features/admin/orders/orders.routes'),
+      },
+      {
+        path: 'users',
+        loadChildren: () => import('./features/admin/users/users.routes'),
+      },
+      {
+        path: 'inventory',
+        loadChildren: () => import('./features/admin/inventory/inventory.routes'),
+      },
+    ],
+  },
+  {
     path: '',
     loadComponent: () =>
       import('./layout/main-layout/main-layout.component').then((c) => c.MainLayoutComponent),
@@ -56,8 +95,20 @@ export const routes: Routes = [
       },
       {
         path: 'checkout',
-        loadComponent: () =>
-          import('./features/checkout/checkout.component').then((c) => c.CheckoutComponent),
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./features/checkout/checkout.component').then((c) => c.CheckoutComponent),
+          },
+          {
+            path: 'success',
+            loadComponent: () =>
+              import('./features/checkout/checkout-success.component').then(
+                (c) => c.CheckoutSuccessComponent,
+              ),
+          },
+        ],
       },
       {
         path: 'orders',
@@ -66,44 +117,10 @@ export const routes: Routes = [
             (c) => c.OrderListComponent,
           ),
       },
-    ],
-  },
-  {
-    path: 'admin',
-    canActivate: [authGuard, adminGuard],
-    loadComponent: () =>
-      import('./layout/admin-layout/admin-layout.component').then((c) => c.AdminLayoutComponent),
-    children: [
       {
-        path: '',
+        path: '**',
         loadComponent: () =>
-          import('./features/admin/dashboard/dashboard.component').then(
-            (c) => c.AdminDashboardComponent,
-          ),
-      },
-      {
-        path: 'products',
-        loadChildren: () => import('./features/admin/products/products.routes'),
-      },
-      {
-        path: 'brands',
-        loadChildren: () => import('./features/admin/brands/brands.routes'),
-      },
-      {
-        path: 'categories',
-        loadChildren: () => import('./features/admin/categories/categories.routes'),
-      },
-      {
-        path: 'orders',
-        loadChildren: () => import('./features/admin/orders/orders.routes'),
-      },
-      {
-        path: 'users',
-        loadChildren: () => import('./features/admin/users/users.routes'),
-      },
-      {
-        path: 'inventory',
-        loadChildren: () => import('./features/admin/inventory/inventory.routes'),
+          import('./features/not-found/not-found.component').then((c) => c.NotFoundComponent),
       },
     ],
   },

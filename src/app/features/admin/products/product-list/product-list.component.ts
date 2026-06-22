@@ -35,7 +35,10 @@ export class ProductListComponent {
         this.totalElements.set(res.totalElements);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false),
+      error: () => {
+        this.loading.set(false);
+        this.toast.show('No se pudieron cargar los productos', 'error');
+      },
     });
   }
 
@@ -60,6 +63,7 @@ export class ProductListComponent {
         this.toast.show('Producto eliminado');
         this.load();
       },
+      error: () => this.toast.show('No se pudo eliminar el producto', 'error'),
     });
   }
 }

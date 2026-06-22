@@ -18,12 +18,10 @@
     <div class="flex flex-col gap-10 lg:flex-row lg:gap-16">
       <div class="w-full lg:w-1/2">
         <div class="aspect-[3/4] bg-jackson-surface overflow-hidden">
-          @if (p.image) {
-            <img [src]="p.image" [alt]="p.name" class="h-full w-full object-cover" />
+          @if ((p.images ?? []).length > 0) {
+            <img [src]="p.images[0].url" [alt]="p.name" class="h-full w-full object-cover" />
           } @else {
-            <div class="flex h-full items-center justify-center text-jackson-text/30 font-medium">
-              Sin imagen
-            </div>
+            <app-no-image-placeholder />
           }
         </div>
       </div>
@@ -50,11 +48,14 @@
         }
         <div class="flex gap-4 pt-4">
           <button
-            class="bg-jackson-navy text-white px-8 py-3 text-sm font-medium transition-colors hover:bg-jackson-navy-hover"
+            (click)="addToCart()"
+            [disabled]="!product() || product()!.stock === 0"
+            class="bg-jackson-navy text-white px-8 py-3 text-sm font-medium transition-colors hover:bg-jackson-navy-hover disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Agregar al carrito
           </button>
           <button
+            (click)="toggleFavorite()"
             class="border border-jackson-navy text-jackson-navy px-8 py-3 text-sm font-medium transition-colors hover:bg-jackson-navy hover:text-white"
           >
             ♥ Favoritos

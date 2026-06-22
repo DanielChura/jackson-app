@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
+import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { OrderService } from '../../../core/services/order.service';
 import { AuthService } from '../../../core/services/auth.service';
 import type { OrderResponse } from '../../../core/models';
@@ -10,7 +11,7 @@ import type { OrderResponse } from '../../../core/models';
 @Component({
   selector: 'app-order-list',
   standalone: true,
-  imports: [DatePipe, RouterLink, SpinnerComponent, PaginatorComponent],
+  imports: [DatePipe, RouterLink, SpinnerComponent, PaginatorComponent, ModalComponent],
   templateUrl: './order-list.component.html',
 })
 export class OrderListComponent {
@@ -23,6 +24,7 @@ export class OrderListComponent {
   readonly page = signal(0);
   readonly totalPages = signal(0);
   readonly totalElements = signal(0);
+  readonly selectedOrder = signal<OrderResponse | null>(null);
 
   constructor() {
     const user = this.auth.currentUser();

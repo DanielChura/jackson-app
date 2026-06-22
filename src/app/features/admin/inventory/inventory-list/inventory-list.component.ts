@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 import { InventoryService } from '../../../../core/services/inventory.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { InventoryResponse, MovementType } from '../../../../core/models';
 
 @Component({
@@ -14,6 +15,7 @@ import { InventoryResponse, MovementType } from '../../../../core/models';
 })
 export class InventoryListComponent {
   private readonly inventoryService = inject(InventoryService);
+  private readonly toast = inject(ToastService);
 
   readonly movements = signal<InventoryResponse[]>([]);
   readonly loading = signal(false);
@@ -50,7 +52,10 @@ export class InventoryListComponent {
         this.totalElements.set(res.totalElements);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false),
+      error: () => {
+        this.loading.set(false);
+        this.toast.show('No se pudieron cargar los movimientos', 'error');
+      },
     });
   }
 

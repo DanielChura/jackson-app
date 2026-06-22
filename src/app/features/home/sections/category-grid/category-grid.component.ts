@@ -25,8 +25,8 @@ export class CategoryGridComponent {
         this.categories.set(res.content);
         this.loading.set(false);
       },
-      error: (err) => {
-        this.error.set(err.message ?? 'Error al cargar categorías');
+      error: () => {
+        this.error.set('Error al cargar categorías');
         this.loading.set(false);
       },
     });

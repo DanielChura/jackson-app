@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { CartService } from '../../../core/services/cart.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { ToastService } from '../../../core/services/toast.service';
 import type { CartResponse } from '../../../core/models';
 
 @Component({
@@ -14,6 +15,7 @@ import type { CartResponse } from '../../../core/models';
 export class CartViewComponent {
   private readonly cartService = inject(CartService);
   private readonly auth = inject(AuthService);
+  private readonly toast = inject(ToastService);
 
   readonly cart = signal<CartResponse | null>(null);
   readonly loading = signal(true);
@@ -26,7 +28,7 @@ export class CartViewComponent {
       this.loading.set(false);
       return;
     }
-    this.cartService.getByUser(user.email).subscribe({
+    this.cartService.getMine().subscribe({
       next: (res) => {
         this.cart.set(res);
         this.loading.set(false);
@@ -47,6 +49,7 @@ export class CartViewComponent {
         current.total = current.items.reduce((sum, i) => sum + i.subtotal, 0);
         this.cart.set({ ...current });
       },
+      error: () => this.toast.show('No se pudo eliminar el producto', 'error'),
     });
   }
 
@@ -54,6 +57,7 @@ export class CartViewComponent {
     if (qty < 1) return;
     this.cartService.updateItemQuantity(itemId, qty).subscribe({
       next: (res) => this.cart.set(res),
+      error: () => this.toast.show('No se pudo actualizar la cantidad', 'error'),
     });
   }
 }

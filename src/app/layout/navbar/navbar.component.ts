@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { CartService } from '../../core/services/cart.service';
 import { IconComponent } from '../../shared/icons/icon.component';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { CategoryNavComponent } from './category-nav/category-nav.component';
@@ -31,11 +32,22 @@ import { CategoryNavComponent } from './category-nav/category-nav.component';
 })
 export class NavbarComponent {
   protected readonly auth = inject(AuthService);
+  private readonly cartService = inject(CartService);
 
   // Señales reactivas de estado de la interfaz
-  protected readonly cartCount = signal(3); // Seteado para validar visualmente la UI del indicador naranja
+  protected readonly cartCount = this.cartService.count;
   protected readonly mobileMenuOpen = signal(false);
   protected readonly megamenuOpen = signal(false);
+
+  constructor() {
+    const user = this.auth.currentUser();
+    if (user?.email) {
+      this.cartService.getMine().subscribe({
+        next: (cart) => this.cartService.count.set(cart.items.length),
+        error: () => this.cartService.count.set(0),
+      });
+    }
+  }
 
   // Enlaces de categorías principales del e-commerce
   readonly categoryLinks = [

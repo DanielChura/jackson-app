@@ -6,6 +6,7 @@ import { PaginatorComponent } from '../../../shared/components/paginator/paginat
 import { ProductService } from '../../../core/services/product.service';
 import { CategoryService } from '../../../core/services/category.service';
 import { BrandService } from '../../../core/services/brand.service';
+import { ToastService } from '../../../core/services/toast.service';
 import type { ProductResponse, CategoryResponse, BrandResponse } from '../../../core/models';
 
 @Component({
@@ -18,6 +19,7 @@ export class ProductListComponent {
   private readonly productService = inject(ProductService);
   private readonly categoryService = inject(CategoryService);
   private readonly brandService = inject(BrandService);
+  private readonly toast = inject(ToastService);
 
   readonly products = signal<ProductResponse[]>([]);
   readonly categories = signal<CategoryResponse[]>([]);
@@ -32,8 +34,12 @@ export class ProductListComponent {
   filterBrand = '';
 
   constructor() {
-    this.categoryService.getAll(0, 50).subscribe((res) => this.categories.set(res.content));
-    this.brandService.getAll(0, 50).subscribe((res) => this.brands.set(res.content));
+    this.categoryService.getAll(0, 50).subscribe({
+      next: (res) => this.categories.set(res.content),
+    });
+    this.brandService.getAll(0, 50).subscribe({
+      next: (res) => this.brands.set(res.content),
+    });
     this.load();
   }
 
@@ -52,7 +58,10 @@ export class ProductListComponent {
           this.totalElements.set(res.totalElements);
           this.loading.set(false);
         },
-        error: () => this.loading.set(false),
+        error: () => {
+          this.loading.set(false);
+          this.toast.show('No se pudieron cargar los productos', 'error');
+        },
       });
   }
 

@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../../../core/services/product.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { ProductImageResponse } from '../../../../core/models';
 
 import { StepIndicatorComponent } from '../../../../shared/components/step-indicator/step-indicator.component';
@@ -15,6 +16,7 @@ export class ImageUploadComponent {
   private readonly productService = inject(ProductService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly toast = inject(ToastService);
 
   readonly productId = this.route.snapshot.paramMap.get('id')!;
   readonly isEdit = !this.route.snapshot.url[0]?.path.includes('new');
@@ -26,6 +28,7 @@ export class ImageUploadComponent {
   constructor() {
     this.productService.getImages(this.productId).subscribe({
       next: (images) => this.existingImages.set(images),
+      error: () => this.toast.show('No se pudieron cargar las imágenes', 'error'),
     });
   }
 
@@ -63,6 +66,7 @@ export class ImageUploadComponent {
       next: () => {
         this.existingImages.set(this.existingImages().filter((img) => img.id !== imageId));
       },
+      error: () => this.toast.show('No se pudo eliminar la imagen', 'error'),
     });
   }
 
@@ -81,7 +85,10 @@ export class ImageUploadComponent {
     this.saving.set(true);
     this.productService.uploadImages(this.productId, files).subscribe({
       next: () => this.router.navigate(this.specsRoute()),
-      error: () => this.saving.set(false),
+      error: () => {
+        this.saving.set(false);
+        this.toast.show('No se pudieron subir las imágenes', 'error');
+      },
     });
   }
 
