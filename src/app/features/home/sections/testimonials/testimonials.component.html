@@ -1,58 +1,56 @@
-<section class="bg-jackson-white py-6 md:py-10">
-  <div class="mx-auto w-full max-w-[1600px] px-6">
-    <div class="mb-10 flex items-center justify-between">
-      <h2 class="max-w-sm text-3xl text-jackson-text font-medium">
-        Esto es lo que opinan nuestros clientes
-      </h2>
-      <div class="flex items-center gap-2">
-        <button
-          (click)="scrollLeft()"
-          class="flex h-11 w-11 items-center justify-center rounded-full text-jackson-text/40 transition-colors hover:text-jackson-text/60"
-        >
-          <app-icon name="chevron-left" size="22" />
-        </button>
-        <button
-          (click)="scrollRight()"
-          class="flex h-11 w-11 items-center justify-center rounded-full text-jackson-text/40 transition-colors hover:text-jackson-text/60"
-        >
-          <app-icon name="chevron-right" size="22" />
-        </button>
-      </div>
+<section class="bg-jackson-white mx-auto w-full max-w-[1600px] px-6 py-10">
+  <div class="mb-10 flex items-center justify-between">
+    <h2 class="max-w-sm text-3xl text-jackson-charcoal font-medium">
+      Esto es lo que opinan nuestros clientes
+    </h2>
+    <div class="flex items-center gap-2">
+      <button
+        (click)="scrollLeft()"
+        class="flex h-11 w-11 items-center justify-center rounded-full text-jackson-charcoal/40 transition-colors hover:text-jackson-charcoal/60"
+      >
+        <app-icon name="chevron-left" size="22" />
+      </button>
+      <button
+        (click)="scrollRight()"
+        class="flex h-11 w-11 items-center justify-center rounded-full text-jackson-charcoal/40 transition-colors hover:text-jackson-charcoal/60"
+      >
+        <app-icon name="chevron-right" size="22" />
+      </button>
     </div>
+  </div>
 
-    <div
-      #scrollContainer
-      class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth md:gap-5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-    >
-      @for (t of testimonials; track $index) {
-        @if (t.type === 'image') {
-          <div
-            class="flex w-[calc(50%-0.75rem)] shrink-0 snap-start aspect-[3/4] md:w-[calc(25%-1.125rem)] overflow-hidden bg-jackson-surface"
-          >
-            <img [src]="t.image" alt="Cliente Jackson Music" class="h-full w-full object-cover" />
+  <div
+    #scrollContainer
+    class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth md:gap-5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+  >
+    @for (t of testimonials; track $index) {
+      @if (t.type === 'image') {
+        <div
+          class="flex w-[calc(50%-0.75rem)] shrink-0 snap-start aspect-[3/4] md:w-[calc(25%-1.125rem)] overflow-hidden bg-jackson-surface"
+        >
+          <img [src]="t.image" alt="Cliente Jackson Music" class="h-full w-full object-cover" />
+        </div>
+      } @else {
+        <div
+          class="relative flex w-[calc(50%-0.75rem)] shrink-0 snap-start flex-col justify-between bg-jackson-surface p-6 aspect-[3/4] md:w-[calc(25%-1.125rem)]"
+        >
+          <p class="text-base leading-relaxed text-jackson-charcoal md:text-lg font-normal">
+            {{ t.text }}
+          </p>
+
+          <div>
+            <p class="text-sm font-medium text-jackson-charcoal">{{ t.author }}</p>
+            <p class="text-xs text-jackson-charcoal/40 font-normal">{{ t.city }}</p>
           </div>
-        } @else {
-          <div
-            class="relative flex w-[calc(50%-0.75rem)] shrink-0 snap-start flex-col justify-between bg-jackson-surface p-6 aspect-[3/4] md:w-[calc(25%-1.125rem)]"
-          >
-            <p class="text-base leading-relaxed text-jackson-text md:text-lg font-normal">
-              {{ t.text }}
-            </p>
 
-            <div>
-              <p class="text-sm font-medium text-jackson-text">{{ t.author }}</p>
-              <p class="text-xs text-jackson-text/40 font-normal">{{ t.city }}</p>
-            </div>
-
-            <app-icon
-              name="quote-open"
-              size="180"
-              fill="currentColor"
-              class="absolute -bottom-1 -right-1 text-jackson-surface-focus"
-            />
-          </div>
-        }
+          <app-icon
+            name="quote-open"
+            size="180"
+            fill="currentColor"
+            class="absolute -bottom-1 -right-1 text-jackson-surface-focus"
+          />
+        </div>
       }
-    </div>
+    }
   </div>
 </section>

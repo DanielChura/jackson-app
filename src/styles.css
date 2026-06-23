@@ -1,15 +1,15 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-jackson-orange: #f97316;
-  --color-jackson-orange-bg: #82320c;
-  --color-jackson-navy: #023047;
-  --color-jackson-navy-hover: #001a28;
-  --color-jackson-cyan: #219ebc;
-  --color-jackson-text: #0f191e;
   --color-jackson-white: #ffffff;
-  --color-jackson-surface: #f1f4f7;
-  --color-jackson-surface-focus: #e5e9ee;
+  --color-jackson-orange: #ff4300;
+  --color-jackson-orange-hover: #e03b00;
+  --color-jackson-orange-disabled: #ff9873;
+  --color-jackson-navy: #023047;
+  --color-jackson-navy-hover: #01202f;
+  --color-jackson-charcoal: #243037;
+  --color-jackson-text-secondary: #5c6670;
+  --color-jackson-surface: #f4f5f5;
   --font-manrope: Manrope, sans-serif;
 }
 
@@ -29,7 +29,7 @@
   body {
     font-family: var(--font-manrope);
     font-weight: 400;
-    color: var(--color-jackson-text);
+    color: var(--color-jackson-charcoal);
     background-color: var(--color-jackson-white);
     margin: 0;
     line-height: 1.5;
@@ -62,8 +62,7 @@
   }
 
   ::placeholder {
-    color: var(--color-jackson-text);
-    opacity: 0.35;
+    color: var(--color-jackson-text-secondary);
   }
 }
 

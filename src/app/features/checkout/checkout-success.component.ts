@@ -11,7 +11,7 @@ import type { PaymentResponse } from '../../core/models';
   imports: [RouterLink, SpinnerComponent, DatePipe],
   template: `
     <div class="mx-auto w-full max-w-[1600px] px-6 py-8">
-      <h1 class="text-3xl text-jackson-text font-medium">Pago exitoso</h1>
+      <h1 class="text-3xl text-jackson-charcoal font-medium">Pago exitoso</h1>
 
       @if (loading()) {
         <div class="flex justify-center py-20">
@@ -19,7 +19,7 @@ import type { PaymentResponse } from '../../core/models';
         </div>
       } @else if (error(); as err) {
         <div class="py-20 text-center space-y-4">
-          <p class="text-jackson-text/40 font-normal">{{ err }}</p>
+          <p class="text-jackson-charcoal/40 font-normal">{{ err }}</p>
           <a
             routerLink="/orders"
             class="inline-block text-jackson-navy hover:text-jackson-navy-hover underline font-medium"
@@ -29,23 +29,23 @@ import type { PaymentResponse } from '../../core/models';
         </div>
       } @else if (payment(); as p) {
         <div class="py-20 text-center space-y-4">
-          <p class="text-xl text-jackson-text font-medium">¡Pago confirmado!</p>
+          <p class="text-xl text-jackson-charcoal font-medium">¡Pago confirmado!</p>
           <div class="mx-auto max-w-md space-y-2 rounded-lg bg-jackson-surface p-6 text-left">
-            <p class="text-jackson-text font-medium">
-              <span class="text-jackson-text/50">Monto:</span> S/ {{ p.amount }}
+            <p class="text-jackson-charcoal font-medium">
+              <span class="text-jackson-charcoal/50">Monto:</span> S/ {{ p.amount }}
             </p>
-            <p class="text-jackson-text font-medium">
-              <span class="text-jackson-text/50">Método:</span> {{ p.paymentMethod }}
+            <p class="text-jackson-charcoal font-medium">
+              <span class="text-jackson-charcoal/50">Método:</span> {{ p.paymentMethod }}
             </p>
-            <p class="text-jackson-text font-medium">
-              <span class="text-jackson-text/50">Estado:</span>
+            <p class="text-jackson-charcoal font-medium">
+              <span class="text-jackson-charcoal/50">Estado:</span>
               <span class="text-green-600">Exitoso</span>
             </p>
-            <p class="text-jackson-text font-medium">
-              <span class="text-jackson-text/50">Transacción:</span> {{ p.transactionId }}
+            <p class="text-jackson-charcoal font-medium">
+              <span class="text-jackson-charcoal/50">Transacción:</span> {{ p.transactionId }}
             </p>
-            <p class="text-jackson-text font-medium">
-              <span class="text-jackson-text/50">Fecha:</span>
+            <p class="text-jackson-charcoal font-medium">
+              <span class="text-jackson-charcoal/50">Fecha:</span>
               {{ p.paidAt | date: 'dd/MM/yyyy HH:mm' }}
             </p>
           </div>

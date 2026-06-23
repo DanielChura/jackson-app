@@ -1,5 +1,5 @@
 <div class="mx-auto w-full max-w-[1600px] px-6 py-8">
-  <h1 class="text-3xl text-jackson-text font-medium">Mis favoritos</h1>
+  <h1 class="text-3xl text-jackson-charcoal font-medium">Mis favoritos</h1>
 
   @if (loading()) {
     <div class="flex justify-center py-20">
@@ -7,7 +7,7 @@
     </div>
   } @else if (error(); as err) {
     <div class="py-20 text-center">
-      <p class="text-jackson-text/40 font-normal">{{ err }}</p>
+      <p class="text-jackson-charcoal/40 font-normal">{{ err }}</p>
       @if (err.includes('sesión')) {
         <a
           routerLink="/auth/login"
@@ -19,7 +19,7 @@
     </div>
   } @else if (products().length === 0) {
     <div class="py-20 text-center">
-      <p class="text-jackson-text/40 font-normal">No tenés productos favoritos</p>
+      <p class="text-jackson-charcoal/40 font-normal">No tenés productos favoritos</p>
       <a
         routerLink="/products"
         class="mt-4 inline-block text-jackson-navy hover:text-jackson-navy-hover underline font-medium"

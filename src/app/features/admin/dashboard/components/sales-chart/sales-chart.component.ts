@@ -1,5 +1,12 @@
 import {
-  Component, inject, computed, effect, ViewChild, ElementRef, OnDestroy, PLATFORM_ID,
+  Component,
+  inject,
+  computed,
+  effect,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+  PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
@@ -15,7 +22,7 @@ import { renderSalesChart } from './sales-chart.config';
 @Component({
   selector: 'app-sales-chart',
   standalone: true,
-  host: { class: 'block h-full' },
+  host: { class: 'block' },
   imports: [SpinnerComponent],
   templateUrl: './sales-chart.component.html',
 })
@@ -28,23 +35,20 @@ export class SalesChartComponent implements OnDestroy {
     return isPlatformBrowser(this.platformId);
   }
 
-  private state$ = (this.isBrowser
+  private state$ = this.isBrowser
     ? toObservable(this.rangeService.range).pipe(
         switchMap(() =>
           this.service.getSalesByPeriod('day', this.rangeService.range()).pipe(
             map((data): LoadState<SalesByPeriodEntry[]> => ({ loading: false, data, error: null })),
-            catchError(
-              (err): Observable<LoadState<SalesByPeriodEntry[]>> => {
-                console.error('Error al cargar ventas:', err);
-                return of({ loading: false, data: null, error: 'Error al cargar ventas' });
-              },
-            ),
+            catchError((err): Observable<LoadState<SalesByPeriodEntry[]>> => {
+              console.error('Error al cargar ventas:', err);
+              return of({ loading: false, data: null, error: 'Error al cargar ventas' });
+            }),
             startWith<LoadState<SalesByPeriodEntry[]>>({ loading: true, data: null, error: null }),
           ),
         ),
       )
-    : of<LoadState<SalesByPeriodEntry[]>>({ loading: true, data: null, error: null })
-  );
+    : of<LoadState<SalesByPeriodEntry[]>>({ loading: true, data: null, error: null });
   private readonly state = toSignal(this.state$, {
     initialValue: { loading: true, data: null, error: null } as LoadState<SalesByPeriodEntry[]>,
   });
@@ -53,16 +57,20 @@ export class SalesChartComponent implements OnDestroy {
   readonly loading = computed(() => this.state().loading);
   readonly error = computed(() => this.state().error);
 
-  @ViewChild('salesCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('salesCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
 
   private chart: Chart | null = null;
 
   constructor() {
     effect(() => {
       const d = this.data();
-      if (this.isBrowser && d && d.length > 0 && this.canvasRef?.nativeElement) {
-        this.chart?.destroy();
-        this.chart = renderSalesChart(this.canvasRef.nativeElement, d);
+      if (this.isBrowser && d && d.length > 0) {
+        setTimeout(() => {
+          if (this.canvasRef?.nativeElement) {
+            this.chart?.destroy();
+            this.chart = renderSalesChart(this.canvasRef.nativeElement, d);
+          }
+        });
       }
     });
   }

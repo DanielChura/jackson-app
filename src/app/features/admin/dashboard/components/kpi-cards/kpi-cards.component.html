@@ -3,47 +3,63 @@
     <app-spinner size="28" text="Cargando resumen…" />
   </div>
 } @else if (error()) {
-  <div class="col-span-full rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-600" style="font-weight:400">
+  <div
+    class="col-span-full rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-600"
+    style="font-weight: 400"
+  >
     {{ error() }}
   </div>
 } @else if (data(); as d) {
   <div class="rounded-2xl border border-gray-200 bg-white p-6">
     <div class="flex items-center justify-between">
-      <p class="text-sm text-gray-500" style="font-weight:400">Total Ventas</p>
+      <p class="text-sm text-gray-500" style="font-weight: 400">Ventas totales</p>
       <app-icon name="trending-up" size="20" class="text-gray-400" />
     </div>
-    <p class="mt-2 text-2xl text-gray-900" style="font-weight:500">{{ formatCurrency(d.totalSales) }}</p>
+    <p class="mt-2 text-2xl text-gray-900" style="font-weight: 500">
+      {{ formatCurrency(d.totalSales) }}
+    </p>
   </div>
   <div class="rounded-2xl border border-gray-200 bg-white p-6">
     <div class="flex items-center justify-between">
-      <p class="text-sm text-gray-500" style="font-weight:400">Órdenes Totales</p>
+      <p class="text-sm text-gray-500" style="font-weight: 400">Órdenes</p>
       <app-icon name="shopping-cart" size="20" class="text-gray-400" />
     </div>
-    <p class="mt-2 text-2xl text-gray-900" style="font-weight:500">{{ d.totalOrders | number }}</p>
+    <p class="mt-2 text-2xl text-gray-900" style="font-weight: 500">{{ d.totalOrders | number }}</p>
   </div>
   <div class="rounded-2xl border border-gray-200 bg-white p-6">
     <div class="flex items-center justify-between">
-      <p class="text-sm text-gray-500" style="font-weight:400">Ticket Promedio</p>
+      <p class="text-sm text-gray-500" style="font-weight: 400">Ticket promedio</p>
       <app-icon name="dollar-sign" size="20" class="text-gray-400" />
     </div>
-    <p class="mt-2 text-2xl text-gray-900" style="font-weight:500">{{ formatCurrency(d.averageTicket) }}</p>
+    <p class="mt-2 text-2xl text-gray-900" style="font-weight: 500">
+      {{ formatCurrency(d.averageTicket) }}
+    </p>
   </div>
   <div class="rounded-2xl border border-gray-200 bg-white p-6">
     <div class="flex items-center justify-between">
-      <p class="text-sm text-gray-500" style="font-weight:400">Clientes Registrados</p>
+      <p class="text-sm text-gray-500" style="font-weight: 400">Clientes</p>
       <app-icon name="users" size="20" class="text-gray-400" />
     </div>
-    <p class="mt-2 text-2xl text-gray-900" style="font-weight:500">{{ d.totalCustomers | number }}</p>
+    <p class="mt-2 text-2xl text-gray-900" style="font-weight: 500">
+      {{ d.totalCustomers | number }}
+    </p>
   </div>
-  <div class="rounded-2xl border border-gray-200 bg-white p-6">
+  <div
+    class="rounded-2xl border border-gray-200 bg-white p-6 cursor-pointer transition-shadow hover:shadow-md"
+  >
     <div class="flex items-center justify-between">
-      <p class="text-sm text-gray-500" style="font-weight:400">Stock Bajo</p>
+      <p class="text-sm text-gray-500" style="font-weight: 400">Stock bajo</p>
       <app-icon name="alert-triangle" size="20" class="text-amber-500" />
     </div>
-    <p class="mt-2 text-2xl text-gray-900" style="font-weight:500">{{ d.lowStockProducts | number }}</p>
+    <p class="mt-2 text-2xl text-gray-900" style="font-weight: 500">
+      {{ d.lowStockProducts.length }}
+    </p>
   </div>
 } @else {
-  <div class="col-span-full rounded-2xl border border-gray-200 bg-white p-6 text-center text-sm text-gray-400" style="font-weight:400">
+  <div
+    class="col-span-full rounded-2xl border border-gray-200 bg-white p-6 text-center text-sm text-gray-400"
+    style="font-weight: 400"
+  >
     Sin datos disponibles
   </div>
 }

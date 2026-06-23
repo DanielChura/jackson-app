@@ -22,7 +22,7 @@ import { renderOrdersByStatusChart, colorFor, labelFor } from './orders-by-statu
 @Component({
   selector: 'app-orders-by-status',
   standalone: true,
-  host: { class: 'block h-full' },
+  host: { class: 'block' },
   imports: [SpinnerComponent],
   templateUrl: './orders-by-status.component.html',
 })
@@ -62,16 +62,20 @@ export class OrdersByStatusComponent implements OnDestroy {
   readonly loading = computed(() => this.state().loading);
   readonly error = computed(() => this.state().error);
 
-  @ViewChild('statusCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('statusCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
 
   private chart: Chart | null = null;
 
   constructor() {
     effect(() => {
       const d = this.data();
-      if (this.isBrowser && d && d.length > 0 && this.canvasRef?.nativeElement) {
-        this.chart?.destroy();
-        this.chart = renderOrdersByStatusChart(this.canvasRef.nativeElement, d);
+      if (this.isBrowser && d && d.length > 0) {
+        setTimeout(() => {
+          if (this.canvasRef?.nativeElement) {
+            this.chart?.destroy();
+            this.chart = renderOrdersByStatusChart(this.canvasRef.nativeElement, d);
+          }
+        });
       }
     });
   }

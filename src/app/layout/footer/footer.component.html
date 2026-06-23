@@ -23,11 +23,11 @@
               autocomplete="email"
               required
               placeholder="Tu correo electrónico"
-              class="w-full rounded-none border-0 bg-white px-4 py-2.5 text-sm text-jackson-text placeholder-jackson-text/40 focus:outline-none focus:ring-2 focus:ring-jackson-orange transition-colors"
+              class="w-full rounded-none border-0 bg-white px-4 py-2.5 text-sm text-jackson-charcoal placeholder-jackson-text/40 focus:outline-none focus:ring-2 focus:ring-jackson-orange transition-colors"
             />
             <button
               type="submit"
-              class="flex items-center justify-center rounded-none bg-jackson-orange px-6 py-2.5 text-sm font-medium text-jackson-text transition-colors hover:bg-jackson-orange-bg shrink-0 focus-visible:outline-white"
+              class="flex items-center justify-center rounded-none bg-jackson-orange px-6 py-2.5 text-sm font-medium text-jackson-charcoal transition-colors hover:bg-jackson-orange shrink-0 focus-visible:outline-white"
             >
               Suscribirse
             </button>
@@ -49,7 +49,7 @@
                 <a
                   [routerLink]="cat.route"
                   [queryParams]="cat.queryParams"
-                  class="inline-block text-sm text-jackson-text/60 transition-colors hover:text-jackson-navy"
+                  class="inline-block text-sm text-jackson-charcoal/60 transition-colors hover:text-jackson-navy"
                 >
                   {{ cat.label }}
                 </a>
@@ -67,7 +67,7 @@
                 <a
                   [routerLink]="brand.route"
                   [queryParams]="brand.queryParams"
-                  class="inline-block text-sm text-jackson-text/60 transition-colors hover:text-jackson-navy"
+                  class="inline-block text-sm text-jackson-charcoal/60 transition-colors hover:text-jackson-navy"
                 >
                   {{ brand.label }}
                 </a>
@@ -82,7 +82,7 @@
               <li>
                 <a
                   [routerLink]="item.route"
-                  class="inline-block text-sm text-jackson-text/60 transition-colors hover:text-jackson-navy"
+                  class="inline-block text-sm text-jackson-charcoal/60 transition-colors hover:text-jackson-navy"
                 >
                   {{ item.label }}
                 </a>
@@ -92,20 +92,20 @@
         </div>
         <div class="space-y-5">
           <h4 class="text-sm font-medium tracking-wider text-jackson-navy uppercase">Contacto</h4>
-          <address class="not-italic space-y-3 text-sm text-jackson-text/60">
+          <address class="not-italic space-y-3 text-sm text-jackson-charcoal/60">
             <p class="leading-relaxed">
               Av. Angamos Oeste 1234,<br />
               Miraflores, Lima - Perú
             </p>
             <div class="space-y-2">
-              <p class="text-sm text-jackson-text/40">RUC: 20601234567</p>
+              <p class="text-sm text-jackson-charcoal/40">RUC: 20601234567</p>
               <a
                 href="https://wa.me/51999999999"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-1.5 text-sm text-jackson-text/60 transition-colors hover:text-jackson-navy"
+                class="inline-flex items-center gap-1.5 text-sm text-jackson-charcoal/60 transition-colors hover:text-jackson-navy"
               >
-                <span class="font-medium text-jackson-text">WhatsApp:</span>
+                <span class="font-medium text-jackson-charcoal">WhatsApp:</span>
                 <span>+51 999 999 999</span>
               </a>
             </div>
@@ -120,14 +120,14 @@
     <div class="mx-auto w-full max-w-[1600px] px-6 py-6">
       <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
-          <span class="text-sm text-jackson-text/40">
+          <span class="text-sm text-jackson-charcoal/40">
             &copy; {{ currentYear }} Jackson Music Store S.A.C.
           </span>
           <div class="flex flex-wrap gap-x-6 gap-y-2">
             @for (leg of legal; track leg.label) {
               <a
                 [routerLink]="leg.route"
-                class="text-sm text-jackson-text/60 transition-colors hover:text-jackson-navy"
+                class="text-sm text-jackson-charcoal/60 transition-colors hover:text-jackson-navy"
               >
                 {{ leg.label }}
               </a>
@@ -141,7 +141,7 @@
               target="_blank"
               rel="noopener noreferrer"
               [attr.aria-label]="s.name"
-              class="flex h-10 w-10 items-center justify-center text-jackson-navy transition-colors hover:text-jackson-text"
+              class="flex h-10 w-10 items-center justify-center text-jackson-navy transition-colors hover:text-jackson-charcoal"
             >
               <app-icon [name]="s.icon" size="20" stroke-width="2" />
             </a>

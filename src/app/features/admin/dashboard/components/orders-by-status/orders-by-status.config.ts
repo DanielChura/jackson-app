@@ -4,10 +4,10 @@ import { DASHBOARD_ORDER_STATUS_MAP, type OrdersByStatusEntry } from '../../../.
 Chart.register(...registerables);
 
 const CHART_COLORS: Record<string, string> = {
-  PENDING: '#F59E0B',
-  PAID: '#3B82F6',
-  SHIPPED: '#8B5CF6',
-  DELIVERED: '#10B981',
+  PENDING: '#f59e0b',
+  PAID: '#22c55e',
+  SHIPPED: '#3b82f6',
+  DELIVERED: '#8b5cf6',
   CANCELLED: '#EF4444',
 };
 

@@ -1,10 +1,12 @@
 ---
+
 name: jackson-identity
 description: >
-  Identidad de marca y sistema visual de Jackson Music Store.
-  Usa este skill para definir colores, tipografía, estética, reglas de UI (Tailwind) 
-  y principios de diseño para el ecommerce Jackson. Es la referencia obligatoria 
-  para el @ux-designer y cualquier tarea que afecte la interfaz visual.
+Identidad de marca y sistema visual de Jackson Music Store.
+Usa este skill para definir colores, tipografía, estética, reglas de UI (Tailwind)
+y principios de diseño para el ecommerce Jackson. Es la referencia obligatoria
+para el @ux-designer y cualquier tarea que afecte la interfaz visual.
+
 ---
 
 # Jackson Music Store — Brand Identity & Design System

@@ -4,6 +4,7 @@ import { IconComponent } from '../../../../shared/icons/icon.component';
 interface TrustItem {
   icon: string;
   label: string;
+  desc: string;
 }
 
 @Component({
@@ -14,8 +15,25 @@ interface TrustItem {
 })
 export class TrustBarComponent {
   protected readonly trustItems: TrustItem[] = [
-    { icon: 'shield-check', label: 'Pago seguro' },
-    { icon: 'refresh-cw', label: 'Devolución fácil' },
-    { icon: 'headphones', label: 'Soporte 24/7' },
+    {
+      icon: 'shield-check',
+      label: 'Compra blindada',
+      desc: 'Cifrado SSL de 256 bits. Tus datos nunca se almacenan.',
+    },
+    {
+      icon: 'refresh-cw',
+      label: '30 días de prueba real',
+      desc: 'Si no te convence el equipo, lo recogemos sin costo.',
+    },
+    {
+      icon: 'headphones',
+      label: 'Músicos respondiendo',
+      desc: 'Soporte real por WhatsApp, chat o en tienda física.',
+    },
+    {
+      icon: 'truck',
+      label: 'Entrega con mimo',
+      desc: 'Delivery especializado. Tu instrumento viaja asegurado.',
+    },
   ];
 }

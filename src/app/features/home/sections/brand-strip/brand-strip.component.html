@@ -1,25 +1,25 @@
-<section id="brand-strip" class="mx-auto w-full max-w-[1600px] px-6 py-6 md:py-10">
+<section id="brand-strip" class="mx-auto w-full max-w-[1600px] px-6 py-10">
   @if (loading()) {
     <div class="flex items-center justify-center py-20">
-      <span class="text-jackson-text/40 font-medium">Cargando marcas...</span>
+      <span class="text-jackson-charcoal/40 font-medium">Cargando marcas...</span>
     </div>
   } @else if (error(); as err) {
     <div class="flex items-center justify-center py-20">
-      <span class="text-jackson-text/40 font-medium">{{ err }}</span>
+      <span class="text-jackson-charcoal/40 font-medium">{{ err }}</span>
     </div>
   } @else {
     <div class="mb-8 flex items-center justify-between">
-      <h2 class="text-2xl text-jackson-text md:text-3xl font-medium">Marcas</h2>
+      <h2 class="text-2xl text-jackson-charcoal md:text-3xl font-medium">Marcas</h2>
       <div class="flex items-center gap-2">
         <button
           (click)="scrollLeft()"
-          class="flex h-10 w-10 items-center justify-center rounded-full text-jackson-text/50 transition-colors hover:bg-jackson-surface"
+          class="flex h-10 w-10 items-center justify-center rounded-full text-jackson-charcoal/50 transition-colors hover:bg-jackson-surface"
         >
           <app-icon name="chevron-left" size="20" />
         </button>
         <button
           (click)="scrollRight()"
-          class="flex h-10 w-10 items-center justify-center rounded-full text-jackson-text/50 transition-colors hover:bg-jackson-surface"
+          class="flex h-10 w-10 items-center justify-center rounded-full text-jackson-charcoal/50 transition-colors hover:bg-jackson-surface"
         >
           <app-icon name="chevron-right" size="20" />
         </button>
@@ -45,7 +45,7 @@
             />
           } @else {
             <div class="flex h-full w-full items-center justify-center bg-jackson-surface">
-              <span class="text-sm text-jackson-text/30 font-medium text-center px-4 leading-tight">
+              <span class="text-sm text-jackson-charcoal/30 font-medium text-center px-4 leading-tight">
                 {{ brand.name }}
               </span>
             </div>

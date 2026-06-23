@@ -15,7 +15,7 @@ import { Component, input, output } from '@angular/core';
         >
           <button
             (click)="close.emit()"
-            class="absolute right-4 top-4 text-jackson-text/40 hover:text-jackson-text transition-colors text-lg leading-none"
+            class="absolute right-4 top-4 text-jackson-charcoal/40 hover:text-jackson-charcoal transition-colors text-lg leading-none"
             aria-label="Cerrar"
           >
             &times;

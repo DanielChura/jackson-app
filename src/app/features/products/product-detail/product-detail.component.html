@@ -12,7 +12,7 @@
     </div>
   } @else if (error(); as err) {
     <div class="py-20 text-center">
-      <p class="text-jackson-text/40 font-normal">{{ err }}</p>
+      <p class="text-jackson-charcoal/40 font-normal">{{ err }}</p>
     </div>
   } @else if (product(); as p) {
     <div class="flex flex-col gap-10 lg:flex-row lg:gap-16">
@@ -27,24 +27,24 @@
       </div>
       <div class="w-full lg:w-1/2 flex flex-col gap-6">
         @if (p.category) {
-          <span class="text-sm text-jackson-cyan font-medium">{{ p.category.name }}</span>
+          <span class="text-sm text-jackson-orange font-medium">{{ p.category.name }}</span>
         }
-        <h1 class="text-3xl text-jackson-text font-medium">{{ p.name }}</h1>
-        <p class="text-2xl text-jackson-text font-medium">S/ {{ p.price }}</p>
-        <p class="text-base text-jackson-text/70 font-normal leading-relaxed">
+        <h1 class="text-3xl text-jackson-charcoal font-medium">{{ p.name }}</h1>
+        <p class="text-2xl text-jackson-charcoal font-medium">S/ {{ p.price }}</p>
+        <p class="text-base text-jackson-charcoal/70 font-normal leading-relaxed">
           {{ p.description }}
         </p>
         <div class="flex items-center gap-3">
           @if (p.stock > 0) {
-            <span class="text-sm text-jackson-cyan font-medium"
+            <span class="text-sm text-jackson-orange font-medium"
               >Stock: {{ p.stock }} unidad(es)</span
             >
           } @else {
-            <span class="text-sm text-jackson-text/40 font-normal">Agotado</span>
+            <span class="text-sm text-jackson-charcoal/40 font-normal">Agotado</span>
           }
         </div>
         @if (p.brand) {
-          <p class="text-sm text-jackson-text/50 font-normal">Marca: {{ p.brand.name }}</p>
+          <p class="text-sm text-jackson-charcoal/50 font-normal">Marca: {{ p.brand.name }}</p>
         }
         <div class="flex gap-4 pt-4">
           <button
