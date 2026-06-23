@@ -1,5 +1,5 @@
-<a [routerLink]="['/products', product().id]" class="flex flex-col rounded-none bg-jackson-white">
-  <div class="relative aspect-[3/4] overflow-hidden rounded-none bg-jackson-surface">
+<a [routerLink]="['/products', product().id]" class="flex flex-col rounded-md bg-jackson-white">
+  <div class="relative aspect-[3/4] overflow-hidden rounded-md bg-jackson-surface">
     @if ((product().images ?? []).length > 0) {
       <img
         [src]="product().images[0].url"
@@ -25,7 +25,7 @@
       <p class="text-lg text-jackson-charcoal font-medium">S/ {{ product().price }}</p>
       @if (product().stock > 0) {
         <span
-          class="rounded-none bg-jackson-surface px-2 py-0.5 text-xs text-jackson-orange font-medium"
+          class="rounded-md bg-jackson-surface px-2 py-0.5 text-xs text-jackson-orange font-medium"
         >
           Stock
         </span>

@@ -6,6 +6,8 @@ import { BestsellersComponent } from './sections/bestsellers/bestsellers.compone
 import { BrandStripComponent } from './sections/brand-strip/brand-strip.component';
 import { TestimonialsComponent } from './sections/testimonials/testimonials.component';
 import { TrustBarComponent } from './sections/trust-bar/trust-bar.component';
+import { AudienceSectionComponent } from './sections/audience-section/audience-section.component';
+import { CalloutSignupComponent } from '../../layout/callout-signup/callout-signup.component';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +20,8 @@ import { TrustBarComponent } from './sections/trust-bar/trust-bar.component';
     BrandStripComponent,
     TestimonialsComponent,
     TrustBarComponent,
+    AudienceSectionComponent,
+    CalloutSignupComponent,
   ],
   templateUrl: './home.component.html',
 })

@@ -1,0 +1,28 @@
+<section class="px-6 py-10">
+  @if (loading()) {
+    <div class="flex items-center justify-center py-20">
+      <span class="text-jackson-charcoal/40 font-medium">Cargando productos...</span>
+    </div>
+  } @else if (error(); as err) {
+    <div class="flex items-center justify-center py-20">
+      <span class="text-jackson-charcoal/40 font-medium">{{ err }}</span>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-5 lg:gap-8">
+      <div
+        class="bg-jackson-orange rounded-md aspect-[3/4] lg:aspect-auto lg:h-full lg:col-span-2"
+      ></div>
+      <div class="lg:col-span-3">
+        <div
+          class="flex gap-4 overflow-x-auto pb-2 snap-x snap-proximity scroll-smooth md:gap-5 [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-jackson-charcoal/20 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-jackson-charcoal/30"
+        >
+          @for (product of products(); track product.id) {
+            <div class="w-[298px] shrink-0 snap-start">
+              <app-product-card [product]="product" />
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</section>

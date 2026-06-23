@@ -3,101 +3,121 @@
 name: jackson-identity
 description: >
 Identidad de marca y sistema visual de Jackson Music Store.
-Usa este skill para definir colores, tipografía, estética, reglas de UI (Tailwind)
-y principios de diseño para el ecommerce Jackson. Es la referencia obligatoria
-para el @ux-designer y cualquier tarea que afecte la interfaz visual.
+Usa este skill para conocer colores, tipografía, border-radius tokens,
+reglas de UI (Tailwind) y principios de diseño del ecommerce Jackson.
+Es la referencia obligatoria para el @ux-designer y cualquier tarea
+que afecte la interfaz visual. Los colores y fuentes se definen
+ÚNICAMENTE en src/styles.css — este skill documenta su uso pero
+NO redefine valores.
 
 ---
 
 # Jackson Music Store — Brand Identity & Design System
 
+> **Fuente única de verdad para colores y tipografía:**
+> `src/styles.css` (bloque `@theme`). Cualquier cambio de color o
+> tipografía se hace exclusivamente ahí. Este skill describe CÓMO
+> usarlos, no los valores exactos.
+
 ## 1. El Alma de la Marca
 
-**Jackson Music Store** es un ecommerce de instrumentos musicales de alta gama en Perú. Su identidad busca transmitir **energía, genialidad, funcionalidad técnica y una limpieza extrema**, garantizando una experiencia de usuario de alto rendimiento.
+**Jackson Music Store** es un ecommerce de instrumentos musicales
+de alta gama en Perú, Lima. Su identidad busca transmitir **energía,
+precisión técnica y limpieza visual**, garantizando una experiencia
+de usuario de alto rendimiento.
 
 **Filosofía visual:**
 
-- **Funcionalidad Sharp**: Diseño técnico tipo "herramienta" (referencias: MercadoLibre, Interbank).
-- **Clean & Spacious**: Diseño que "respira", estructurado por espaciado, no por ornamentos.
-- **Sin ornamentos**: Cero bordes redondeados (`rounded-none`), cero sombras, cero líneas decorativas innecesarias.
-- **Energía + Precisión**: El naranja de identidad aporta la energía musical; el navy aporta la estructura y confianza.
+- **Funcionalidad Sharp**: Diseño técnico tipo "herramienta".
+- **Clean & Spacious**: Diseño que "respira", estructura basada en
+  espaciado, no en ornamentos.
+- **Energía + Confianza**: El naranja (#ff4300) aporta energía
+  musical; el navy (#023047) aporta estructura y confianza.
+- **Sin sombras ni divisores**: La separación se logra con padding
+  y bloques de color sólido.
 
 ## 2. Paleta de Colores
 
-El **Naranja** es color de **identidad de marca exclusivamente** (logo, franjas, fondos decorativos).
-El **Navy** es el color de **estructura y acción** (CTAs, navbar, headers).
+Los valores exactos están en `src/styles.css` → bloque `@theme`.
+Aquí se documentan los roles de uso:
 
-| Rol                     | HEX       | Uso                                                            | WCAG sobre blanco             |
-| ----------------------- | --------- | -------------------------------------------------------------- | ----------------------------- |
-| **Identidad (Naranja)** | `#f97316` | Logo, franjas decorativas, fondos con **texto oscuro** encima. | ⚠️ 2.8:1 (decorativo)         |
-| **Fondo naranja**       | `#82320c` | Fondo de secciones de marca con **texto blanco** encima.       | ✅ 8.72:1 AAA                 |
-| **Estructura y Acción** | `#023047` | CTA primario, navbar, footer, headers.                         | ✅ 13.86:1 AAA                |
-| **Navy hover**          | `#001a28` | Hover de botones navy y elementos interactivos.                | ✅ ~16:1                      |
-| **Info secundaria**     | `#219ebc` | Badges, iconos no interactivos, acentos visuales.              | ⚠️ 3.14:1 (solo texto grande) |
-| **Texto**               | `#0f191e` | Títulos, cuerpo, descripciones, precios.                       | ✅ 17.83:1 AAA                |
-| **Fondo**               | `#ffffff` | Fondo general y de componentes.                                | —                             |
-| **Superficie**          | `#f1f4f7` | Fondo alterno (inputs, secciones secundarias).                 | —                             |
-| **Superficie focus**    | `#e5e9ee` | Estado focus de inputs.                                        | —                             |
+| Variable CSS                     | Rol                                               |
+| -------------------------------- | ------------------------------------------------- |
+| `--color-jackson-white`          | Fondo general y de componentes                    |
+| `--color-jackson-orange`         | Identidad: fondos decorativos, secciones de marca |
+| `--color-jackson-navy`           | Estructura y acción: CTAs, navbar, footer         |
+| `--color-jackson-charcoal`       | Texto principal: títulos, cuerpo, descripciones   |
+| `--color-jackson-text-secondary` | Texto secundario, placeholders                    |
+| `--color-jackson-surface`        | Fondo alterno: inputs, secciones secundarias      |
 
 ### Roles Taxativos
 
-| Color     | ✅ USAR EN                                                     | ❌ NO USAR EN                                |
-| --------- | -------------------------------------------------------------- | -------------------------------------------- |
-| `#f97316` | Logo, franjas decorativas, fondos con texto oscuro             | CTAs, texto, links, badges interactivos      |
-| `#82320c` | Fondos de sección con texto blanco                             | Elementos pequeños, texto                    |
-| `#023047` | CTAs (relleno/outline), navbar, footer, headers, focus-visible | Texto de párrafo, fondos de página completos |
-| `#219ebc` | Badges informativos, iconos no interactivos, acentos           | Botones, links, texto corrido                |
-| `#0f191e` | Títulos, cuerpo, descripciones, precios                        | CTAs, fondos                                 |
-
-### Eliminados de la paleta
-
-- `#8ecae6` — 1.79:1, sin función real
-- `#ffb703` — 1.75:1, ambiguo con el naranja de acción
+| Variable                 | ✅ USAR EN                                     | ❌ NO USAR EN                      |
+| ------------------------ | ---------------------------------------------- | ---------------------------------- |
+| `jackson-orange`         | Fondos decorativos, secciones con texto blanco | CTAs, texto, links                 |
+| `jackson-orange-hover`   | Hover de fondos naranja                        | Texto, CTAs                        |
+| `jackson-navy`           | CTAs (relleno), navbar, footer, headers        | Texto de párrafo, fondos de página |
+| `jackson-navy-hover`     | Hover de CTAs navy                             | Texto                              |
+| `jackson-charcoal`       | Títulos, cuerpo, descripciones, precios        | CTAs, fondos                       |
+| `jackson-text-secondary` | Texto secundario, placeholders, metadatos      | Títulos, CTAs                      |
+| `jackson-surface`        | Fondos alternos, inputs, cards secundarias     | Fondos de página principal         |
 
 ## 3. Tipografía
 
-- **Fuente**: **Manrope** (Google Fonts).
-- **Pesos (Weights)**:
-  - Máximo 500 (`medium`).
-  - Títulos: `font-medium` (500).
-  - Cuerpo: `font-normal` (400).
-  - **Prohibido**: No usar `bold` (700+).
+- **Fuente**: Manrope (Google Fonts) — definida en `styles.css`
+- **Pesos**:
+  - Títulos: `font-medium` (500)
+  - Cuerpo: `font-normal` (400)
+  - **Prohibido**: `font-bold` (700+) y `font-semibold` (600)
 
-## 4. Reglas de UI Estrictas (Sharp & Functional)
+## 4. Border Radius Tokens
 
-- **Formas**: **Prohibido `border-radius`**. Todos los elementos (botones, tarjetas, inputs) deben tener bordes rectos (`rounded-none`).
-- **Sombras**: **Prohibidas**. No usar sombras en ningún caso.
-- **Divisores**: **Prohibidos**. La separación entre elementos se logra **exclusivamente mediante espaciado (padding/margin)** o bloques de color sólido.
-- **Iconos**: Estilo técnico, sin fondos circulares ni ornamentos.
-- **Espaciado**: Generoso y consistente. El espacio vacío es el elemento de organización principal.
-- **Accesibilidad**: Alto contraste garantizado entre texto (`#0f191e`) y fondos (`#ffffff`).
+Definidos exclusivamente en este skill (no en `styles.css`).
+Se usan como clases Tailwind directas.
 
-## 5. Implementación (Tailwind v4)
+| Token         | Clase Tailwind | Uso                                               |
+| ------------- | -------------- | ------------------------------------------------- |
+| **radius-sm** | `rounded-md`   | Inputs, botones pequeños, cards, componentes      |
+| **radius-lg** | `rounded-2xl`  | Banners, secciones destacadas, containers grandes |
 
-Las variables están definidas en `src/styles.css` como `--color-jackson-*` y se usan como utilidades Tailwind:
+### Reglas de aplicación
 
-```css
-@theme {
-  --color-jackson-orange: #f97316;
-  --color-jackson-orange-bg: #82320c;
-  --color-jackson-navy: #023047;
-  --color-jackson-navy-hover: #001a28;
-  --color-jackson-cyan: #219ebc;
-  --color-jackson-text: #0f191e;
-  --color-jackson-white: #ffffff;
-  --color-jackson-surface: #f1f4f7;
-  --color-jackson-surface-focus: #e5e9ee;
-  --font-manrope: Manrope, sans-serif;
-}
-```
+- **radius-sm** (`rounded-md`): Inputs, botones, cards de producto,
+  componentes de UI estándar.
+- **radius-lg** (`rounded-2xl`): Banners promocionales, callouts,
+  secciones de marca destacadas (como el callout-signup).
+- **Prohibido**: Usar border-radius en elementos que deban ser
+  visualmente "duros" (tablas, barras de progreso, footers).
+- **Prohibido**: Mezclar radius-sm y radius-lg en un mismo
+  componente sin separación visual clara.
 
-**Uso en templates:**
+## 5. Reglas de UI
 
-- Botón primario: `bg-jackson-navy text-jackson-white px-4 py-2 rounded-none transition-jackson hover:bg-jackson-navy-hover`
-- Botón secundario: `border border-jackson-navy text-jackson-navy px-4 py-2 rounded-none transition-jackson hover:bg-jackson-navy hover:text-jackson-white`
-- Contenedores: `bg-jackson-white p-6`
+- **Sombras**: **Prohibidas** en todos los casos.
+- **Divisores**: **Prohibidos**. Separar con espaciado o bloques
+  de color sólido.
+- **Iconos**: Estilo técnico (Tabler), sin fondos circulares ni
+  ornamentos. Definidos en `src/app/shared/icons/`.
+- **Espaciado**: Generoso y consistente. El espacio vacío es el
+  principal elemento de organización.
+- **Accesibilidad**: WCAG AA mínimo. Alto contraste entre texto
+  (`jackson-charcoal`) y fondos (`jackson-white`).
+
+## 6. Implementación (Tailwind v4)
+
+Variables de color y fuente en `src/styles.css` → `@theme`.
+Usar como utilidades Tailwind directamente:
+
+- Botón primario: `bg-jackson-navy text-jackson-white px-4 py-2 rounded-md transition-jackson hover:bg-jackson-navy-hover`
+- Botón secundario: `border border-jackson-navy text-jackson-navy px-4 py-2 rounded-md transition-jackson hover:bg-jackson-navy hover:text-jackson-white`
+- Banner/callout: `bg-jackson-orange rounded-2xl px-6 py-16`
+- Input: `bg-jackson-white border-0 rounded-md px-4 py-3 text-jackson-charcoal`
+- Contenedor superficie: `bg-jackson-surface p-6`
 - Grillas: `display: grid; gap: 32px;`
+- Título sección: `text-jackson-charcoal text-2xl md:text-3xl font-medium`
 
-## 6. Filosofía de Diseño
+## 7. Filosofía de Diseño
 
-Si no es funcional, se elimina. La belleza proviene de la precisión de la alineación y la velocidad de carga visual. El usuario debe encontrar su producto en menos de 2 segundos.
+Si no es funcional, se elimina. La belleza proviene de la precisión
+de la alineación, el espaciado generoso y la velocidad de carga
+visual. El usuario debe encontrar su producto en menos de 2 segundos.

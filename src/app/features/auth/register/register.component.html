@@ -2,63 +2,73 @@
   <div class="flex w-full lg:w-1/2 items-center justify-center p-8">
     <div class="w-full max-w-sm space-y-8">
       <div class="flex flex-col">
-        <app-icon name="sparkle" size="36" class="text-orange-500" />
+        <app-icon name="sparkle" size="36" class="text-jackson-orange" />
         <div class="mt-4 space-y-1">
-          <h1 class="text-2xl text-gray-900" style="font-weight:500">Crear tu cuenta</h1>
-          <p class="text-sm text-gray-500" style="font-weight:400">Completá tus datos para registrarte en Jackson</p>
+          <h1 class="text-2xl text-jackson-charcoal font-medium">Crear tu cuenta</h1>
+          <p class="text-sm text-jackson-text-secondary font-normal">
+            Completá tus datos para registrarte en Jackson
+          </p>
         </div>
       </div>
 
       <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-5">
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label for="firstName" class="block text-sm text-gray-700" style="font-weight:500">Nombre</label>
+            <label for="firstName" class="block text-sm text-jackson-charcoal font-medium"
+              >Nombre</label
+            >
             <input
               id="firstName"
               type="text"
               formControlName="firstName"
               placeholder="Juan"
-              class="mt-1.5 block w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+              class="mt-1.5 block w-full border-0 bg-jackson-surface px-4 py-3 text-sm text-jackson-charcoal placeholder-jackson-text-secondary focus:outline-none focus:bg-jackson-surface transition-colors"
             />
           </div>
           <div>
-            <label for="lastName" class="block text-sm text-gray-700" style="font-weight:500">Apellido</label>
+            <label for="lastName" class="block text-sm text-jackson-charcoal font-medium"
+              >Apellido</label
+            >
             <input
               id="lastName"
               type="text"
               formControlName="lastName"
               placeholder="Pérez"
-              class="mt-1.5 block w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+              class="mt-1.5 block w-full border-0 bg-jackson-surface px-4 py-3 text-sm text-jackson-charcoal placeholder-jackson-text-secondary focus:outline-none focus:bg-jackson-surface transition-colors"
             />
           </div>
         </div>
 
         <div>
-          <label for="email" class="block text-sm text-gray-700" style="font-weight:500">Correo electrónico</label>
+          <label for="email" class="block text-sm text-jackson-charcoal font-medium"
+            >Correo electrónico</label
+          >
           <input
             id="email"
             type="email"
             formControlName="email"
             placeholder="tu@correo.com"
-            class="mt-1.5 block w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            class="mt-1.5 block w-full border-0 bg-jackson-surface px-4 py-3 text-sm text-jackson-charcoal placeholder-jackson-text-secondary focus:outline-none focus:bg-jackson-surface transition-colors"
           />
         </div>
 
         <div>
-          <label for="password" class="block text-sm text-gray-700" style="font-weight:500">Contraseña</label>
+          <label for="password" class="block text-sm text-jackson-charcoal font-medium"
+            >Contraseña</label
+          >
           <input
             id="password"
             type="password"
             formControlName="password"
             placeholder="Mínimo 6 caracteres"
-            class="mt-1.5 block w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            class="mt-1.5 block w-full border-0 bg-jackson-surface px-4 py-3 text-sm text-jackson-charcoal placeholder-jackson-text-secondary focus:outline-none focus:bg-jackson-surface transition-colors"
           />
         </div>
 
         <button
           type="submit"
           [disabled]="form.invalid || loading()"
-          class="w-full rounded-lg bg-orange-500 px-4 py-3 text-sm text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60" style="font-weight:500"
+          class="w-full bg-jackson-navy px-4 py-3 text-sm text-jackson-white font-medium transition-colors hover:bg-jackson-navy-hover disabled:cursor-not-allowed disabled:opacity-60"
         >
           {{ loading() ? 'Creando cuenta…' : 'Crear cuenta' }}
         </button>
@@ -66,25 +76,37 @@
 
       <div class="relative">
         <div class="absolute inset-0 flex items-center">
-          <div class="w-full border-t border-gray-200"></div>
+          <div class="w-full border-t border-jackson-surface"></div>
         </div>
         <div class="relative flex justify-center text-xs uppercase">
-          <span class="bg-white px-2 text-gray-400" style="font-weight:400">o</span>
+          <span class="bg-jackson-white px-2 text-jackson-text-secondary font-normal">o</span>
         </div>
       </div>
 
-      <p class="text-center text-sm text-gray-500" style="font-weight:400">
+      <p class="text-center text-sm text-jackson-text-secondary font-normal">
         ¿Ya tenés cuenta?
-        <a routerLink="/auth/login" class="text-orange-500 hover:text-orange-600" style="font-weight:500">Iniciar sesión</a>
+        <a
+          routerLink="/auth/login"
+          class="text-jackson-orange hover:text-jackson-orange-hover font-medium"
+          >Iniciar sesión</a
+        >
       </p>
     </div>
   </div>
 
   <div class="hidden lg:block lg:w-1/2 p-6">
-    <div class="flex h-full w-full flex-col justify-end rounded-2xl bg-cover p-10" style="background-image: url('/images/register-bg.webp'); background-position: 85% center;">
+    <div
+      class="flex h-full w-full flex-col justify-end bg-cover p-10"
+      style="background-image: url('/images/register-bg.webp'); background-position: 85% center"
+    >
       <div class="max-w-2xl">
-        <p class="text-sm text-white" style="font-weight:400">Todo empieza con un acorde, con una idea que necesita sonar</p>
-        <p class="mt-2 text-3xl text-white leading-tight" style="font-weight:500">El escenario te espera. Solo necesitás el equipo correcto para hacerlo tuyo y que el público lo escuche como lo pensaste.</p>
+        <p class="text-sm text-jackson-white font-normal">
+          Todo empieza con un acorde, con una idea que necesita sonar
+        </p>
+        <p class="mt-2 text-3xl text-jackson-white leading-tight font-medium">
+          El escenario te espera. Solo necesitás el equipo correcto para hacerlo tuyo y que el
+          público lo escuche como lo pensaste.
+        </p>
       </div>
     </div>
   </div>

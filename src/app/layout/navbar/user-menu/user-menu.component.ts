@@ -12,14 +12,28 @@ import { IconComponent } from '../../../shared/icons/icon.component';
 export class UserMenuComponent {
   protected readonly auth = inject(AuthService);
   protected readonly userDropdownOpen = signal(false);
+  private closeTimer: any;
 
   readonly navigate = output<void>();
 
+  open() {
+    clearTimeout(this.closeTimer);
+    this.userDropdownOpen.set(true);
+  }
+
+  closeDelayed() {
+    this.closeTimer = setTimeout(() => {
+      this.userDropdownOpen.set(false);
+    }, 200);
+  }
+
   toggle() {
-    this.userDropdownOpen.update(v => !v);
+    clearTimeout(this.closeTimer);
+    this.userDropdownOpen.update((v) => !v);
   }
 
   close() {
+    clearTimeout(this.closeTimer);
     this.userDropdownOpen.set(false);
     this.navigate.emit();
   }

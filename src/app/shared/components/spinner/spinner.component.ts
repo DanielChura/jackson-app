@@ -19,7 +19,7 @@ import { Component, input } from '@angular/core';
         <path d="M21 12a9 9 0 1 1-6.219-8.56" />
       </svg>
       @if (text()) {
-        <span class="text-sm text-gray-400" style="font-weight:400">{{ text() }}</span>
+        <span class="text-sm text-jackson-text-secondary font-normal">{{ text() }}</span>
       }
     </div>
   `,

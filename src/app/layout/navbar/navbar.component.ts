@@ -1,15 +1,24 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { CartService } from '../../core/services/cart.service';
 import { IconComponent } from '../../shared/icons/icon.component';
 import { UserMenuComponent } from './user-menu/user-menu.component';
-import { CategoryNavComponent } from './category-nav/category-nav.component';
+
+interface MegamenuLink {
+  label: string;
+  queryParams: Record<string, string>;
+}
+
+interface MegamenuColumn {
+  title: string;
+  links: MegamenuLink[];
+}
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, IconComponent, UserMenuComponent, CategoryNavComponent],
+  imports: [RouterLink, IconComponent, UserMenuComponent],
   templateUrl: './navbar.component.html',
   styles: [
     `
@@ -33,11 +42,69 @@ import { CategoryNavComponent } from './category-nav/category-nav.component';
 export class NavbarComponent {
   protected readonly auth = inject(AuthService);
   private readonly cartService = inject(CartService);
+  private closeMegamenuTimer: any;
 
-  // Señales reactivas de estado de la interfaz
   protected readonly cartCount = this.cartService.count;
   protected readonly mobileMenuOpen = signal(false);
   protected readonly megamenuOpen = signal(false);
+
+  protected readonly quickLinks = [
+    { label: 'Ofertas', path: '/offers' },
+    { label: 'Novedades', path: '/new-arrivals' },
+    { label: 'Marcas', path: '/brands' },
+    { label: 'Outlet', path: '/outlet' },
+  ];
+
+  protected readonly categoryLinks = [
+    { label: 'Guitarras', path: '/products?category=guitarras' },
+    { label: 'Baterías', path: '/products?category=baterias' },
+    { label: 'Teclados', path: '/products?category=teclados' },
+    { label: 'Audio y micrófonos', path: '/products?category=audio-microfonos' },
+    { label: 'Equipos de DJ', path: '/products?category=equipos-dj' },
+    { label: 'Accesorios', path: '/products?category=accesorios' },
+  ];
+
+  protected readonly megamenuColumns: MegamenuColumn[] = [
+    {
+      title: 'Guitarras',
+      links: [
+        { label: 'Guitarras Eléctricas', queryParams: { category: 'guitarras-electricas' } },
+        { label: 'Guitarras Electroacústicas', queryParams: { category: 'guitarras-acusticas' } },
+        { label: 'Guitarras Clásicas', queryParams: { category: 'guitarras-clasicas' } },
+        {
+          label: 'Amplificadores de Guitarra',
+          queryParams: { category: 'amplificadores-guitarra' },
+        },
+      ],
+    },
+    {
+      title: 'Bajos & Baterías',
+      links: [
+        { label: 'Bajos Eléctricos', queryParams: { category: 'bajos-electricos' } },
+        { label: 'Baterías Acústicas', queryParams: { category: 'baterias-acusticas' } },
+        { label: 'Kits Electrónicos MIDI', queryParams: { category: 'baterias-electronicas' } },
+        { label: 'Platillos y Cymbales', queryParams: { category: 'platillos' } },
+      ],
+    },
+    {
+      title: 'Grabación & Sonido',
+      links: [
+        { label: 'Micrófonos de Estudio', queryParams: { category: 'microfonos-estudio' } },
+        { label: 'Interfaces de Audio', queryParams: { category: 'interfaces-audio' } },
+        { label: 'Monitores de Estudio', queryParams: { category: 'monitores-estudio' } },
+        { label: 'Audífonos Profesionales', queryParams: { category: 'audifonos-monitoreo' } },
+      ],
+    },
+    {
+      title: 'Accesorios & Efectos',
+      links: [
+        { label: 'Pedales y Procesadores', queryParams: { category: 'pedales-efectos' } },
+        { label: 'Cables y Conectores', queryParams: { category: 'cables-conectores' } },
+        { label: 'Estuches y Fundas', queryParams: { category: 'estuches-fundas' } },
+        { label: 'Pastillas y Repuestos', queryParams: { category: 'pastillas-guitarra' } },
+      ],
+    },
+  ];
 
   constructor() {
     const user = this.auth.currentUser();
@@ -49,18 +116,7 @@ export class NavbarComponent {
     }
   }
 
-  // Enlaces de categorías principales del e-commerce
-  readonly categoryLinks = [
-    { label: 'Guitarras', path: '/products?category=guitarras' },
-    { label: 'Baterías', path: '/products?category=baterias' },
-    { label: 'Teclados', path: '/products?category=teclados' },
-    { label: 'Audio y micrófonos', path: '/products?category=audio-microfonos' },
-    { label: 'Equipos de DJ', path: '/products?category=equipos-dj' },
-    { label: 'Accesorios', path: '/products?category=accesorios' },
-  ];
-
   toggleMobileMenu(): void {
-    // Si abrimos el menú móvil, nos aseguramos de que el megamenú se cierre
     if (!this.mobileMenuOpen()) {
       this.megamenuOpen.set(false);
     }
@@ -71,8 +127,20 @@ export class NavbarComponent {
     this.mobileMenuOpen.set(false);
   }
 
+  openMegamenu(): void {
+    clearTimeout(this.closeMegamenuTimer);
+    this.megamenuOpen.set(true);
+    this.mobileMenuOpen.set(false);
+  }
+
+  closeMegamenuDelayed(): void {
+    this.closeMegamenuTimer = setTimeout(() => {
+      this.megamenuOpen.set(false);
+    }, 200);
+  }
+
   toggleMegamenu(): void {
-    // Si abrimos el megamenú de escritorio, nos aseguramos de que el menú móvil se cierre
+    clearTimeout(this.closeMegamenuTimer);
     if (!this.megamenuOpen()) {
       this.mobileMenuOpen.set(false);
     }
@@ -80,6 +148,7 @@ export class NavbarComponent {
   }
 
   closeMegamenu(): void {
+    clearTimeout(this.closeMegamenuTimer);
     this.megamenuOpen.set(false);
   }
 }
