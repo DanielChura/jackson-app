@@ -1,27 +1,25 @@
-<section class="px-6 py-10">
-  @if (loading()) {
-    <div class="flex items-center justify-center py-20">
-      <span class="text-jackson-charcoal/40 font-medium">Cargando productos...</span>
-    </div>
-  } @else if (error(); as err) {
-    <div class="flex items-center justify-center py-20">
-      <span class="text-jackson-charcoal/40 font-medium">{{ err }}</span>
-    </div>
-  } @else {
-    <div class="grid grid-cols-1 gap-6 lg:grid-cols-5 lg:gap-6">
+<div class="grid grid-cols-1 gap-6 lg:grid-cols-5">
+  <div class="lg:col-span-2">
+    <a
+      [routerLink]="bannerRouterLink"
+      [queryParams]="bannerQueryParams"
+      class="block w-full h-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-jackson-surface rounded-md"
+      aria-label="Ir a la promoción del banner"
+    >
       <div
-        class="bg-cover bg-left rounded-md aspect-[3/4] lg:aspect-auto lg:h-full lg:col-span-2"
-        style="background-image: url('/images/easy-pay.webp')"
+        class="bg-jackson-surface bg-cover bg-center rounded-md aspect-4/3 md:aspect-6/3 lg:aspect-4/3"
+        [style.backgroundImage]="'url(' + bannerImageUrl + ')'"
       ></div>
-      <div class="lg:col-span-3">
-        <div class="scroll-snap-x">
-          @for (product of products(); track product.id) {
-            <div class="w-[298px] scroll-snap-item">
-              <app-product-card [product]="product" />
-            </div>
-          }
-        </div>
-      </div>
-    </div>
-  }
-</section>
+    </a>
+  </div>
+
+  <div class="relative lg:col-span-3 lg:h-full">
+    <app-product-carousel
+      class="block h-full"
+      [products]="products()"
+      [loading]="loading()"
+      [error]="error()"
+      cardWidthClass="w-[calc(80%-0.5rem)] sm:w-[calc(50%-0.5rem)] md:w-[calc(25%-1rem)] lg:w-[calc(37%-1rem)]"
+    />
+  </div>
+</div>

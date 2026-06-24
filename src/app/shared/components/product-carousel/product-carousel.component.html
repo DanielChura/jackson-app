@@ -1,0 +1,45 @@
+@if (title()) {
+  <div class="flex items-center justify-between mb-6 md:mb-8">
+    <h2 class="text-xl font-medium text-jackson-charcoal md:text-3xl">{{ title() }}</h2>
+    @if (viewAllRoute(); as route) {
+      <a
+        [routerLink]="route"
+        [queryParams]="viewAllQueryParams()"
+        class="text-sm font-medium text-jackson-navy hover:text-jackson-navy-hover underline"
+      >
+        Ver todos
+      </a>
+    }
+  </div>
+}
+@if (loading()) {
+  <div class="flex items-center justify-center py-16">
+    <span class="text-jackson-charcoal/40 font-medium">Cargando productos...</span>
+  </div>
+} @else if (error(); as err) {
+  <div class="flex items-center justify-center py-16">
+    <span class="text-jackson-charcoal/40 font-medium">{{ err }}</span>
+  </div>
+} @else {
+  <div class="relative h-full">
+    <app-carousel-scroll-buttons
+      direction="left"
+      [visible]="canScrollLeft()"
+      (scroll)="scroll('left')"
+    />
+    <div
+      #scrollContainer
+      (scroll)="checkScrollLimits()"
+      class="flex gap-4 overflow-x-auto scroll-smooth scrollbar-none h-full"
+    >
+      @for (product of products(); track product.id) {
+        <app-product-card [product]="product" [class]="cardWidthClass()" class="shrink-0 h-full" />
+      }
+    </div>
+    <app-carousel-scroll-buttons
+      direction="right"
+      [visible]="canScrollRight()"
+      (scroll)="scroll('right')"
+    />
+  </div>
+}

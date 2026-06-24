@@ -1,11 +1,19 @@
-<section class="bg-jackson-white px-6">
-  <div class="grid grid-cols-4 gap-6">
+<section class="bg-jackson-white">
+  <div
+    class="flex gap-4 overflow-x-auto pb-2 snap-x snap-proximity scroll-smooth scrollbar-none md:gap-5"
+  >
     @for (item of trustItems; track item.label) {
-      <div class="flex items-center gap-5 rounded-md bg-jackson-surface px-4 py-4">
-        <app-icon [name]="item.icon" size="36" class="shrink-0 text-jackson-orange" />
+      <div
+        class="flex w-[calc(50%-0.5rem)] min-w-[200px] shrink-0 snap-start items-center gap-3 rounded-md bg-jackson-surface p-3.5 md:w-[calc(33%-1rem)] md:min-w-0 md:p-4 md:gap-4"
+      >
+        <app-icon [name]="item.icon" size="24" class="shrink-0 text-jackson-orange" />
         <div>
-          <h3 class="text-jackson-navy font-medium text-base">{{ item.label }}</h3>
-          <p class="text-jackson-charcoal text-sm mt-1 leading-normal">{{ item.desc }}</p>
+          <h3 class="text-jackson-navy font-medium text-sm md:text-sm leading-snug">
+            {{ item.label }}
+          </h3>
+          <p class="text-jackson-charcoal text-xs md:text-xs mt-0.5 leading-normal">
+            {{ item.desc }}
+          </p>
         </div>
       </div>
     }

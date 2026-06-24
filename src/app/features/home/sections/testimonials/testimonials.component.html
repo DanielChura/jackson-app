@@ -1,65 +1,42 @@
-<section class="bg-jackson-white px-6 py-16">
-  <div class="mb-10 flex items-center justify-between">
-    <h2 class="max-w-sm text-3xl text-jackson-charcoal font-medium">
+<section class="bg-jackson-white">
+  <div class="mb-10">
+    <h2
+      class="max-w-sm text-3xl md:text-2xl md:max-w-xs lg:text-3xl font-medium text-jackson-charcoal"
+    >
       Esto es lo que opinan nuestros clientes
     </h2>
-    <div class="flex items-center gap-2">
-      <button
-        (click)="scrollLeft()"
-        class="flex h-11 w-11 items-center justify-center rounded-full text-jackson-charcoal/40 transition-colors hover:text-jackson-charcoal/60"
-      >
-        <app-icon name="chevron-left" size="22" />
-      </button>
-      <button
-        (click)="scrollRight()"
-        class="flex h-11 w-11 items-center justify-center rounded-full text-jackson-charcoal/40 transition-colors hover:text-jackson-charcoal/60"
-      >
-        <app-icon name="chevron-right" size="22" />
-      </button>
-    </div>
   </div>
 
   <div
-    #scrollContainer
-    class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth md:gap-5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+    class="flex gap-4 overflow-x-auto pb-4 snap-x snap-proximity scroll-smooth scrollbar-none md:gap-5"
   >
-    @for (t of testimonials; track $index; let first = $first) {
+    @for (t of testimonials; track $index) {
       @if (t.type === 'image') {
         <div
-          class="flex w-[calc(50%-0.75rem)] shrink-0 snap-start aspect-[3/4] md:w-[calc(25%-1.125rem)] overflow-hidden rounded-2xl"
-          [class.bg-gray-50]="!first"
-          [class.bg-jackson-navy]="first"
+          class="flex w-[calc(80%-0.5rem)] shrink-0 snap-start aspect-3/4 md:w-[calc(35%-1rem)] md:aspect-2.5/3 lg:w-[calc(25%-1rem)] lg:aspect-4/5 overflow-hidden rounded-2xl bg-jackson-surface"
         >
           <img [src]="t.image" alt="Cliente Jackson Music" class="h-full w-full object-cover" />
         </div>
       } @else {
         <div
-          class="relative flex w-[calc(50%-0.75rem)] shrink-0 snap-start flex-col justify-between rounded-2xl p-6 aspect-[3/4] md:w-[calc(25%-1.125rem)]"
-          [class.bg-gray-50]="!first"
-          [class.bg-jackson-navy]="first"
-          [class.text-jackson-charcoal]="!first"
-          [class.text-white]="first"
+          class="relative flex w-[calc(80%-0.5rem)] shrink-0 snap-start flex-col justify-between rounded-2xl p-4 md:p-6 aspect-3/4 md:w-[calc(35%-1rem)] md:aspect-2.5/3 lg:w-[calc(25%-1rem)] lg:aspect-4/5 bg-jackson-surface text-jackson-charcoal overflow-hidden"
         >
-          <p class="text-lg leading-relaxed md:text-xl font-normal">
+          <p class="text-2xl md:text-lg lg:text-2xl leading-relaxed font-normal">
             {{ t.text }}
           </p>
 
-          <div>
-            <p class="text-base font-medium">{{ t.author }}</p>
-            <p
-              class="text-sm font-normal"
-              [class.text-jackson-charcoal/30]="!first"
-              [class.text-white/60]="first"
-            >
+          <div class="z-10">
+            <p class="text-sm md:text-base font-medium">{{ t.author }}</p>
+            <p class="text-xs md:text-sm font-normal text-jackson-text-secondary">
               {{ t.city }}
             </p>
           </div>
 
           <app-icon
             name="quote-open"
-            size="180"
+            size="140"
             fill="currentColor"
-            class="absolute -bottom-1 -right-1 text-gray-200"
+            class="absolute -bottom-1 -right-1 pointer-events-none text-jackson-charcoal/10"
           />
         </div>
       }

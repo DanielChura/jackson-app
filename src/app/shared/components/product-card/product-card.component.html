@@ -1,5 +1,5 @@
 <a [routerLink]="['/products', product().id]" class="flex flex-col rounded-md bg-jackson-white">
-  <div class="relative aspect-[3/4] overflow-hidden rounded-md bg-jackson-surface">
+  <div class="relative aspect-square overflow-hidden rounded-md bg-jackson-surface">
     @if ((product().images ?? []).length > 0) {
       <img
         [src]="product().images[0].url"
@@ -12,7 +12,7 @@
     }
   </div>
 
-  <div class="flex flex-col gap-1.5 p-5">
+  <div class="flex flex-col gap-1.5 px-5 pt-5">
     @if (product().category) {
       <span class="text-xs text-jackson-orange font-medium">
         {{ product().category!.name }}

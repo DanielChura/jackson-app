@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { IconComponent } from '../../../../shared/icons/icon.component';
 
 interface Testimonial {
@@ -19,7 +19,7 @@ export class TestimonialsComponent {
   protected readonly testimonials: Testimonial[] = [
     {
       text: 'Compré mi Fender Strat aquí, el mejor precio que encontré en toda Lima y la entrega fue súper rápida. Sin duda volveré a comprar.',
-      author: 'Carlos M.',
+      author: 'Carlos Martinez',
       city: 'Lima, Perú',
     },
     {
@@ -29,7 +29,7 @@ export class TestimonialsComponent {
     },
     {
       text: 'Me asesoraron para elegir mi primer teclado y acertaron completamente en la recomendación. El envío a Arequipa llegó en menos de 48 horas.',
-      author: 'Valeria R.',
+      author: 'Valeria Robles',
       city: 'Arequipa, Perú',
     },
     {
@@ -39,7 +39,7 @@ export class TestimonialsComponent {
     },
     {
       text: 'He comprado tres veces, cuerdas baquetas y pedal, todo llegó en perfecto estado. Buenos precios y el servicio siempre es bueno.',
-      author: 'Miguel Á.',
+      author: 'Miguel Ángeles',
       city: 'Trujillo, Perú',
     },
     {
@@ -49,7 +49,7 @@ export class TestimonialsComponent {
     },
     {
       text: 'Compré una batería electrónica Roland, me dieron el mejor precio del mercado y además me la instalaron sin costo adicional. El servicio postventa es excepcional.',
-      author: 'Andrea G.',
+      author: 'Andrea Guzmán',
       city: 'Lima, Perú',
     },
     {
@@ -59,7 +59,7 @@ export class TestimonialsComponent {
     },
     {
       text: 'El Shure SM58 llegó al día siguiente perfectamente sellado y con garantía. Lo había visto en otras tiendas pero aquí conseguí mejor precio.',
-      author: 'Diego P.',
+      author: 'Diego Piccaso',
       city: 'Cusco, Perú',
     },
     {
@@ -69,7 +69,7 @@ export class TestimonialsComponent {
     },
     {
       text: 'Compro seguido cuerdas y accesorios aquí, siempre hay variedad y buenos precios. El local es cómodo y la atención rápida sin vueltas.',
-      author: 'Sofía L.',
+      author: 'Sofía Luna',
       city: 'Lima, Perú',
     },
     {
@@ -79,7 +79,7 @@ export class TestimonialsComponent {
     },
     {
       text: 'La asesoría fue clave para elegir mi interface Focusrite. El vendedor sabía lo que recomendaba y me explicó todo sin hacerme sentir perdido.',
-      author: 'Renato F.',
+      author: 'Renato Ferreyra',
       city: 'Chiclayo, Perú',
     },
     {
@@ -89,7 +89,7 @@ export class TestimonialsComponent {
     },
     {
       text: 'Mi primera compra online en Jackson y todo salió bien. El soporte por WhatsApp responde rápido y la página es fácil de usar.',
-      author: 'Camila V.',
+      author: 'Camila Valdivia',
       city: 'Huancayo, Perú',
     },
     {
@@ -98,16 +98,4 @@ export class TestimonialsComponent {
         'https://scontent.flim18-1.fna.fbcdn.net/v/t39.99422-6/727602972_1739865884102640_4968615904578261494_n.png?stp=dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=Fy2g74NU4pMQ7kNvwH8r6T0&_nc_oc=AdpiV6GvoaR4pmwJPPSkBFs0iQKWabYkXAM3kIi-YgCH0h7AJYfoA_7EIm8Ycy0cvJ0&_nc_zt=14&_nc_ht=scontent.flim18-1.fna&_nc_gid=JcvgFHmu-dZqXRaaUYm9Ug&_nc_ss=7b2a8&oh=00_Af94Rbfx_HhGpVFdbrTyuBjA0SYgVmRRtniG10OLpZy6_A&oe=6A3D7AB1',
     },
   ];
-
-  @ViewChild('scrollContainer') scrollContainer!: ElementRef<HTMLDivElement>;
-
-  scrollLeft() {
-    const container = this.scrollContainer.nativeElement;
-    container.scrollBy({ left: -(container.clientWidth / 2), behavior: 'smooth' });
-  }
-
-  scrollRight() {
-    const container = this.scrollContainer.nativeElement;
-    container.scrollBy({ left: container.clientWidth / 2, behavior: 'smooth' });
-  }
 }

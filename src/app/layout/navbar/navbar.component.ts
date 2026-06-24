@@ -4,6 +4,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { CartService } from '../../core/services/cart.service';
 import { IconComponent } from '../../shared/icons/icon.component';
 import { UserMenuComponent } from './user-menu/user-menu.component';
+import { PromotionalStripeComponent } from './promotional-stripe/promotional-stripe.component';
 
 interface MegamenuLink {
   label: string;
@@ -18,7 +19,7 @@ interface MegamenuColumn {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, IconComponent, UserMenuComponent],
+  imports: [RouterLink, IconComponent, UserMenuComponent, PromotionalStripeComponent],
   templateUrl: './navbar.component.html',
   styles: [
     `

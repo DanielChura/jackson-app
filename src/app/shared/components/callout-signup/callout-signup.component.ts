@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { IconComponent } from '../../shared/icons/icon.component';
+import { IconComponent } from '../../icons/icon.component';
 
 export interface CalloutConfig {
   headline: string;

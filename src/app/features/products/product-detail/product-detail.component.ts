@@ -1,8 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Location, KeyValuePipe, DecimalPipe } from '@angular/common';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { NoImagePlaceholderComponent } from '../../../shared/components/no-image-placeholder/no-image-placeholder.component';
+import { ProductCardComponent } from '../../../shared/components/product-card/product-card.component';
+import { IconComponent } from '../../../shared/icons/icon.component';
 import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
 import { FavoriteService } from '../../../core/services/favorite.service';
@@ -13,7 +15,15 @@ import type { ProductResponse } from '../../../core/models';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [SpinnerComponent, NoImagePlaceholderComponent],
+  imports: [
+    RouterLink,
+    SpinnerComponent,
+    NoImagePlaceholderComponent,
+    ProductCardComponent,
+    IconComponent,
+    KeyValuePipe,
+    DecimalPipe,
+  ],
   templateUrl: './product-detail.component.html',
 })
 export class ProductDetailComponent {
@@ -29,6 +39,19 @@ export class ProductDetailComponent {
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
 
+  /** Active thumbnail index for the gallery */
+  readonly activeImageIndex = signal(0);
+
+  /** Quantity selector */
+  readonly qty = signal(1);
+
+  /** Related products */
+  readonly relatedProducts = signal<ProductResponse[]>([]);
+  readonly relatedLoading = signal(true);
+
+  /** Placeholder rows for the specs table (shown before specs data is available) */
+  readonly specPlaceholders = Array.from({ length: 6 });
+
   constructor() {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
@@ -36,6 +59,7 @@ export class ProductDetailComponent {
       this.loading.set(false);
       return;
     }
+
     this.productService.getById(id).subscribe({
       next: (res) => {
         this.product.set(res);
@@ -46,10 +70,33 @@ export class ProductDetailComponent {
         this.loading.set(false);
       },
     });
+
+    // Load related products (generic bestsellers for now)
+    this.productService.getAll(0, 5, 'price,desc').subscribe({
+      next: (res) => {
+        this.relatedProducts.set(res.content);
+        this.relatedLoading.set(false);
+      },
+      error: () => {
+        this.relatedLoading.set(false);
+      },
+    });
   }
 
   goBack() {
     this.location.back();
+  }
+
+  setActiveImage(index: number) {
+    this.activeImageIndex.set(index);
+  }
+
+  increaseQty(stock: number) {
+    if (this.qty() < stock) this.qty.update((q) => q + 1);
+  }
+
+  decreaseQty() {
+    if (this.qty() > 1) this.qty.update((q) => q - 1);
   }
 
   addToCart() {
@@ -63,15 +110,17 @@ export class ProductDetailComponent {
 
     this.cartService.getMine().subscribe({
       next: (cart) => {
-        this.cartService.addItem({ cartId: cart.id, productId: p.id, quantity: 1 }).subscribe({
-          next: (updated) => {
-            this.cartService.count.set(updated.items.length);
-            this.toast.show('Producto agregado al carrito', 'success');
-          },
-          error: () => {
-            this.toast.show('Error al agregar al carrito', 'error');
-          },
-        });
+        this.cartService
+          .addItem({ cartId: cart.id, productId: p.id, quantity: this.qty() })
+          .subscribe({
+            next: (updated) => {
+              this.cartService.count.set(updated.items.length);
+              this.toast.show('Producto agregado al carrito', 'success');
+            },
+            error: () => {
+              this.toast.show('Error al agregar al carrito', 'error');
+            },
+          });
       },
       error: () => {
         this.toast.show('Error al obtener el carrito', 'error');

@@ -1,67 +1,300 @@
-<div class="mx-auto w-full max-w-[1600px] px-6 py-8">
-  <button
-    (click)="goBack()"
-    class="text-sm text-jackson-navy hover:text-jackson-navy-hover underline font-medium mb-8 inline-block"
-  >
-    ← Volver
-  </button>
+<!-- Breadcrumb -->
+<div class="mx-auto w-full max-w-[1600px] px-6 pt-6 pb-2">
+  <nav aria-label="Breadcrumb" class="flex items-center gap-1.5 text-xs text-jackson-text-secondary font-normal">
+    <a routerLink="/" class="hover:text-jackson-navy transition-colors">Inicio</a>
+    <app-icon name="chevron-right" size="12" class="opacity-40" />
+    <a routerLink="/products" class="hover:text-jackson-navy transition-colors">Productos</a>
+    @if (product(); as p) {
+      <app-icon name="chevron-right" size="12" class="opacity-40" />
+      <span class="text-jackson-charcoal font-medium truncate max-w-[200px]">{{ p.name }}</span>
+    }
+  </nav>
+</div>
 
+<!-- Main content wrapper -->
+<div class="mx-auto w-full max-w-[1600px] px-6 py-6">
+
+  <!-- ── Loading ── -->
   @if (loading()) {
-    <div class="flex justify-center py-20">
+    <div class="flex items-center justify-center py-32">
       <app-spinner size="32" text="Cargando producto..." />
     </div>
+
+  <!-- ── Error ── -->
   } @else if (error(); as err) {
-    <div class="py-20 text-center">
+    <div class="py-32 text-center">
       <p class="text-jackson-charcoal/40 font-normal">{{ err }}</p>
+      <button
+        (click)="goBack()"
+        class="mt-6 inline-flex items-center gap-2 text-sm text-jackson-navy hover:text-jackson-navy-hover underline font-medium transition-colors"
+      >
+        <app-icon name="chevron-left" size="16" />
+        Volver
+      </button>
     </div>
+
+  <!-- ── Product ── -->
   } @else if (product(); as p) {
-    <div class="flex flex-col gap-10 lg:flex-row lg:gap-16">
-      <div class="w-full lg:w-1/2">
-        <div class="aspect-[3/4] bg-jackson-surface overflow-hidden">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+
+      <!-- ════════════════════════════
+           LEFT — Image gallery
+      ════════════════════════════ -->
+      <div class="flex flex-col gap-4">
+        <!-- Main image -->
+        <div class="relative aspect-square overflow-hidden rounded-md bg-jackson-surface">
           @if ((p.images ?? []).length > 0) {
-            <img [src]="p.images[0].url" [alt]="p.name" class="h-full w-full object-cover" />
+            <img
+              [src]="p.images[activeImageIndex()].url"
+              [alt]="p.name"
+              class="h-full w-full object-cover transition-opacity duration-300"
+            />
           } @else {
             <app-no-image-placeholder />
           }
-        </div>
-      </div>
-      <div class="w-full lg:w-1/2 flex flex-col gap-6">
-        @if (p.category) {
-          <span class="text-sm text-jackson-orange font-medium">{{ p.category.name }}</span>
-        }
-        <h1 class="text-3xl text-jackson-charcoal font-medium">{{ p.name }}</h1>
-        <p class="text-2xl text-jackson-charcoal font-medium">S/ {{ p.price }}</p>
-        <p class="text-base text-jackson-charcoal/70 font-normal leading-relaxed">
-          {{ p.description }}
-        </p>
-        <div class="flex items-center gap-3">
-          @if (p.stock > 0) {
-            <span class="text-sm text-jackson-orange font-medium"
-              >Stock: {{ p.stock }} unidad(es)</span
-            >
-          } @else {
-            <span class="text-sm text-jackson-charcoal/40 font-normal">Agotado</span>
+
+          <!-- Image counter badge -->
+          @if ((p.images ?? []).length > 1) {
+            <span class="absolute bottom-3 right-3 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
+              {{ activeImageIndex() + 1 }} / {{ p.images.length }}
+            </span>
           }
         </div>
-        @if (p.brand) {
-          <p class="text-sm text-jackson-charcoal/50 font-normal">Marca: {{ p.brand.name }}</p>
+
+        <!-- Thumbnail strip -->
+        @if ((p.images ?? []).length > 1) {
+          <div class="scroll-snap-x">
+            @for (img of p.images; track img.id; let i = $index) {
+              <button
+                (click)="setActiveImage(i)"
+                class="scroll-snap-item relative w-20 shrink-0 aspect-square overflow-hidden rounded-md bg-jackson-surface transition-all duration-200"
+                [class.ring-2]="activeImageIndex() === i"
+                [class.ring-jackson-orange]="activeImageIndex() === i"
+                [class.opacity-50]="activeImageIndex() !== i"
+                [attr.aria-label]="'Ver imagen ' + (i + 1)"
+              >
+                <img [src]="img.url" [alt]="p.name + ' - imagen ' + (i + 1)" class="h-full w-full object-cover" loading="lazy" />
+              </button>
+            }
+          </div>
         }
-        <div class="flex gap-4 pt-4">
+      </div>
+
+      <!-- ════════════════════════════
+           RIGHT — Product info
+      ════════════════════════════ -->
+      <div class="flex flex-col gap-6">
+
+        <!-- Category + Brand row -->
+        <div class="flex flex-wrap items-center gap-2">
+          @if (p.category) {
+            <span class="rounded-full bg-jackson-orange/10 px-3 py-1 text-xs font-semibold text-jackson-orange uppercase tracking-wide">
+              {{ p.category.name }}
+            </span>
+          }
+          @if (p.brand) {
+            <span class="rounded-full bg-jackson-surface px-3 py-1 text-xs font-medium text-jackson-text-secondary">
+              {{ p.brand.name }}
+            </span>
+          }
+        </div>
+
+        <!-- Product name -->
+        <h1 class="text-3xl text-jackson-charcoal font-medium leading-tight lg:text-4xl">
+          {{ p.name }}
+        </h1>
+
+        <!-- Price block -->
+        <div class="flex items-baseline gap-3">
+          <span class="text-4xl font-semibold text-jackson-charcoal">
+            S/ {{ p.price | number: '1.2-2' }}
+          </span>
+          @if (p.stock > 0) {
+            <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 border border-emerald-200">
+              En stock
+            </span>
+          } @else {
+            <span class="rounded-full bg-jackson-surface px-3 py-1 text-xs font-semibold text-jackson-charcoal/40 border border-jackson-charcoal/10">
+              Agotado
+            </span>
+          }
+        </div>
+
+        <!-- Divider -->
+        <div class="h-px bg-jackson-charcoal/8"></div>
+
+        <!-- Description -->
+        <p class="text-base text-jackson-text-secondary leading-relaxed">
+          {{ p.description }}
+        </p>
+
+        <!-- Quantity selector + Add to cart -->
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <!-- Qty -->
+          <div class="flex items-center rounded-md border border-jackson-charcoal/15 overflow-hidden">
+            <button
+              (click)="decreaseQty()"
+              [disabled]="qty() <= 1"
+              class="flex h-11 w-11 items-center justify-center text-jackson-charcoal transition-colors hover:bg-jackson-surface disabled:opacity-30"
+              aria-label="Disminuir cantidad"
+            >
+              <app-icon name="minus" size="16" />
+            </button>
+            <span class="flex h-11 min-w-[2.5rem] items-center justify-center px-2 text-sm font-semibold text-jackson-charcoal">
+              {{ qty() }}
+            </span>
+            <button
+              (click)="increaseQty(p.stock)"
+              [disabled]="qty() >= p.stock || p.stock === 0"
+              class="flex h-11 w-11 items-center justify-center text-jackson-charcoal transition-colors hover:bg-jackson-surface disabled:opacity-30"
+              aria-label="Aumentar cantidad"
+            >
+              <app-icon name="plus" size="16" />
+            </button>
+          </div>
+
+          <!-- Add to cart -->
           <button
             (click)="addToCart()"
-            [disabled]="!product() || product()!.stock === 0"
-            class="bg-jackson-navy text-white px-8 py-3 text-sm font-medium transition-colors hover:bg-jackson-navy-hover disabled:opacity-40 disabled:cursor-not-allowed"
+            [disabled]="p.stock === 0"
+            class="flex h-11 flex-1 items-center justify-center gap-2 rounded-md bg-jackson-navy px-6 text-sm font-semibold text-white transition-colors hover:bg-jackson-navy-hover disabled:opacity-40 disabled:cursor-not-allowed"
           >
+            <app-icon name="shopping-cart-share" size="18" />
             Agregar al carrito
           </button>
+
+          <!-- Favorite -->
           <button
             (click)="toggleFavorite()"
-            class="border border-jackson-navy text-jackson-navy px-8 py-3 text-sm font-medium transition-colors hover:bg-jackson-navy hover:text-white"
+            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-jackson-charcoal/15 text-jackson-charcoal transition-colors hover:border-jackson-orange hover:text-jackson-orange"
+            aria-label="Agregar a favoritos"
           >
-            ♥ Favoritos
+            <app-icon name="heart" size="20" />
           </button>
         </div>
+
+        <!-- Stock count hint -->
+        @if (p.stock > 0 && p.stock <= 10) {
+          <p class="text-xs text-jackson-orange font-medium">
+            ¡Solo quedan {{ p.stock }} unidad(es)!
+          </p>
+        }
+
+        <!-- Trust badges -->
+        <div class="rounded-md bg-jackson-surface p-4">
+          <ul class="flex flex-col gap-3 sm:flex-row sm:gap-6">
+            <li class="flex items-center gap-2.5 text-sm text-jackson-text-secondary">
+              <app-icon name="truck" size="18" class="text-jackson-navy shrink-0" />
+              <span>Envío a todo el Perú</span>
+            </li>
+            <li class="flex items-center gap-2.5 text-sm text-jackson-text-secondary">
+              <app-icon name="shield-check" size="18" class="text-jackson-navy shrink-0" />
+              <span>Garantía oficial</span>
+            </li>
+            <li class="flex items-center gap-2.5 text-sm text-jackson-text-secondary">
+              <app-icon name="refresh-cw" size="18" class="text-jackson-navy shrink-0" />
+              <span>30 días de devolución</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- SKU / Meta info -->
+        <div class="flex flex-wrap gap-x-6 gap-y-1 text-xs text-jackson-text-secondary">
+          @if (p.brand) {
+            <span>Marca: <strong class="font-semibold text-jackson-charcoal">{{ p.brand.name }}</strong></span>
+          }
+          @if (p.category) {
+            <span>Categoría: <strong class="font-semibold text-jackson-charcoal">{{ p.category.name }}</strong></span>
+          }
+          <span>SKU: <strong class="font-semibold text-jackson-charcoal">{{ p.id.slice(0, 8).toUpperCase() }}</strong></span>
+        </div>
+
       </div>
     </div>
+
+    <!-- ════════════════════════════════════════
+         SPECIFICATIONS TABLE
+    ════════════════════════════════════════ -->
+    <section class="mt-14" aria-labelledby="specs-heading">
+      <div class="flex items-center gap-3 mb-6">
+        <h2 id="specs-heading" class="text-2xl font-medium text-jackson-charcoal">Especificaciones técnicas</h2>
+        <div class="h-px flex-1 bg-jackson-charcoal/8"></div>
+      </div>
+
+      <div class="overflow-hidden rounded-md border border-jackson-charcoal/10">
+        <table class="w-full text-sm" aria-label="Especificaciones del producto">
+          <thead>
+            <tr class="bg-jackson-surface">
+              <th scope="col" class="w-2/5 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-jackson-text-secondary">
+                Característica
+              </th>
+              <th scope="col" class="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-jackson-text-secondary">
+                Detalle
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-jackson-charcoal/6">
+            @if (p.specifications && (p.specifications | keyvalue).length > 0) {
+              @for (spec of p.specifications | keyvalue; track spec.key) {
+                <tr class="transition-colors hover:bg-jackson-surface/60">
+                  <td class="px-5 py-3.5 font-medium text-jackson-charcoal capitalize">{{ spec.key }}</td>
+                  <td class="px-5 py-3.5 text-jackson-text-secondary">{{ spec.value }}</td>
+                </tr>
+              }
+            } @else {
+              <!-- Placeholder rows — will be filled once specs data is available -->
+              @for (row of specPlaceholders; track row) {
+                <tr class="transition-colors hover:bg-jackson-surface/60">
+                  <td class="px-5 py-3.5">
+                    <div class="h-4 w-28 rounded bg-jackson-surface animate-pulse"></div>
+                  </td>
+                  <td class="px-5 py-3.5">
+                    <div class="h-4 w-40 rounded bg-jackson-surface animate-pulse"></div>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   }
 </div>
+
+<!-- ════════════════════════════════════════
+     RELATED PRODUCTS
+════════════════════════════════════════ -->
+<section class="bg-jackson-surface/50 px-6 py-12 mt-6" aria-labelledby="related-heading">
+  <div class="mx-auto w-full max-w-[1600px]">
+    <div class="flex items-center justify-between mb-8">
+      <h2 id="related-heading" class="text-2xl font-medium text-jackson-charcoal md:text-3xl">
+        También te puede interesar
+      </h2>
+      <a
+        routerLink="/products"
+        class="hidden text-sm text-jackson-navy hover:text-jackson-navy-hover underline font-medium sm:inline transition-colors"
+      >
+        Ver todos
+      </a>
+    </div>
+
+    @if (relatedLoading()) {
+      <div class="flex items-center justify-center py-12">
+        <span class="text-jackson-charcoal/40 font-medium text-sm">Cargando productos...</span>
+      </div>
+    } @else {
+      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        @for (rp of relatedProducts(); track rp.id) {
+          <app-product-card [product]="rp" />
+        }
+      </div>
+    }
+
+    <div class="mt-6 text-center sm:hidden">
+      <a routerLink="/products" class="text-sm text-jackson-navy hover:text-jackson-navy-hover underline font-medium">
+        Ver todos
+      </a>
+    </div>
+  </div>
+</section>
