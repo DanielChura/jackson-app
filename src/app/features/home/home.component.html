@@ -4,9 +4,17 @@
   <app-category-grid />
   <app-audience-section />
   <app-new-arrivals />
+  <div class="px-6 py-6">
+    <app-featured-dual
+      [primary]="{ imageUrl: '/images/featured-korg.webp', slug: 'korg-phase-8' }"
+      [secondary]="{ imageUrl: '/images/featured-helix.webp', slug: 'helix' }"
+    />
+  </div>
+  <app-brand-strip />
+
   <app-bestsellers />
   <app-audience-section />
-  <app-brand-strip />
+  <app-hot-deals />
   <app-callout-signup />
   <app-testimonials />
 </div>

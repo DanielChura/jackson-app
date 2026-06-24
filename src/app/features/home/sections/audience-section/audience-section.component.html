@@ -8,16 +8,15 @@
       <span class="text-jackson-charcoal/40 font-medium">{{ err }}</span>
     </div>
   } @else {
-    <div class="grid grid-cols-1 gap-6 lg:grid-cols-5 lg:gap-8">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-5 lg:gap-6">
       <div
-        class="bg-jackson-orange rounded-md aspect-[3/4] lg:aspect-auto lg:h-full lg:col-span-2"
+        class="bg-cover bg-left rounded-md aspect-[3/4] lg:aspect-auto lg:h-full lg:col-span-2"
+        style="background-image: url('/images/easy-pay.webp')"
       ></div>
       <div class="lg:col-span-3">
-        <div
-          class="flex gap-4 overflow-x-auto pb-2 snap-x snap-proximity scroll-smooth md:gap-5 [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-jackson-charcoal/20 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-jackson-charcoal/30"
-        >
+        <div class="scroll-snap-x">
           @for (product of products(); track product.id) {
-            <div class="w-[298px] shrink-0 snap-start">
+            <div class="w-[298px] scroll-snap-item">
               <app-product-card [product]="product" />
             </div>
           }

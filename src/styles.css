@@ -72,3 +72,40 @@
     background-color 150ms ease,
     opacity 150ms ease;
 }
+
+.scroll-snap-x {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+}
+
+@media (min-width: 48rem) {
+  .scroll-snap-x {
+    gap: 1.25rem;
+  }
+}
+
+.scroll-snap-x::-webkit-scrollbar {
+  height: 0.375rem;
+}
+
+.scroll-snap-x::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-snap-x::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--color-jackson-charcoal) 20%, transparent);
+  border-radius: 9999px;
+}
+
+.scroll-snap-x::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in srgb, var(--color-jackson-charcoal) 30%, transparent);
+}
+
+.scroll-snap-item {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}

@@ -1,5 +1,4 @@
-import { Component, input, output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, input } from '@angular/core';
 import { IconComponent } from '../../shared/icons/icon.component';
 
 export interface CalloutConfig {
@@ -14,7 +13,7 @@ export interface CalloutConfig {
 @Component({
   selector: 'app-callout-signup',
   standalone: true,
-  imports: [FormsModule, IconComponent],
+  imports: [IconComponent],
   templateUrl: './callout-signup.component.html',
 })
 export class CalloutSignupComponent {
@@ -27,20 +26,4 @@ export class CalloutSignupComponent {
     imageUrl: '/images/footer-gibson-custom.png',
     variant: 'discount',
   });
-
-  submitted = output<string>();
-
-  email = '';
-  status: 'idle' | 'loading' | 'success' | 'error' = 'idle';
-  errorMessage = '';
-
-  onSubmit() {
-    if (!this.email || this.status === 'loading') return;
-    this.status = 'loading';
-    this.errorMessage = '';
-    this.submitted.emit(this.email);
-    setTimeout(() => {
-      this.status = 'success';
-    }, 1500);
-  }
 }

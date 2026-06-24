@@ -7,6 +7,8 @@ import { BrandStripComponent } from './sections/brand-strip/brand-strip.componen
 import { TestimonialsComponent } from './sections/testimonials/testimonials.component';
 import { TrustBarComponent } from './sections/trust-bar/trust-bar.component';
 import { AudienceSectionComponent } from './sections/audience-section/audience-section.component';
+import { HotDealsComponent } from './sections/hot-deals/hot-deals.component';
+import { FeaturedDualComponent } from './sections/featured-dual/featured-dual.component';
 import { CalloutSignupComponent } from '../../layout/callout-signup/callout-signup.component';
 
 @Component({
@@ -21,6 +23,8 @@ import { CalloutSignupComponent } from '../../layout/callout-signup/callout-sign
     TestimonialsComponent,
     TrustBarComponent,
     AudienceSectionComponent,
+    HotDealsComponent,
+    FeaturedDualComponent,
     CalloutSignupComponent,
   ],
   templateUrl: './home.component.html',
