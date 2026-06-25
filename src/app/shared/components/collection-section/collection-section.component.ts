@@ -9,12 +9,13 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CarouselScrollButtonsComponent } from '../product-carousel/carousel-scroll-buttons.component';
 
 @Component({
   selector: 'app-collection-section',
   standalone: true,
-  imports: [CarouselScrollButtonsComponent, NgTemplateOutlet],
+  imports: [CarouselScrollButtonsComponent, NgTemplateOutlet, RouterLink],
   template: `
     @if (loading()) {
       <div class="flex items-center justify-center py-20">
@@ -26,8 +27,19 @@ import { CarouselScrollButtonsComponent } from '../product-carousel/carousel-scr
       </div>
     } @else {
       @if (title()) {
-        <div class="mb-8">
-          <h2 class="text-2xl font-medium text-jackson-charcoal md:text-3xl">{{ title() }}</h2>
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="max-w-sm text-2xl md:max-w-xs font-medium text-jackson-charcoal">
+            {{ title() }}
+          </h2>
+          @if (viewAllRoute(); as route) {
+            <a
+              [routerLink]="route"
+              [queryParams]="viewAllQueryParams()"
+              class="text-sm font-medium text-jackson-navy hover:text-jackson-navy-hover underline"
+            >
+              Ver todos
+            </a>
+          }
         </div>
       }
       <div class="relative">
@@ -64,6 +76,8 @@ export class CollectionSectionComponent<T> {
 
   readonly items = input<T[]>([]);
   readonly loading = input<boolean>(false);
+  viewAllRoute = input.required<string | any[] | null>();
+  viewAllQueryParams = input.required<Record<string, any> | undefined>();
   readonly error = input<string | null>(null);
   readonly title = input<string>('');
   readonly itemClass = input<string>('');

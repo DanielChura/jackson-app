@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
     <a
       [routerLink]="route()"
       [queryParams]="queryParams()"
-      class="relative aspect-[3/4] block overflow-hidden rounded-md hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jackson-navy"
+      class="relative aspect-3/4 block overflow-hidden rounded-md hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jackson-navy"
       [class]="bgClass()"
     >
       @if (imageUrl(); as url) {

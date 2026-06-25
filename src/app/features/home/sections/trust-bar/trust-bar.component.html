@@ -4,14 +4,14 @@
   >
     @for (item of trustItems; track item.label) {
       <div
-        class="flex w-[calc(50%-0.5rem)] min-w-[200px] shrink-0 snap-start items-center gap-3 rounded-md bg-jackson-surface p-3.5 md:w-[calc(33%-1rem)] md:min-w-0 md:p-4 md:gap-4"
+        class="flex w-[calc(25%-0.5rem)] min-w-[200px] shrink-0 snap-start items-center gap-3 rounded-md bg-jackson-surface p-3.5 lg:w-[calc(25%-1rem)] md:w-[calc(33%-1rem)] md:min-w-0 md:p-4 md:gap-4"
       >
         <app-icon [name]="item.icon" size="24" class="shrink-0 text-jackson-orange" />
         <div>
-          <h3 class="text-jackson-navy font-medium text-sm md:text-sm leading-snug">
+          <h3 class="text-jackson-navy font-medium text-sm md:text-sm lg:text-base leading-snug">
             {{ item.label }}
           </h3>
-          <p class="text-jackson-charcoal text-xs md:text-xs mt-0.5 leading-normal">
+          <p class="text-jackson-charcoal text-xs md:text-xs lg:text-sm mt-0.5 leading-normal">
             {{ item.desc }}
           </p>
         </div>

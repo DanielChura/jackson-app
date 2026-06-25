@@ -1,6 +1,11 @@
 import { Component, input } from '@angular/core';
 import { IconComponent } from '../../icons/icon.component';
 
+export interface BrandLogo {
+  src: string;
+  alt: string;
+}
+
 export interface CalloutConfig {
   headline: string;
   subcopy: string;
@@ -26,4 +31,25 @@ export class CalloutSignupComponent {
     imageUrl: '/images/footer-gibson-custom.png',
     variant: 'discount',
   });
+
+  brandLogos: BrandLogo[] = [
+    { src: '/logos/jackson.png', alt: 'Jackson' },
+    { src: '/logos/ibanez.png', alt: 'Ibanez' },
+    { src: '/logos/gibson.png', alt: 'Gibson' },
+    { src: '/logos/focusrite.png', alt: 'Focusrite' },
+    { src: '/logos/fender.png', alt: 'Fender' },
+    { src: '/logos/esp.png', alt: 'ESP' },
+    { src: '/logos/ernie-ball.png', alt: 'Ernie Ball' },
+    { src: '/logos/epiphone.png', alt: 'Epiphone' },
+    { src: '/logos/casio.png', alt: 'Casio' },
+    { src: '/logos/jackson.png', alt: 'Jackson' },
+    { src: '/logos/ibanez.png', alt: 'Ibanez' },
+    { src: '/logos/gibson.png', alt: 'Gibson' },
+    { src: '/logos/focusrite.png', alt: 'Focusrite' },
+    { src: '/logos/fender.png', alt: 'Fender' },
+    { src: '/logos/esp.png', alt: 'ESP' },
+    { src: '/logos/ernie-ball.png', alt: 'Ernie Ball' },
+    { src: '/logos/epiphone.png', alt: 'Epiphone' },
+    { src: '/logos/casio.png', alt: 'Casio' },
+  ];
 }

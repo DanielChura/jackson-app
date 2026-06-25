@@ -13,6 +13,8 @@
       [loading]="categoriesLoading()"
       [error]="categoriesError()"
       itemClass="w-[calc(80%-0.5rem)] md:w-[calc(25%-1rem)]"
+      [viewAllRoute]="['/products']"
+      [viewAllQueryParams]="{ category: 'all' }"
     >
       <ng-template let-category>
         <app-collection-card
@@ -53,6 +55,8 @@
       [items]="brands()"
       [loading]="brandsLoading()"
       [error]="brandsError()"
+      [viewAllRoute]="['/brand']"
+      [viewAllQueryParams]="{ brand: brands }"
       itemClass="w-[calc(80%-0.5rem)] md:w-[calc(25%-1rem)]"
     >
       <ng-template let-brand>
