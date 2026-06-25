@@ -24,7 +24,7 @@ export class ProductCarouselComponent {
   protected readonly canScrollRight = signal(false);
 
   readonly cardWidthClass = input<string>(
-    'w-[calc(80%-0.5rem)] sm:w-[calc(50%-0.5rem)] md:w-[calc(25%-1rem)]',
+    'w-[calc(80%-0.5rem)] md:w-[calc(25%-0.9rem)] lg:w-[calc(20%-0.85rem)]',
   );
 
   constructor() {

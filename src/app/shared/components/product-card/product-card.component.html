@@ -1,5 +1,5 @@
 <a [routerLink]="['/products', product().id]" class="flex flex-col rounded-md bg-jackson-white">
-  <div class="relative aspect-square overflow-hidden rounded-md bg-jackson-surface">
+  <div class="relative aspect-square overflow-hidden rounded-md bg-jackson-surface h-full">
     @if ((product().images ?? []).length > 0) {
       <img
         [src]="product().images[0].url"

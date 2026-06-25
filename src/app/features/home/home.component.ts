@@ -2,12 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { HeroSectionComponent } from './sections/hero-section/hero-section.component';
 import { TestimonialsComponent } from './sections/testimonials/testimonials.component';
 import { TrustBarComponent } from './sections/trust-bar/trust-bar.component';
-import { AudienceSectionComponent } from './sections/audience-section/audience-section.component';
+import { SplitPromoSectionComponent } from '../../shared/components/split-promo-section/split-promo-section.component';
 import { FeaturedDualComponent } from './sections/featured-dual/featured-dual.component';
+import { CategoryGridComponent } from './sections/category-grid/category-grid.component';
 import { CalloutSignupComponent } from '../../shared/components/callout-signup/callout-signup.component';
 import { ProductCarouselComponent } from '../../shared/components/product-carousel/product-carousel.component';
-import { CollectionSectionComponent } from '../../shared/components/collection-section/collection-section.component';
-import { CollectionCardComponent } from '../../shared/components/collection-card/collection-card.component';
+import { BrandStripeComponent } from '../../shared/components/brand-stripe/brand-stripe.component';
 import { ProductService } from '../../core/services/product.service';
 import { BrandService } from '../../core/services/brand.service';
 import { CategoryService } from '../../core/services/category.service';
@@ -20,12 +20,12 @@ import type { ProductResponse, BrandResponse, CategoryResponse } from '../../cor
     HeroSectionComponent,
     TestimonialsComponent,
     TrustBarComponent,
-    AudienceSectionComponent,
+    SplitPromoSectionComponent,
     FeaturedDualComponent,
+    CategoryGridComponent,
     CalloutSignupComponent,
     ProductCarouselComponent,
-    CollectionSectionComponent,
-    CollectionCardComponent,
+    BrandStripeComponent,
   ],
   templateUrl: './home.component.html',
 })
@@ -45,10 +45,6 @@ export class HomeComponent {
   protected readonly newArrivals = signal<ProductResponse[]>([]);
   protected readonly newArrivalsLoading = signal(true);
   protected readonly newArrivalsError = signal<string | null>(null);
-
-  protected readonly brands = signal<BrandResponse[]>([]);
-  protected readonly brandsLoading = signal(true);
-  protected readonly brandsError = signal<string | null>(null);
 
   protected readonly categories = signal<CategoryResponse[]>([]);
   protected readonly categoriesLoading = signal(true);
@@ -85,17 +81,6 @@ export class HomeComponent {
       error: () => {
         this.newArrivalsError.set('Error al cargar productos');
         this.newArrivalsLoading.set(false);
-      },
-    });
-
-    this.brandService.getAll(0, 10).subscribe({
-      next: (res) => {
-        this.brands.set(res.content);
-        this.brandsLoading.set(false);
-      },
-      error: () => {
-        this.brandsError.set('Error al cargar marcas');
-        this.brandsLoading.set(false);
       },
     });
 

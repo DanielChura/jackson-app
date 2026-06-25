@@ -7,28 +7,15 @@
   </div>
 
   <div class="px-6 py-10">
-    <app-collection-section
-      title="Categorías"
-      [items]="categories()"
+    <app-category-grid
+      [categories]="categories()"
       [loading]="categoriesLoading()"
       [error]="categoriesError()"
-      itemClass="w-[calc(80%-0.5rem)] md:w-[calc(25%-1rem)]"
-      [viewAllRoute]="['/products']"
-      [viewAllQueryParams]="{ category: 'all' }"
-    >
-      <ng-template let-category>
-        <app-collection-card
-          [imageUrl]="category.imageUrl ?? null"
-          [name]="category.name"
-          [route]="['/products']"
-          [queryParams]="{ category: category.id }"
-        />
-      </ng-template>
-    </app-collection-section>
+    />
   </div>
 
-  <div class="px-6 py-10">
-    <app-audience-section />
+  <div class="px-6">
+    <app-split-promo-section [products]="bestsellers()" />
   </div>
 
   <div class="px-6 py-10">
@@ -49,25 +36,8 @@
     />
   </div>
 
-  <div class="px-6 py-10">
-    <app-collection-section
-      title="Marcas"
-      [items]="brands()"
-      [loading]="brandsLoading()"
-      [error]="brandsError()"
-      [viewAllRoute]="['/brand']"
-      [viewAllQueryParams]="{ brand: brands }"
-      itemClass="w-[calc(80%-0.5rem)] md:w-[calc(25%-1rem)]"
-    >
-      <ng-template let-brand>
-        <app-collection-card
-          [imageUrl]="brand.logoUrl ?? null"
-          [name]="brand.name"
-          [route]="['/products']"
-          [queryParams]="{ brand: brand.id }"
-        />
-      </ng-template>
-    </app-collection-section>
+  <div class="px-6">
+    <app-brand-stripe />
   </div>
 
   <div class="px-6 py-10">
@@ -81,8 +51,8 @@
     />
   </div>
 
-  <div class="px-6 py-10">
-    <app-audience-section />
+  <div class="px-6">
+    <app-split-promo-section [products]="hotDeals()" />
   </div>
 
   <div class="px-6 py-10">

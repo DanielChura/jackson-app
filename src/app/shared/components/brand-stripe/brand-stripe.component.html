@@ -1,0 +1,40 @@
+<section
+  class="bg-jackson-navy rounded-md px-8 py-6 overflow-hidden"
+  aria-label="Marcas disponibles"
+>
+  <div class="flex animate-carousel gap-x-10 w-max pr-10">
+    @for (logo of brandLogos; track logo.src) {
+      <img
+        [src]="logo.src"
+        [alt]="logo.alt"
+        class="h-4 w-auto opacity-70 transition-opacity hover:opacity-100"
+      />
+    }
+    @for (logo of brandLogos; track logo.src + '-dup') {
+      <img
+        [src]="logo.src"
+        [alt]="logo.alt"
+        class="h-4 w-auto opacity-70 transition-opacity hover:opacity-100"
+        aria-hidden="true"
+      />
+    }
+  </div>
+
+  <style>
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    .animate-carousel {
+      animation: scroll 50s linear infinite;
+      will-change: transform;
+    }
+    .animate-carousel:hover {
+      animation-play-state: paused;
+    }
+  </style>
+</section>
