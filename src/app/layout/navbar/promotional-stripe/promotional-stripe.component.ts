@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   template: `
     <aside class="bg-jackson-navy py-1 select-none text-center">
-      <span class="text-[10px] font-medium text-white tracking-wider uppercase">
+      <span class="text-xs font-medium text-white tracking-wider uppercase">
         {{ promo }}
       </span>
     </aside>

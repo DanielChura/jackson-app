@@ -10,7 +10,7 @@
         type="text"
         [(ngModel)]="filterName"
         placeholder="Nombre del producto..."
-        class="w-full bg-jackson-surface text-jackson-charcoal px-4 py-2.5 text-sm border-0 outline-none focus:bg-jackson-text-secondary/10 transition-colors"
+        class="w-full bg-gray-100 text-jackson-charcoal px-4 py-2.5 text-sm border-0 outline-none focus:bg-jackson-text-secondary/10 transition-colors"
         (keyup.enter)="applyFilters()"
       />
     </div>
@@ -22,7 +22,7 @@
         id="category"
         [(ngModel)]="filterCategory"
         (change)="applyFilters()"
-        class="w-full bg-jackson-surface text-jackson-charcoal px-4 py-2.5 text-sm border-0 outline-none focus:bg-jackson-text-secondary/10 transition-colors"
+        class="w-full bg-gray-100 text-jackson-charcoal px-4 py-2.5 text-sm border-0 outline-none focus:bg-jackson-text-secondary/10 transition-colors"
       >
         <option value="">Todas</option>
         @for (cat of categories(); track cat.id) {
@@ -36,7 +36,7 @@
         id="brand"
         [(ngModel)]="filterBrand"
         (change)="applyFilters()"
-        class="w-full bg-jackson-surface text-jackson-charcoal px-4 py-2.5 text-sm border-0 outline-none focus:bg-jackson-text-secondary/10 transition-colors"
+        class="w-full bg-gray-100 text-jackson-charcoal px-4 py-2.5 text-sm border-0 outline-none focus:bg-jackson-text-secondary/10 transition-colors"
       >
         <option value="">Todas</option>
         @for (brand of brands(); track brand.id) {

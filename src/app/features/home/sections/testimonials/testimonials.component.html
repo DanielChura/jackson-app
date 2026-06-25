@@ -1,43 +1,57 @@
 <section class="bg-jackson-white">
   <div class="mb-8">
-    <h2 class="max-w-sm text-2xl md:max-w-sm font-medium text-jackson-charcoal">
+    <h2 class="max-w-md text-2xl md:max-w-sm font-medium text-jackson-charcoal">
       Conoce por qué cada vez más clientes confían en nosotros
     </h2>
   </div>
 
-  <div
-    class="flex gap-4 overflow-x-auto pb-4 snap-x snap-proximity scroll-smooth scrollbar-none md:gap-5"
-  >
+  <div class="flex gap-4 overflow-x-auto pb-4 snap-x snap-proximity scroll-smooth scrollbar-none">
     @for (t of testimonials; track $index) {
-      @if (t.type === 'image') {
-        <div
-          class="flex w-[calc(80%-0.5rem)] shrink-0 snap-start aspect-3/4 md:w-[calc(35%-1rem)] md:aspect-2.5/3 lg:w-[calc(25%-1rem)] lg:aspect-4/5 overflow-hidden rounded-2xl bg-jackson-surface"
-        >
-          <img [src]="t.image" alt="Cliente Jackson Music" class="h-full w-full object-cover" />
-        </div>
-      } @else {
-        <div
-          class="relative flex w-[calc(80%-0.5rem)] shrink-0 snap-start flex-col justify-between rounded-2xl p-6 aspect-3/4 md:w-[calc(35%-1rem)] md:aspect-2.5/3 lg:w-[calc(25%-1rem)] lg:aspect-4/5 bg-gray-100 text-jackson-charcoal overflow-hidden"
-        >
-          <p class="text-2xl md:text-lg leading-relaxed font-normal">
-            {{ t.text }}
-          </p>
+      <div
+        class="relative flex w-[calc(80%-0.5rem)] shrink-0 snap-start flex-col justify-end overflow-hidden rounded-md p-6 aspect-3/4 md:w-[calc(35%-1rem)] md:aspect-2.5/3 lg:w-[calc(25%-1rem)] lg:aspect-4/5 bg-gray-50"
+      >
+        @if (t.image) {
+          <img
+            [src]="t.image"
+            alt="Cliente Jackson Music"
+            class="absolute inset-0 h-full w-full object-cover"
+          />
+          <div
+            class="absolute inset-0 bg-linear-to-t from-jackson-charcoal/90 via-jackson-charcoal/30 to-transparent"
+          ></div>
+        }
 
-          <div class="z-10">
-            <p class="text-base font-medium">{{ t.author }}</p>
-            <p class="text-sm font-normal text-jackson-text-secondary">
-              {{ t.city }}
-            </p>
-          </div>
-
-          <app-icon
-            name="quote-open"
-            size="140"
-            fill="currentColor"
-            class="absolute -bottom-1 -right-1 pointer-events-none text-gray-200"
+        <div class="absolute top-6 right-6 z-10 aspect-video w-20">
+          <img
+            [src]="'/logos/' + t.brand + '.png'"
+            [alt]="t.brand"
+            class="h-full w-full object-contain"
+            [ngClass]="t.image ? '' : 'brightness-50'"
           />
         </div>
-      }
+
+        <p
+          class="relative z-10 text-2xl md:text-lg leading-relaxed font-normal"
+          [ngClass]="t.image ? 'text-jackson-white' : 'text-jackson-charcoal'"
+        >
+          {{ t.text }}
+        </p>
+
+        <div class="relative z-10 mt-4">
+          <p
+            class="text-base font-medium"
+            [ngClass]="t.image ? 'text-jackson-white' : 'text-jackson-charcoal'"
+          >
+            {{ t.author }}
+          </p>
+          <p
+            class="text-sm font-normal"
+            [ngClass]="t.image ? 'text-jackson-white/70' : 'text-jackson-charcoal/70'"
+          >
+            {{ t.city }}
+          </p>
+        </div>
+      </div>
     }
   </div>
 </section>

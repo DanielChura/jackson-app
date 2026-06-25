@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IconComponent } from '../../shared/icons/icon.component';
 import { IconName } from '../../shared/icons/icons';
+import { BrandStripeComponent } from '../../shared/components/brand-stripe/brand-stripe.component';
 
 interface FooterLink {
   label: string;
@@ -18,7 +19,7 @@ interface SocialLink {
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [RouterLink, IconComponent],
+  imports: [RouterLink, IconComponent, BrandStripeComponent],
   templateUrl: './footer.component.html',
 })
 export class FooterComponent {

@@ -30,5 +30,5 @@ export class CollectionCardComponent {
   readonly name = input<string>('');
   readonly route = input<string | string[]>('');
   readonly queryParams = input<Record<string, any>>({});
-  readonly bgClass = input<string>('bg-jackson-surface');
+  readonly bgClass = input<string>('bg-gray-100');
 }

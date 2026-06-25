@@ -1,20 +1,17 @@
-<section
-  class="bg-jackson-navy rounded-md px-8 py-6 overflow-hidden"
-  aria-label="Marcas disponibles"
->
-  <div class="flex animate-carousel gap-x-10 w-max pr-10">
+<section class="border-b border-t border-gray-100 overflow-hidden" aria-label="Marcas disponibles">
+  <div class="flex animate-carousel gap-x-10 w-max pr-10 py-8">
     @for (logo of brandLogos; track logo.src) {
       <img
         [src]="logo.src"
         [alt]="logo.alt"
-        class="h-4 w-auto opacity-70 transition-opacity hover:opacity-100"
+        class="h-10 aspect-video object-contain opacity-70 transition-opacity hover:opacity-100 brightness-0"
       />
     }
     @for (logo of brandLogos; track logo.src + '-dup') {
       <img
         [src]="logo.src"
         [alt]="logo.alt"
-        class="h-4 w-auto opacity-70 transition-opacity hover:opacity-100"
+        class="h-10 aspect-video object-contain opacity-70 transition-opacity hover:opacity-100 brightness-0"
         aria-hidden="true"
       />
     }

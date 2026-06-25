@@ -30,7 +30,7 @@ import type { PaymentResponse } from '../../core/models';
       } @else if (payment(); as p) {
         <div class="py-20 text-center space-y-4">
           <p class="text-xl text-jackson-charcoal font-medium">¡Pago confirmado!</p>
-          <div class="mx-auto max-w-md space-y-2 rounded-lg bg-jackson-surface p-6 text-left">
+          <div class="mx-auto max-w-md space-y-2 rounded-lg bg-gray-100 p-6 text-left">
             <p class="text-jackson-charcoal font-medium">
               <span class="text-jackson-charcoal/50">Monto:</span> S/ {{ p.amount }}
             </p>

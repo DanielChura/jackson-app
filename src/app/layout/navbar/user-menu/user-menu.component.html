@@ -1,55 +1,7 @@
-<div class="relative" (mouseenter)="open()" (mouseleave)="closeDelayed()">
-  <button
-    (click)="toggle()"
-    class="flex items-center gap-1 text-jackson-navy hover:text-jackson-orange transition-colors cursor-pointer focus:outline-none focus-visible:bg-jackson-navy/10"
-    [attr.aria-expanded]="userDropdownOpen()"
-    aria-haspopup="true"
-    aria-label="Menú de usuario"
-  >
-    <app-icon name="user" size="22" />
-    <app-icon name="chevron-down" size="14" class="hidden md:block" />
-  </button>
-  @if (userDropdownOpen()) {
-    <div class="fixed inset-0 z-40" (click)="close()"></div>
-    <div class="absolute right-0 z-50 pt-2">
-      <div class="w-48 rounded-none bg-white py-0 shadow-sm">
-        @if (auth.currentUser(); as user) {
-          <div class="px-4 py-2.5 text-xs text-jackson-text-secondary font-medium truncate">
-            {{ user.email }}
-          </div>
-          <a
-            routerLink="/account"
-            (click)="close()"
-            class="block px-4 py-3 text-sm text-jackson-charcoal hover:bg-jackson-surface transition-colors font-normal"
-            >Mi cuenta</a
-          >
-          <a
-            routerLink="/orders"
-            (click)="close()"
-            class="block px-4 py-3 text-sm text-jackson-charcoal hover:bg-jackson-surface transition-colors font-normal"
-            >Mis pedidos</a
-          >
-          <button
-            (click)="auth.logout(); close()"
-            class="w-full px-4 py-3 text-left text-sm text-jackson-charcoal/70 hover:bg-jackson-surface transition-colors font-normal"
-          >
-            Cerrar sesión
-          </button>
-        } @else {
-          <a
-            routerLink="/auth/login"
-            (click)="close()"
-            class="block px-4 py-3 text-sm text-jackson-charcoal hover:bg-jackson-surface transition-colors font-normal"
-            >Iniciar sesión</a
-          >
-          <a
-            routerLink="/auth/register"
-            (click)="close()"
-            class="block px-4 py-3 text-sm text-jackson-charcoal hover:bg-jackson-surface transition-colors font-normal"
-            >Registrarse</a
-          >
-        }
-      </div>
-    </div>
-  }
-</div>
+<a
+  [routerLink]="auth.currentUser() ? '/account' : '/auth/login'"
+  class="text-jackson-navy hover:text-jackson-navy-hover p-2.5 rounded-md min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none"
+  aria-label="Menú de usuario"
+>
+  <app-icon name="user" size="22" />
+</a>

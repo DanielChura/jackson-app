@@ -32,12 +32,12 @@
       @for (order of orders(); track order.id) {
         <div
           (click)="selectedOrder.set(order)"
-          class="border border-jackson-surface p-6 space-y-3 cursor-pointer transition-colors hover:bg-jackson-surface"
+          class="border border-gray-100 p-6 space-y-3 cursor-pointer transition-colors hover:bg-gray-100"
         >
           <div class="flex items-center justify-between">
             <p class="text-jackson-charcoal font-medium">Orden #{{ order.orderNumber }}</p>
             <span
-              class="text-xs font-medium px-3 py-1 bg-jackson-surface"
+              class="text-xs font-medium px-3 py-1 bg-gray-100"
               [class]="
                 order.status === 'PAID' || order.status === 'DELIVERED'
                   ? 'text-jackson-orange'
@@ -55,7 +55,7 @@
           <p class="text-sm text-jackson-charcoal/60 font-normal">
             {{ order.items.length }} producto(s)
           </p>
-          <div class="flex items-center justify-between pt-2 border-t border-jackson-surface">
+          <div class="flex items-center justify-between pt-2 border-t border-gray-100">
             <span class="text-jackson-charcoal font-medium">Total</span>
             <span class="text-lg text-jackson-charcoal font-medium">S/ {{ order.total }}</span>
           </div>
@@ -83,7 +83,7 @@
         <div class="flex items-center justify-between">
           <span class="text-sm text-jackson-charcoal/50">Estado</span>
           <span
-            class="text-xs font-medium px-3 py-1 bg-jackson-surface"
+            class="text-xs font-medium px-3 py-1 bg-gray-100"
             [class]="
               o.status === 'PAID' || o.status === 'DELIVERED'
                 ? 'text-jackson-orange'
@@ -100,7 +100,7 @@
           {{ o.orderedAt | date: 'dd/MM/yyyy HH:mm' }}
         </p>
 
-        <div class="border-t border-jackson-surface pt-4">
+        <div class="border-t border-gray-100 pt-4">
           <h3 class="text-sm text-jackson-charcoal font-medium mb-3">Productos</h3>
           <div class="space-y-3">
             @for (item of o.items; track item.id) {
@@ -117,7 +117,7 @@
           </div>
         </div>
 
-        <div class="border-t border-jackson-surface pt-4 space-y-1">
+        <div class="border-t border-gray-100 pt-4 space-y-1">
           <div class="flex justify-between text-sm">
             <span class="text-jackson-charcoal/50">Subtotal</span>
             <span class="text-jackson-charcoal">S/ {{ o.subtotal }}</span>
@@ -127,7 +127,7 @@
             <span class="text-jackson-charcoal">S/ {{ o.taxes }}</span>
           </div>
           <div
-            class="flex justify-between text-base font-medium pt-2 border-t border-jackson-surface"
+            class="flex justify-between text-base font-medium pt-2 border-t border-gray-100"
           >
             <span class="text-jackson-charcoal">Total</span>
             <span class="text-jackson-charcoal">S/ {{ o.total }}</span>

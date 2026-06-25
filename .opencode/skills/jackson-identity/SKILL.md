@@ -48,7 +48,7 @@ Aquí se documentan los roles de uso:
 | `--color-jackson-navy`           | Estructura y acción: CTAs, navbar, footer         |
 | `--color-jackson-charcoal`       | Texto principal: títulos, cuerpo, descripciones   |
 | `--color-jackson-text-secondary` | Texto secundario, placeholders                    |
-| `--color-jackson-surface`        | Fondo alterno: inputs, secciones secundarias      |
+| `--color-gray-100`        | Fondo alterno: inputs, secciones secundarias      |
 
 ### Roles Taxativos
 
@@ -60,7 +60,7 @@ Aquí se documentan los roles de uso:
 | `jackson-navy-hover`     | Hover de CTAs navy                             | Texto                              |
 | `jackson-charcoal`       | Títulos, cuerpo, descripciones, precios        | CTAs, fondos                       |
 | `jackson-text-secondary` | Texto secundario, placeholders, metadatos      | Títulos, CTAs                      |
-| `jackson-surface`        | Fondos alternos, inputs, cards secundarias     | Fondos de página principal         |
+| `gray-100`        | Fondos alternos, inputs, cards secundarias     | Fondos de página principal         |
 
 ## 3. Tipografía
 
@@ -112,7 +112,7 @@ Usar como utilidades Tailwind directamente:
 - Botón secundario: `border border-jackson-navy text-jackson-navy px-4 py-2 rounded-md transition-jackson hover:bg-jackson-navy hover:text-jackson-white`
 - Banner/callout: `bg-jackson-orange rounded-2xl px-6 py-16`
 - Input: `bg-jackson-white border-0 rounded-md px-4 py-3 text-jackson-charcoal`
-- Contenedor superficie: `bg-jackson-surface p-6`
+- Contenedor superficie: `bg-gray-100 p-6`
 - Grillas: `display: grid; gap: 32px;`
 - Título sección: `text-jackson-charcoal text-2xl md:text-3xl font-medium`
 

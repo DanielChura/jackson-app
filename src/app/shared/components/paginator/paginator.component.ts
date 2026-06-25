@@ -12,7 +12,7 @@ import { Component, input, output } from '@angular/core';
         <button
           (click)="prev.emit()"
           [disabled]="page() === 0"
-          class="bg-jackson-surface px-3 py-1.5 text-sm text-jackson-charcoal font-medium hover:bg-jackson-surface disabled:opacity-40"
+          class="bg-gray-100 px-3 py-1.5 text-sm text-jackson-charcoal font-medium hover:bg-gray-100 disabled:opacity-40"
         >
           Anterior
         </button>
@@ -22,7 +22,7 @@ import { Component, input, output } from '@angular/core';
         <button
           (click)="next.emit()"
           [disabled]="page() >= totalPages() - 1"
-          class="bg-jackson-surface px-3 py-1.5 text-sm text-jackson-charcoal font-medium hover:bg-jackson-surface disabled:opacity-40"
+          class="bg-gray-100 px-3 py-1.5 text-sm text-jackson-charcoal font-medium hover:bg-gray-100 disabled:opacity-40"
         >
           Siguiente
         </button>

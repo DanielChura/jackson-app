@@ -1,6 +1,6 @@
 @if (title()) {
-  <div class="flex items-center justify-between mb-8">
-    <h2 class="max-w-sm text-2xl md:max-w-xs font-medium text-jackson-charcoal">{{ title() }}</h2>
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-2xl md:text-xl lg:text-2xl font-medium text-jackson-charcoal">{{ title() }}</h2>
     @if (viewAllRoute(); as route) {
       <a
         [routerLink]="route"
