@@ -8,7 +8,6 @@ import type {
   TopProductEntry,
   OrdersByStatusEntry,
   RecentOrderEntry,
-  Granularity,
   DateRange,
 } from '../models';
 
@@ -17,39 +16,40 @@ export class DashboardService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/admin/dashboard`;
 
-  getSummary(range?: DateRange): Observable<DashboardSummary> {
+  private buildParams(range?: DateRange): HttpParams {
     let params = new HttpParams();
     if (range?.desde) params = params.set('desde', range.desde);
     if (range?.hasta) params = params.set('hasta', range.hasta);
-    return this.http.get<DashboardSummary>(`${this.apiUrl}/summary`, { params });
+    return params;
   }
 
-  getSalesByPeriod(
-    granularity: Granularity,
-    range?: DateRange,
-  ): Observable<SalesByPeriodEntry[]> {
-    let params = new HttpParams().set('granularity', granularity);
-    if (range?.desde) params = params.set('desde', range.desde);
-    if (range?.hasta) params = params.set('hasta', range.hasta);
-    return this.http.get<SalesByPeriodEntry[]>(`${this.apiUrl}/sales-by-period`, { params });
+  getSummary(range?: DateRange) {
+    return this.http.get<DashboardSummary>(`${this.apiUrl}/summary`, {
+      params: this.buildParams(range),
+    });
   }
 
-  getTopProducts(limit = 10, range?: DateRange): Observable<TopProductEntry[]> {
-    let params = new HttpParams().set('limit', limit);
-    if (range?.desde) params = params.set('desde', range.desde);
-    if (range?.hasta) params = params.set('hasta', range.hasta);
-    return this.http.get<TopProductEntry[]>(`${this.apiUrl}/top-products`, { params });
+  getSalesByPeriod(range?: DateRange) {
+    return this.http.get<SalesByPeriodEntry[]>(`${this.apiUrl}/sales-by-period`, {
+      params: this.buildParams(range),
+    });
   }
 
-  getOrdersByStatus(range?: DateRange): Observable<OrdersByStatusEntry[]> {
-    let params = new HttpParams();
-    if (range?.desde) params = params.set('desde', range.desde);
-    if (range?.hasta) params = params.set('hasta', range.hasta);
-    return this.http.get<OrdersByStatusEntry[]>(`${this.apiUrl}/orders-by-status`, { params });
+  getTopProducts(limit = 10, range?: DateRange) {
+    return this.http.get<TopProductEntry[]>(`${this.apiUrl}/top-products`, {
+      params: this.buildParams(range).set('limit', limit),
+    });
   }
 
-  getRecentOrders(limit = 10): Observable<RecentOrderEntry[]> {
-    const params = new HttpParams().set('limit', limit);
-    return this.http.get<RecentOrderEntry[]>(`${this.apiUrl}/recent-orders`, { params });
+  getOrdersByStatus(range?: DateRange) {
+    return this.http.get<OrdersByStatusEntry[]>(`${this.apiUrl}/orders-by-status`, {
+      params: this.buildParams(range),
+    });
+  }
+
+  getRecentOrders(limit = 10) {
+    return this.http.get<RecentOrderEntry[]>(`${this.apiUrl}/recent-orders`, {
+      params: new HttpParams().set('limit', limit),
+    });
   }
 }

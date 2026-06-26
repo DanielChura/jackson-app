@@ -48,13 +48,6 @@
   }
 }
 
-@utility transition-jackson {
-  transition:
-    color 150ms ease,
-    background-color 150ms ease,
-    opacity 150ms ease;
-}
-
 @utility scrollbar-none {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -77,4 +70,13 @@
   display: flex;
   width: max-content;
   animation: marquee 50s linear infinite;
+}
+
+@layer components {
+  .form-input {
+    @apply w-full bg-white px-4 py-2.5 text-sm border border-gray-200 rounded-md outline-none focus:border-jackson-orange transition-colors;
+  }
+  .form-select {
+    @apply w-full bg-white text-jackson-charcoal px-4 py-2.5 text-sm border border-gray-200 rounded-md outline-none focus:border-jackson-orange transition-colors;
+  }
 }

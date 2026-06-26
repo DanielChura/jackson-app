@@ -1,0 +1,120 @@
+<div class="mx-auto w-full max-w-[1600px] px-6 py-10">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl text-jackson-charcoal font-medium">Productos</h1>
+      <p class="mt-1 text-sm text-jackson-text-secondary font-normal">
+        Explorá nuestro catálogo completo
+      </p>
+    </div>
+    <div class="flex items-center gap-4">
+      <p class="text-sm text-jackson-text-secondary font-normal">
+        {{ totalElements() }} producto(s)
+      </p>
+      <button
+        class="md:hidden bg-jackson-navy text-jackson-white px-4 py-2 text-sm font-medium rounded-md"
+        (click)="isFilterModalOpen.set(true)"
+      >
+        Filtrar
+      </button>
+    </div>
+  </div>
+
+  <div class="py-10 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    <div class="hidden md:flex flex-col gap-4">
+      <ng-container *ngTemplateOutlet="filterContent" />
+    </div>
+
+    <div class="col-span-1 md:col-span-3 lg:col-span-4">
+      @if (loading()) {
+        <div class="flex justify-center py-20">
+          <app-spinner size="32" text="Cargando productos..." />
+        </div>
+      } @else if (products().length === 0) {
+        <div class="py-20 text-center">
+          <p class="text-jackson-text-secondary font-normal">No se encontraron productos</p>
+        </div>
+      } @else {
+        <div class="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          @for (product of products(); track product.id) {
+            <app-product-card [product]="product" />
+          }
+        </div>
+        <div class="mt-10">
+          <app-paginator
+            [page]="page()"
+            [totalPages]="totalPages()"
+            [totalElements]="totalElements()"
+            label="productos"
+            (prev)="prev()"
+            (next)="next()"
+          />
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="py-10">
+    <app-product-carousel
+      title="Productos recomendados"
+      [products]="products()"
+      [loading]="loading()"
+    />
+  </div>
+</div>
+
+<app-modal [open]="isFilterModalOpen()" (close)="isFilterModalOpen.set(false)">
+  <h2 class="text-lg font-medium text-jackson-charcoal mb-4">Filtros</h2>
+  <ng-container *ngTemplateOutlet="filterContent" />
+</app-modal>
+
+<ng-template #filterContent>
+  <div class="w-full flex flex-col gap-4">
+    <div class="w-full">
+      <label for="category" class="block text-sm text-jackson-charcoal font-medium"
+        >Categoría</label
+      >
+      <select id="category" [(ngModel)]="filterCategory" class="form-select">
+        <option value="">Todas</option>
+        @for (cat of categories(); track cat.id) {
+          <option [value]="cat.name">{{ cat.name }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="w-full">
+      <label for="brand" class="block text-sm text-jackson-charcoal font-medium">Marca</label>
+      <select id="brand" [(ngModel)]="filterBrand" class="form-select">
+        <option value="">Todas</option>
+        @for (brand of brands(); track brand.id) {
+          <option [value]="brand.name">{{ brand.name }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="w-full">
+      <label class="block text-sm text-jackson-charcoal font-medium">Precio</label>
+      <div class="flex gap-2">
+        <input type="number" [(ngModel)]="filterMinPrice" placeholder="Min" class="form-input" />
+        <input type="number" [(ngModel)]="filterMaxPrice" placeholder="Max" class="form-input" />
+      </div>
+    </div>
+
+    <div class="w-full">
+      <label for="sort" class="block text-sm text-jackson-charcoal font-medium">Ordenar por</label>
+      <select id="sort" [(ngModel)]="filterSort" class="form-select">
+        <option value="">Relevancia</option>
+        <option value="price,asc">Precio (Menor a mayor)</option>
+        <option value="price,desc">Precio (Mayor a menor)</option>
+        <option value="createdAt,desc">Lo más nuevo</option>
+        <option value="name,asc">Nombre (A-Z)</option>
+      </select>
+    </div>
+
+    <button
+      (click)="applyFilters()"
+      class="bg-jackson-navy text-jackson-white px-6 py-2.5 text-sm font-medium transition-colors hover:bg-jackson-navy-hover w-full rounded-md"
+    >
+      Filtrar
+    </button>
+  </div>
+</ng-template>

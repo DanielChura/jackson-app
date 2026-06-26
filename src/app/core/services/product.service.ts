@@ -17,13 +17,21 @@ export class ProductService {
     page = 0,
     size = 20,
     sort?: string,
-    filters?: { name?: string; category?: string; brand?: string },
+    filters?: {
+      name?: string;
+      category?: string;
+      brand?: string;
+      minPrice?: number;
+      maxPrice?: number;
+    },
   ) {
     let params = new HttpParams().set('page', page).set('size', size);
     if (sort) params = params.set('sort', sort);
     if (filters?.name) params = params.set('name', filters.name);
     if (filters?.category) params = params.set('category', filters.category);
     if (filters?.brand) params = params.set('brand', filters.brand);
+    if (filters?.minPrice) params = params.set('minPrice', filters.minPrice.toString());
+    if (filters?.maxPrice) params = params.set('maxPrice', filters.maxPrice.toString());
     return this.http.get<PagedResponse<ProductResponse>>(this.apiUrl, { params });
   }
 

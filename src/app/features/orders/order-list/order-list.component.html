@@ -74,7 +74,6 @@
     </div>
   }
 
-  <!-- Modal de detalle de orden -->
   <app-modal [open]="!!selectedOrder()" (close)="selectedOrder.set(null)">
     @if (selectedOrder(); as o) {
       <div class="space-y-5">
@@ -126,9 +125,7 @@
             <span class="text-jackson-charcoal/50">Impuestos</span>
             <span class="text-jackson-charcoal">S/ {{ o.taxes }}</span>
           </div>
-          <div
-            class="flex justify-between text-base font-medium pt-2 border-t border-gray-100"
-          >
+          <div class="flex justify-between text-base font-medium pt-2 border-t border-gray-100">
             <span class="text-jackson-charcoal">Total</span>
             <span class="text-jackson-charcoal">S/ {{ o.total }}</span>
           </div>

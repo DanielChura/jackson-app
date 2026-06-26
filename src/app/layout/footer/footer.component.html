@@ -13,7 +13,7 @@
               <a
                 [routerLink]="cat.route"
                 [queryParams]="cat.queryParams"
-                class="inline-block text-sm text-jackson-text-secondary transition-jackson hover:text-jackson-charcoal focus-visible:text-jackson-charcoal focus-visible:outline-none"
+                class="inline-block text-sm text-jackson-text-secondary hover:text-jackson-charcoal focus-visible:text-jackson-charcoal focus-visible:outline-none"
               >
                 {{ cat.label }}
               </a>
@@ -32,7 +32,7 @@
               <a
                 [routerLink]="brand.route"
                 [queryParams]="brand.queryParams"
-                class="inline-block text-sm text-jackson-text-secondary transition-jackson hover:text-jackson-charcoal focus-visible:text-jackson-charcoal focus-visible:outline-none"
+                class="inline-block text-sm text-jackson-text-secondary hover:text-jackson-charcoal focus-visible:text-jackson-charcoal focus-visible:outline-none"
               >
                 {{ brand.label }}
               </a>
@@ -50,7 +50,7 @@
             <li>
               <a
                 [routerLink]="item.route"
-                class="inline-block text-sm text-jackson-text-secondary transition-jackson hover:text-jackson-charcoal focus-visible:text-jackson-charcoal focus-visible:outline-none"
+                class="inline-block text-sm text-jackson-text-secondary hover:text-jackson-charcoal focus-visible:text-jackson-charcoal focus-visible:outline-none"
               >
                 {{ item.label }}
               </a>
@@ -72,10 +72,9 @@
               href="https://wa.me/51999999999"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 text-sm text-jackson-text-secondary transition-jackson hover:text-jackson-charcoal focus-visible:text-jackson-charcoal focus-visible:outline-none group"
+              class="inline-flex items-center gap-2 text-sm text-jackson-text-secondary hover:text-jackson-charcoal focus-visible:text-jackson-charcoal focus-visible:outline-none group"
             >
-              <span
-                class="font-medium text-jackson-charcoal transition-jackson group-hover:text-jackson-charcoal"
+              <span class="font-medium text-jackson-charcoal group-hover:text-jackson-charcoal"
                 >WhatsApp:</span
               >
               <span>+51 999 999 999</span>
@@ -96,7 +95,7 @@
           @for (leg of legal; track leg.label) {
             <a
               [routerLink]="leg.route"
-              class="text-xs text-jackson-text-secondary transition-jackson hover:text-jackson-charcoal focus-visible:text-jackson-charcoal focus-visible:outline-none"
+              class="text-xs text-jackson-text-secondary hover:text-jackson-charcoal focus-visible:text-jackson-charcoal focus-visible:outline-none"
             >
               {{ leg.label }}
             </a>
@@ -111,7 +110,7 @@
             target="_blank"
             rel="noopener noreferrer"
             [attr.aria-label]="s.name"
-            class="flex h-10 w-10 items-center justify-center text-jackson-text-secondary transition-jackson hover:text-jackson-charcoal focus-visible:text-jackson-charcoal focus-visible:outline-none rounded-full hover:bg-gray-100"
+            class="flex h-10 w-10 items-center justify-center text-jackson-text-secondary hover:text-jackson-charcoal focus-visible:text-jackson-charcoal focus-visible:outline-none rounded-full hover:bg-gray-100"
           >
             <app-icon [name]="s.icon" size="20" stroke-width="1.2" />
           </a>

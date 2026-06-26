@@ -70,8 +70,8 @@ export const routes: Routes = [
       {
         path: 'products',
         loadComponent: () =>
-          import('./features/products/product-list/product-list.component').then(
-            (c) => c.ProductListComponent,
+          import('./features/products/product-catalog/product-catalog.component').then(
+            (c) => c.ProductCatalogComponent,
           ),
       },
       {

@@ -1,9 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Location, KeyValuePipe, DecimalPipe } from '@angular/common';
-import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
-import { NoImagePlaceholderComponent } from '../../../shared/components/no-image-placeholder/no-image-placeholder.component';
-import { ProductCardComponent } from '../../../shared/components/product-card/product-card.component';
+import { Location } from '@angular/common';
 import { IconComponent } from '../../../shared/icons/icon.component';
 import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
@@ -11,19 +8,13 @@ import { FavoriteService } from '../../../core/services/favorite.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import type { ProductResponse } from '../../../core/models';
+import { ProductCarouselComponent } from '../../../shared/components/product-carousel/product-carousel.component';
+import { ProductInfoComponent } from "./product-info/product-info.component";
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [
-    RouterLink,
-    SpinnerComponent,
-    NoImagePlaceholderComponent,
-    ProductCardComponent,
-    IconComponent,
-    KeyValuePipe,
-    DecimalPipe,
-  ],
+  imports: [RouterLink, IconComponent, ProductCarouselComponent, ProductInfoComponent],
   templateUrl: './product-detail.component.html',
 })
 export class ProductDetailComponent {

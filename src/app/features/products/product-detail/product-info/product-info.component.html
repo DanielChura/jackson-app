@@ -1,0 +1,132 @@
+<div class="flex flex-col gap-6">
+  <div class="flex flex-wrap items-center gap-2">
+    @if (p().category) {
+      <span
+        class="rounded-full bg-jackson-orange/10 px-3 py-1 text-xs font-semibold text-jackson-orange uppercase tracking-wide"
+      >
+        {{ p().category?.name }}
+      </span>
+    }
+    @if (p().brand) {
+      <span
+        class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-jackson-text-secondary"
+      >
+        {{ p().brand?.name }}
+      </span>
+    }
+  </div>
+
+  <h1 class="text-3xl text-jackson-charcoal font-medium leading-tight lg:text-4xl">
+    {{ p().name }}
+  </h1>
+
+  <div class="flex items-baseline gap-3">
+    <span class="text-4xl font-semibold text-jackson-charcoal">
+      S/ {{ p().price | number: '1.2-2' }}
+    </span>
+    @if (p().stock > 0) {
+      <span
+        class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 border border-emerald-200"
+      >
+        En stock
+      </span>
+    } @else {
+      <span
+        class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-jackson-charcoal/40 border border-jackson-charcoal/10"
+      >
+        Agotado
+      </span>
+    }
+  </div>
+
+  <div class="h-px bg-jackson-charcoal/8"></div>
+
+  <p class="text-base text-jackson-text-secondary leading-relaxed">
+    {{ p().description }}
+  </p>
+
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+    <div class="flex items-center rounded-md border border-jackson-charcoal/15 overflow-hidden">
+      <button
+        (click)="decrease.emit()"
+        [disabled]="qty() <= 1"
+        class="flex h-11 w-11 items-center justify-center text-jackson-charcoal transition-colors hover:bg-gray-100 disabled:opacity-30"
+        aria-label="Disminuir cantidad"
+      >
+        <app-icon name="minus" size="16" />
+      </button>
+      <span
+        class="flex h-11 min-w-10 items-center justify-center px-2 text-sm font-semibold text-jackson-charcoal"
+      >
+        {{ qty() }}
+      </span>
+      <button
+        (click)="increase.emit()"
+        [disabled]="qty() >= p().stock || p().stock === 0"
+        class="flex h-11 w-11 items-center justify-center text-jackson-charcoal transition-colors hover:bg-gray-100 disabled:opacity-30"
+        aria-label="Aumentar cantidad"
+      >
+        <app-icon name="plus" size="16" />
+      </button>
+    </div>
+
+    <button
+      (click)="addToCart.emit()"
+      [disabled]="p().stock === 0"
+      class="flex h-11 flex-1 items-center justify-center gap-2 rounded-md bg-jackson-navy px-6 text-sm font-semibold text-white transition-colors hover:bg-jackson-navy-hover disabled:opacity-40 disabled:cursor-not-allowed"
+    >
+      <app-icon name="shopping-cart-share" size="18" />
+      Agregar al carrito
+    </button>
+
+    <button
+      (click)="toggleFavorite.emit()"
+      class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-jackson-charcoal/15 text-jackson-charcoal transition-colors hover:border-jackson-orange hover:text-jackson-orange"
+      aria-label="Agregar a favoritos"
+    >
+      <app-icon name="heart" size="20" />
+    </button>
+  </div>
+
+  @if (p().stock > 0 && p().stock <= 10) {
+    <p class="text-xs text-jackson-orange font-medium">¡Solo quedan {{ p().stock }} unidad(es)!</p>
+  }
+
+  <div class="rounded-md bg-gray-100 p-4">
+    <ul class="flex flex-col gap-3 sm:flex-row sm:gap-6">
+      <li class="flex items-center gap-2.5 text-sm text-jackson-text-secondary">
+        <app-icon name="truck" size="18" class="text-jackson-navy shrink-0" />
+        <span>Envío a todo el Perú</span>
+      </li>
+      <li class="flex items-center gap-2.5 text-sm text-jackson-text-secondary">
+        <app-icon name="shield-check" size="18" class="text-jackson-navy shrink-0" />
+        <span>Garantía oficial</span>
+      </li>
+      <li class="flex items-center gap-2.5 text-sm text-jackson-text-secondary">
+        <app-icon name="refresh-cw" size="18" class="text-jackson-navy shrink-0" />
+        <span>30 días de devolución</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="flex flex-wrap gap-x-6 gap-y-1 text-xs text-jackson-text-secondary">
+    @if (p().brand) {
+      <span
+        >Marca:
+        <strong class="font-semibold text-jackson-charcoal">{{ p().brand?.name }}</strong></span
+      >
+    }
+    @if (p().category) {
+      <span
+        >Categoría:
+        <strong class="font-semibold text-jackson-charcoal">{{ p().category?.name }}</strong></span
+      >
+    }
+    <span
+      >SKU:
+      <strong class="font-semibold text-jackson-charcoal">{{
+        p().id.slice(0, 8).toUpperCase()
+      }}</strong></span
+    >
+  </div>
+</div>
