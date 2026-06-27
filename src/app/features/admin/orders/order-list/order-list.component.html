@@ -1,7 +1,7 @@
 <div class="space-y-6">
   <div>
-    <h1 class="text-2xl text-gray-900" style="font-weight: 500">Órdenes</h1>
-    <p class="mt-1 text-sm text-gray-500" style="font-weight: 400">
+    <h1 class="text-2xl text-jackson-charcoal font-medium">Órdenes</h1>
+    <p class="mt-1 text-sm text-jackson-text-secondary font-normal">
       Gestioná los estados de las órdenes
     </p>
   </div>
@@ -11,52 +11,50 @@
       <app-spinner size="32" text="Cargando…" />
     </div>
   } @else if (orders().length === 0) {
-    <div class="rounded-2xl border border-gray-200 bg-white p-6 text-center">
-      <p class="text-sm text-gray-400" style="font-weight: 400">No hay órdenes registradas</p>
+    <div class="rounded-md border border-gray-200 bg-white p-6 text-center">
+      <p class="text-sm text-jackson-text-secondary font-normal">No hay órdenes registradas</p>
     </div>
   } @else {
-    <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+    <div class="overflow-hidden rounded-md border border-gray-200 bg-white">
       <table class="w-full text-sm">
         <thead>
           <tr
-            class="border-b border-gray-100 bg-white text-left text-gray-400"
-            style="font-weight: 500"
+            class="border-b border-gray-200 bg-white text-left text-jackson-text-secondary font-medium"
           >
             <th class="px-6 py-3">N° Orden</th>
             <th class="px-6 py-3">Total</th>
-            <th class="px-6 py-3">Estado</th>
-            <th class="px-6 py-3">Fecha</th>
-            <th class="px-6 py-3">Acciones</th>
+            <th class="px-6 py-3 text-center">Estado</th>
+            <th class="px-6 py-3 text-center">Fecha</th>
+            <th class="px-6 py-3 text-center">Acciones</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-50">
+        <tbody class="divide-y divide-gray-200">
           @for (order of orders(); track order.id) {
             <tr class="hover:bg-gray-50">
-              <td class="px-6 py-4 text-gray-900" style="font-weight: 500">
+              <td class="px-6 py-4 text-jackson-charcoal font-medium">
                 {{ order.orderNumber }}
               </td>
-              <td class="px-6 py-4 text-gray-900" style="font-weight: 500">
-                ${{ order.total.toFixed(2) }}
+              <td class="px-6 py-4 text-jackson-charcoal font-medium">
+                S/ {{ order.total.toFixed(2) }}
               </td>
-              <td class="px-6 py-4">
+              <td class="px-6 py-4 text-center">
                 <span
-                  class="inline-block rounded-full px-3 py-1 text-xs font-medium {{
+                  class="inline-block rounded-md  px-3 py-1 text-xs font-medium {{
                     statusColors[order.status]
                   }}"
                 >
                   {{ statusLabels[order.status] }}
                 </span>
               </td>
-              <td class="px-6 py-4 text-gray-500" style="font-weight: 400">
+              <td class="px-6 py-4 text-jackson-text-secondary font-normal text-center">
                 {{ order.orderedAt | date: 'dd/MM/yyyy HH:mm' }}
               </td>
-              <td class="px-6 py-4">
+              <td class="px-6 py-4 text-center">
                 @if (allowedNextStatuses[order.status].length > 0) {
                   <select
                     [disabled]="updatingId() === order.id"
                     (change)="changeStatus(order, $any($event.target).value)"
-                    class="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
-                    style="font-weight: 400"
+                    class="form-select p-1 max-w-50 text-sm"
                   >
                     <option value="" disabled selected>Cambiar estado…</option>
                     @for (s of allowedNextStatuses[order.status]; track s) {
@@ -64,7 +62,7 @@
                     }
                   </select>
                 } @else {
-                  <span class="text-sm text-gray-400" style="font-weight: 400">—</span>
+                  <span class="text-sm text-jackson-text-secondary font-normal">—</span>
                 }
               </td>
             </tr>

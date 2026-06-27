@@ -46,7 +46,6 @@ export class OrdersByStatusComponent implements OnDestroy {
               (data): LoadState<OrdersByStatusEntry[]> => ({ loading: false, data, error: null }),
             ),
             catchError((err): Observable<LoadState<OrdersByStatusEntry[]>> => {
-              console.error('Error al cargar estados:', err);
               return of({ loading: false, data: null, error: 'Error al cargar estados' });
             }),
             startWith<LoadState<OrdersByStatusEntry[]>>({ loading: true, data: null, error: null }),

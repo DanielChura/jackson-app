@@ -8,7 +8,7 @@ export class RoleService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/roles`;
 
-  getAll(page = 0, size = 20) {
+  getAll(page = 0, size = 10) {
     return this.http.get<PagedResponse<RoleResponse>>(`${this.apiUrl}?page=${page}&size=${size}`);
   }
 }

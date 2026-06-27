@@ -53,7 +53,7 @@ export class OrderListComponent {
 
   load() {
     this.loading.set(true);
-    this.orderService.getAll(this.page(), 20).subscribe({
+    this.orderService.getAll(this.page(), 10).subscribe({
       next: (res) => {
         this.orders.set(res.content);
         this.totalPages.set(res.totalPages);

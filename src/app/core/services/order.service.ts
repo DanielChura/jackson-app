@@ -14,7 +14,7 @@ export class OrderService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/orders`;
 
-  getAll(page = 0, size = 20) {
+  getAll(page = 0, size = 10) {
     return this.http.get<PagedResponse<OrderResponse>>(`${this.apiUrl}?page=${page}&size=${size}`);
   }
 
@@ -24,7 +24,7 @@ export class OrderService {
     );
   }
 
-  getByUser(userId: string, page = 0, size = 20) {
+  getByUser(userId: string, page = 0, size = 10) {
     return this.http.get<PagedResponse<OrderResponse>>(
       `${this.apiUrl}/user/${userId}?page=${page}&size=${size}`,
     );

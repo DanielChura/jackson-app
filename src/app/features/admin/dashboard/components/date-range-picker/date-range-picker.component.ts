@@ -39,7 +39,10 @@ function computeRange(preset: PresetId): DateRange {
       return { desde: formatDate(from), hasta: today };
     }
     case 'month':
-      return { desde: `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-01`, hasta: today };
+      return {
+        desde: `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-01`,
+        hasta: today,
+      };
     default:
       return { desde: '', hasta: '' };
   }
@@ -81,7 +84,7 @@ export class DateRangePickerComponent {
 
   btnClass(id: PresetId): string {
     const active = this.activePreset() === id;
-    const base = 'rounded-lg border px-3 py-1.5 text-sm transition-colors';
+    const base = 'rounded-md border px-3 py-1.5 text-sm transition-colors';
     return active
       ? `${base} border-orange-500 bg-orange-50 text-orange-600`
       : `${base} border-gray-200 text-gray-600 hover:border-gray-300`;

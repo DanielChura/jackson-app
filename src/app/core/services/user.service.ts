@@ -8,7 +8,7 @@ export class UserService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/users`;
 
-  getAll(page = 0, size = 20) {
+  getAll(page = 0, size = 10) {
     return this.http.get<PagedResponse<UserResponse>>(`${this.apiUrl}?page=${page}&size=${size}`);
   }
 

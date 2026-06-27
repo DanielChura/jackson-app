@@ -8,7 +8,7 @@ import { IconComponent } from '../../icons/icon.component';
   template: `
     <button
       (click)="scroll.emit(direction())"
-      class="absolute top-1/2 -translate-y-1/2 z-10 hidden md:flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-gray-500 backdrop-blur-sm transition-colors hover:bg-white hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jackson-orange cursor-pointer"
+      class="absolute top-1/2 -translate-y-1/2 z-10 hidden md:flex h-10 w-10 items-center justify-center rounded-md bg-white/80 text-gray-500 backdrop-blur-sm transition-colors hover:bg-white hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jackson-orange cursor-pointer"
       [class.-left-5]="direction() === 'left'"
       [class.-right-5]="direction() === 'right'"
       [attr.aria-label]="direction() === 'left' ? 'Anterior' : 'Siguiente'"

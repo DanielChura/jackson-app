@@ -1,12 +1,12 @@
 <div class="max-w-[1280px] mx-auto p-6 md:p-8">
-  <h1 class="text-3xl font-bold text-[#023047] mb-8">Mi Cuenta</h1>
+  <h1 class="text-3xl font-bold text-bg-jackson-navy mb-8">Mi Cuenta</h1>
 
   <div class="grid md:grid-cols-12 gap-8">
     <!-- Perfil -->
     <div class="md:col-span-4">
       <div *ngIf="user(); else loadingUser" class="bg-white p-6 border border-gray-100 rounded-md">
-        <h2 class="text-xl font-semibold text-[#023047] mb-4">Información Personal</h2>
-        <div class="space-y-3 text-[#023047]">
+        <h2 class="text-xl font-semibold text-bg-jackson-navy mb-4">Información Personal</h2>
+        <div class="space-y-3 text-bg-jackson-navy">
           <p><span class="font-medium">Nombre:</span> {{ user()?.firstName }}</p>
           <p><span class="font-medium">Email:</span> {{ user()?.email }}</p>
           <p><span class="font-medium">Teléfono:</span> {{ user()?.phone || 'No registrado' }}</p>
@@ -15,7 +15,7 @@
           </p>
         </div>
         <button
-          class="mt-6 w-full bg-[#023047] text-white py-2 rounded-sm hover:bg-[#023047]/90 transition"
+          class="mt-6 w-full bg-jackson-navy text-white py-2 rounded-md hover:bg-jackson-navy/90 transition"
         >
           Editar Perfil
         </button>
@@ -24,41 +24,54 @@
 
     <!-- Pedidos -->
     <div class="md:col-span-8">
-      <h2 class="text-xl font-semibold text-[#023047] mb-4">Mis Pedidos</h2>
-      <div *ngIf="orders().length === 0" class="text-gray-500">No tienes pedidos aún.</div>
-      <div *ngIf="orders().length > 0" class="space-y-4">
-        <div
-          *ngFor="let order of orders()"
-          class="border border-gray-100 p-5 rounded-md hover:border-gray-200 transition-colors"
-        >
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <p class="text-sm text-gray-500">Orden #{{ order.orderNumber }}</p>
-              <p class="font-bold text-[#023047]">{{ order.orderedAt | date: 'mediumDate' }}</p>
-            </div>
-            <span
-              class="px-3 py-1 text-xs font-bold rounded-full uppercase"
-              [class]="getOrderStatusInfo(order.status).color"
-              >{{ getOrderStatusInfo(order.status).label }}</span
-            >
-          </div>
-
-          <div class="space-y-2 mb-4">
+      <h2 class="text-xl font-semibold text-bg-jackson-navy mb-4">Mis Pedidos</h2>
+      @if (orders().length === 0) {
+        <div class="text-gray-500">No tienes pedidos aún.</div>
+      } @else {
+        <div class="space-y-4 pb-10">
+          @for (order of orders(); track $index) {
             <div
-              *ngFor="let item of order.items"
-              class="flex justify-between text-sm text-[#023047]"
+              class="border border-gray-100 p-5 rounded-md hover:border-gray-200 transition-colors"
             >
-              <span>{{ item.quantity }}x {{ item.productName }}</span>
-              <span>${{ item.unitPrice * item.quantity | number: '1.2-2' }}</span>
-            </div>
-          </div>
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <p class="text-sm text-gray-500">Orden #{{ order.orderNumber }}</p>
+                  <p class="font-bold">{{ order.orderedAt | date: 'mediumDate' }}</p>
+                </div>
+                <span
+                  class="px-3 py-1 text-xs font-bold rounded-md uppercase"
+                  [class]="getOrderStatusInfo(order.status).color"
+                  >{{ getOrderStatusInfo(order.status).label }}</span
+                >
+              </div>
 
-          <div class="border-t pt-3 flex justify-between font-bold text-[#023047]">
-            <span>Total</span>
-            <span>${{ order.total | number: '1.2-2' }}</span>
-          </div>
+              <div class="space-y-2 mb-4">
+                @for (item of order.items; track $index) {
+                  <div class="flex justify-between text-sm text-bg-jackson-navy">
+                    <span>{{ item.quantity }}x {{ item.productName }}</span>
+                    <span>${{ item.unitPrice * item.quantity | number: '1.2-2' }}</span>
+                  </div>
+                }
+              </div>
+
+              <div class="border-t border-gray-200 pt-3 flex justify-between font-bold">
+                <span>Total</span>
+                <span>${{ order.total | number: '1.2-2' }}</span>
+              </div>
+            </div>
+          }
         </div>
-      </div>
+      }
+      @if (orders().length > 0) {
+        <app-paginator
+          [page]="page()"
+          [totalPages]="totalPages()"
+          [totalElements]="totalElements()"
+          label="Pedidos"
+          (prev)="prev()"
+          (next)="next()"
+        ></app-paginator>
+      }
     </div>
   </div>
 </div>

@@ -79,4 +79,7 @@
   .form-select {
     @apply w-full bg-white text-jackson-charcoal px-4 py-2.5 text-sm border border-gray-200 rounded-md outline-none focus:border-jackson-orange transition-colors;
   }
+  .btn-orange {
+    @apply bg-jackson-orange text-white px-6 py-2.5 text-sm font-medium rounded-md hover:bg-jackson-orange-hover transition-colors disabled:opacity-60 disabled:cursor-not-allowed;
+  }
 }

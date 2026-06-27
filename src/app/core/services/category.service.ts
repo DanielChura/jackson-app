@@ -8,8 +8,10 @@ export class CategoryService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/categories`;
 
-  getAll(page = 0, size = 20) {
-    return this.http.get<PagedResponse<CategoryResponse>>(`${this.apiUrl}?page=${page}&size=${size}`);
+  getAll(page = 0, size = 10) {
+    return this.http.get<PagedResponse<CategoryResponse>>(
+      `${this.apiUrl}?page=${page}&size=${size}`,
+    );
   }
 
   getById(id: string) {

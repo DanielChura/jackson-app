@@ -16,7 +16,7 @@ export class ProductService {
 
   getAll(
     page = 0,
-    size = 20,
+    size = 10,
     sortBy?: string,
     filters?: {
       name?: string;

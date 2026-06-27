@@ -28,7 +28,7 @@ export class ProductListComponent {
 
   load() {
     this.loading.set(true);
-    this.productService.getAll(this.page(), 20).subscribe({
+    this.productService.getAll(this.page(), 10).subscribe({
       next: (res) => {
         this.products.set(res.content);
         this.totalPages.set(res.totalPages);

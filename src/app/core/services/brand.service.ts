@@ -8,7 +8,7 @@ export class BrandService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/brands`;
 
-  getAll(page = 0, size = 20) {
+  getAll(page = 0, size = 10) {
     return this.http.get<PagedResponse<BrandResponse>>(`${this.apiUrl}?page=${page}&size=${size}`);
   }
 

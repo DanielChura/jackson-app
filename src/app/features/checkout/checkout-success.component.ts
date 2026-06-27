@@ -35,7 +35,7 @@ import { timer, Subscription, switchMap, takeWhile } from 'rxjs';
             {{ order()?.status === 'PAID' ? '¡Pago confirmado!' : 'Procesando pago...' }}
           </p>
           @if (payment(); as p) {
-            <div class="mx-auto max-w-md space-y-2 rounded-lg bg-gray-100 p-6 text-left">
+            <div class="mx-auto max-w-md space-y-2 rounded-md-lg bg-gray-100 p-6 text-left">
               <p class="text-jackson-charcoal font-medium">
                 <span class="text-jackson-charcoal/50">Monto:</span> S/ {{ p.amount }}
               </p>

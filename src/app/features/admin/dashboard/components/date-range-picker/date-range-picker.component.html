@@ -3,7 +3,7 @@
     <button
       (click)="selectPreset(preset.id)"
       [class]="btnClass(preset.id)"
-      style="font-weight:500"
+      class="cursor-pointer font-medium"
     >
       {{ preset.label }}
     </button>
@@ -15,16 +15,16 @@
         type="date"
         [ngModel]="customDesde()"
         (ngModelChange)="onCustomDesdeChange($event)"
-        class="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
-        style="font-weight:400"
+        class="rounded-md-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
+        style="font-weight: 400"
       />
       <span class="text-sm text-gray-400">a</span>
       <input
         type="date"
         [ngModel]="customHasta()"
         (ngModelChange)="onCustomHastaChange($event)"
-        class="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
-        style="font-weight:400"
+        class="rounded-md-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
+        style="font-weight: 400"
       />
     </div>
   }
