@@ -61,7 +61,6 @@ export class ImageUploadComponent {
   }
 
   deleteExistingImage(imageId: string) {
-    if (!confirm('¿Eliminar esta imagen?')) return;
     this.productService.deleteImage(this.productId, imageId).subscribe({
       next: () => {
         this.existingImages.set(this.existingImages().filter((img) => img.id !== imageId));

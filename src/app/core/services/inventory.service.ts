@@ -8,8 +8,10 @@ export class InventoryService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/inventory-movements`;
 
-  getAll(page = 0, size = 20) {
-    return this.http.get<PagedResponse<InventoryResponse>>(`${this.apiUrl}?page=${page}&size=${size}`);
+  getAll(page = 0, size = 10) {
+    return this.http.get<PagedResponse<InventoryResponse>>(
+      `${this.apiUrl}?page=${page}&size=${size}`,
+    );
   }
 
   getByProduct(productId: string) {

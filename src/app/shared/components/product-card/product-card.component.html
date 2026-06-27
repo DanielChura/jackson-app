@@ -1,36 +1,66 @@
-<a [routerLink]="['/products', product().id]" class="flex flex-col rounded-md bg-jackson-white">
-  <div class="relative aspect-square overflow-hidden rounded-md bg-gray-100 h-full">
+<a
+  [routerLink]="['/products', product().id]"
+  class="group flex flex-col rounded-md bg-jackson-white"
+  [class.opacity-60]="product().stock === 0"
+>
+  <div class="relative aspect-square overflow-hidden rounded-md bg-gray-50">
     @if ((product().images ?? []).length > 0) {
       <img
         [src]="product().images[0].url"
         [alt]="product().name"
         class="h-full w-full object-cover"
+        [class.group-hover:invisible]="(product().images ?? []).length > 1"
         loading="lazy"
       />
+
+      @if ((product().images ?? []).length > 1) {
+        <img
+          [src]="product().images[1].url"
+          [alt]="product().name"
+          class="absolute inset-0 h-full w-full object-cover hidden group-hover:block"
+          loading="lazy"
+        />
+      }
     } @else {
       <app-no-image-placeholder text="Sin imagen" />
     }
+
+    @if (product().stock === 0) {
+      <div class="absolute inset-0 bg-white/75 flex items-center justify-center">
+        <span
+          class="text-[11px] font-bold uppercase tracking-wider text-jackson-charcoal bg-white py-1.5 px-3 rounded shadow-sm"
+        >
+          Agotado
+        </span>
+      </div>
+    }
   </div>
 
-  <div class="flex flex-col gap-1.5 px-5 pt-5">
-    @if (product().category) {
-      <span class="text-xs text-jackson-orange font-medium">
-        {{ product().category!.name }}
-      </span>
+  <div class="flex flex-col gap-1 px-4 pt-4">
+    @if (product().brand?.logoUrl) {
+      <div class="h-4 flex items-center justify-start mb-1">
+        <img
+          [src]="product().brand?.logoUrl"
+          [alt]="product().brand?.name"
+          class="max-w-full max-h-full object-contain"
+        />
+      </div>
     }
+
     <h3 class="line-clamp-2 text-sm leading-snug text-jackson-charcoal font-medium">
       {{ product().name }}
     </h3>
-    <div class="mt-1 flex items-center justify-between">
-      <p class="text-lg text-jackson-charcoal font-medium">S/ {{ product().price }}</p>
-      @if (product().stock > 0) {
-        <span class="rounded-md bg-gray-100 px-2 py-0.5 text-xs text-jackson-orange font-medium">
-          Stock
-        </span>
-      }
-    </div>
-    @if (product().stock === 0) {
-      <p class="text-sm text-jackson-charcoal/40 font-normal">Agotado</p>
+
+    @if (product().category?.name) {
+      <p class="text-xs text-gray-600 font-normal leading-normal">
+        {{ product().category?.name }}
+      </p>
     }
+
+    <div class="mt-2">
+      <p class="text-base text-jackson-charcoal font-semibold">
+        S/ {{ product().price | number: '1.2-2' }}
+      </p>
+    </div>
   </div>
 </a>

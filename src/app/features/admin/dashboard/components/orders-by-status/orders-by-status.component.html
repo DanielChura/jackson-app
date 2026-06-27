@@ -1,4 +1,4 @@
-<div class="rounded-2xl border border-gray-200 bg-white p-6 flex flex-col gap-4">
+<div class="rounded-2xl border border-gray-200 bg-white p-6 h-full flex flex-col gap-4">
   <h2 class="text-lg text-gray-900" style="font-weight: 500">Órdenes por Estado</h2>
 
   @if (loading()) {
@@ -12,7 +12,7 @@
       Sin órdenes en el período seleccionado
     </p>
   } @else {
-    <div class="relative" style="min-height: 250px">
+    <div class="relative flex-1" style="min-height: 250px">
       <canvas #statusCanvas></canvas>
     </div>
 

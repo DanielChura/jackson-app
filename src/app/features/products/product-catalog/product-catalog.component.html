@@ -55,9 +55,9 @@
 
   <div class="py-10">
     <app-product-carousel
-      title="Productos recomendados"
-      [products]="products()"
-      [loading]="loading()"
+      title="Productos más favoritos"
+      [products]="favoritedProducts()"
+      [loading]="favoritedLoading()"
     />
   </div>
 </div>
@@ -92,21 +92,13 @@
     </div>
 
     <div class="w-full">
-      <label class="block text-sm text-jackson-charcoal font-medium">Precio</label>
-      <div class="flex gap-2">
-        <input type="number" [(ngModel)]="filterMinPrice" placeholder="Min" class="form-input" />
-        <input type="number" [(ngModel)]="filterMaxPrice" placeholder="Max" class="form-input" />
-      </div>
-    </div>
-
-    <div class="w-full">
       <label for="sort" class="block text-sm text-jackson-charcoal font-medium">Ordenar por</label>
       <select id="sort" [(ngModel)]="filterSort" class="form-select">
-        <option value="">Relevancia</option>
-        <option value="price,asc">Precio (Menor a mayor)</option>
-        <option value="price,desc">Precio (Mayor a menor)</option>
-        <option value="createdAt,desc">Lo más nuevo</option>
-        <option value="name,asc">Nombre (A-Z)</option>
+        <option value="">Precio (Mayor a menor)</option>
+        <option value="price-asc">Precio (Menor a mayor)</option>
+        <option value="popular">Más vendidos</option>
+        <option value="recent">Lo más nuevo</option>
+        <option value="name">Nombre (A-Z)</option>
       </select>
     </div>
 

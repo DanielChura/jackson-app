@@ -55,21 +55,27 @@ export class ProductDetailComponent {
       next: (res) => {
         this.product.set(res);
         this.loading.set(false);
+
+        // Load related products from the same category (excluding the current product)
+        const categoryName = res.category?.name;
+        this.productService
+          .getAll(0, 6, 'price-desc', {
+            category: categoryName || undefined,
+          })
+          .subscribe({
+            next: (relatedRes) => {
+              const list = relatedRes.content.filter((item) => item.id !== res.id).slice(0, 5);
+              this.relatedProducts.set(list);
+              this.relatedLoading.set(false);
+            },
+            error: () => {
+              this.relatedLoading.set(false);
+            },
+          });
       },
       error: () => {
         this.error.set('Error al cargar producto');
         this.loading.set(false);
-      },
-    });
-
-    // Load related products (generic bestsellers for now)
-    this.productService.getAll(0, 5, 'price,desc').subscribe({
-      next: (res) => {
-        this.relatedProducts.set(res.content);
-        this.relatedLoading.set(false);
-      },
-      error: () => {
-        this.relatedLoading.set(false);
       },
     });
   }

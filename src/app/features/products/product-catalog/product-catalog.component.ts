@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { ProductCardComponent } from '../../../shared/components/product-card/product-card.component';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
@@ -31,11 +32,14 @@ export class ProductCatalogComponent {
   private readonly categoryService = inject(CategoryService);
   private readonly brandService = inject(BrandService);
   private readonly toast = inject(ToastService);
+  private readonly route = inject(ActivatedRoute);
 
   readonly products = signal<ProductResponse[]>([]);
   readonly categories = signal<CategoryResponse[]>([]);
   readonly brands = signal<BrandResponse[]>([]);
+  readonly favoritedProducts = signal<ProductResponse[]>([]);
   readonly loading = signal(false);
+  readonly favoritedLoading = signal(false);
   readonly page = signal(0);
   readonly totalPages = signal(0);
   readonly totalElements = signal(0);
@@ -44,8 +48,6 @@ export class ProductCatalogComponent {
   filterName = '';
   filterCategory = '';
   filterBrand = '';
-  filterMinPrice: number | null = null;
-  filterMaxPrice: number | null = null;
   filterSort = '';
 
   constructor() {
@@ -55,7 +57,23 @@ export class ProductCatalogComponent {
     this.brandService.getAll(0, 50).subscribe({
       next: (res) => this.brands.set(res.content),
     });
-    this.load();
+    this.favoritedLoading.set(true);
+    this.productService.getMostFavorited().subscribe({
+      next: (res: ProductResponse[]) => {
+        this.favoritedProducts.set(res);
+        this.favoritedLoading.set(false);
+      },
+      error: () => {
+        this.favoritedLoading.set(false);
+      },
+    });
+    this.route.queryParams.subscribe((params) => {
+      this.filterCategory = params['category'] || '';
+      this.filterBrand = params['brand'] || '';
+      this.filterSort = params['sortBy'] || '';
+      this.filterName = params['name'] || '';
+      this.load();
+    });
   }
 
   load() {
@@ -65,8 +83,6 @@ export class ProductCatalogComponent {
         name: this.filterName || undefined,
         category: this.filterCategory || undefined,
         brand: this.filterBrand || undefined,
-        minPrice: this.filterMinPrice || undefined,
-        maxPrice: this.filterMaxPrice || undefined,
       })
       .subscribe({
         next: (res) => {

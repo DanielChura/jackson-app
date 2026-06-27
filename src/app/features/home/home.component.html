@@ -7,11 +7,7 @@
   </div>
 
   <div class="px-6 py-10">
-    <app-category-grid
-      [categories]="categories()"
-      [loading]="categoriesLoading()"
-      [error]="categoriesError()"
-    />
+    <app-category-grid />
   </div>
 
   <div class="px-6 py-10">
@@ -20,9 +16,9 @@
 
   <div class="px-6 py-10">
     <app-product-carousel
-      title="Nuevos productos"
+      title="Más recientes"
       [viewAllRoute]="'/products'"
-      [viewAllQueryParams]="{ sort: 'createdAt,desc' }"
+      [viewAllQueryParams]="{ sortBy: 'recent' }"
       [products]="newArrivals()"
       [loading]="newArrivalsLoading()"
       [error]="newArrivalsError()"
@@ -38,9 +34,9 @@
 
   <div class="px-6 py-10">
     <app-product-carousel
-      title="Los más vendidos"
+      title="Más populares"
       [viewAllRoute]="'/products'"
-      [viewAllQueryParams]="{ sort: 'price,desc' }"
+      [viewAllQueryParams]="{ sortBy: 'popular' }"
       [products]="bestsellers()"
       [loading]="bestsellersLoading()"
       [error]="bestsellersError()"
@@ -48,17 +44,16 @@
   </div>
 
   <div class="px-6 py-10">
-    <app-split-promo-section [products]="hotDeals()" />
+    <app-split-promo-section [products]="mostFavorited()" />
   </div>
 
   <div class="px-6 py-10">
     <app-product-carousel
-      title="Ofertas"
+      title="Más favoritos"
       [viewAllRoute]="'/products'"
-      [viewAllQueryParams]="{ sort: 'createdAt,desc' }"
-      [products]="hotDeals()"
-      [loading]="hotDealsLoading()"
-      [error]="hotDealsError()"
+      [products]="mostFavorited()"
+      [loading]="mostFavoritedLoading()"
+      [error]="mostFavoritedError()"
     />
   </div>
 

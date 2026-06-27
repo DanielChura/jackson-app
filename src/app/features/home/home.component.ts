@@ -10,8 +10,7 @@ import { ProductCarouselComponent } from '../../shared/components/product-carous
 import { BrandStripeComponent } from '../../shared/components/brand-stripe/brand-stripe.component';
 import { ProductService } from '../../core/services/product.service';
 import { BrandService } from '../../core/services/brand.service';
-import { CategoryService } from '../../core/services/category.service';
-import type { ProductResponse, BrandResponse, CategoryResponse } from '../../core/models';
+import type { ProductResponse, BrandResponse } from '../../core/models';
 
 @Component({
   selector: 'app-home',
@@ -32,11 +31,10 @@ import type { ProductResponse, BrandResponse, CategoryResponse } from '../../cor
 export class HomeComponent {
   private readonly productService = inject(ProductService);
   private readonly brandService = inject(BrandService);
-  private readonly categoryService = inject(CategoryService);
 
-  protected readonly hotDeals = signal<ProductResponse[]>([]);
-  protected readonly hotDealsLoading = signal(true);
-  protected readonly hotDealsError = signal<string | null>(null);
+  protected readonly mostFavorited = signal<ProductResponse[]>([]);
+  protected readonly mostFavoritedLoading = signal(true);
+  protected readonly mostFavoritedError = signal<string | null>(null);
 
   protected readonly bestsellers = signal<ProductResponse[]>([]);
   protected readonly bestsellersLoading = signal(true);
@@ -46,52 +44,37 @@ export class HomeComponent {
   protected readonly newArrivalsLoading = signal(true);
   protected readonly newArrivalsError = signal<string | null>(null);
 
-  protected readonly categories = signal<CategoryResponse[]>([]);
-  protected readonly categoriesLoading = signal(true);
-  protected readonly categoriesError = signal<string | null>(null);
-
   constructor() {
-    this.productService.getAll(0, 10, 'createdAt,desc').subscribe({
-      next: (res) => {
-        this.hotDeals.set(res.content);
-        this.hotDealsLoading.set(false);
+    this.productService.getMostFavorited().subscribe({
+      next: (res: ProductResponse[]) => {
+        this.mostFavorited.set(res);
+        this.mostFavoritedLoading.set(false);
       },
       error: () => {
-        this.hotDealsError.set('Error al cargar productos');
-        this.hotDealsLoading.set(false);
+        this.mostFavoritedError.set('Error al cargar favoritos');
+        this.mostFavoritedLoading.set(false);
       },
     });
 
-    this.productService.getAll(0, 20, 'price,desc').subscribe({
+    this.productService.getAll(0, 20, 'popular').subscribe({
       next: (res) => {
         this.bestsellers.set(res.content);
         this.bestsellersLoading.set(false);
       },
       error: () => {
-        this.bestsellersError.set('Error al cargar productos');
+        this.bestsellersError.set('Error al cargar productos populares');
         this.bestsellersLoading.set(false);
       },
     });
 
-    this.productService.getAll(0, 20, 'createdAt,desc').subscribe({
+    this.productService.getAll(0, 20, 'recent').subscribe({
       next: (res) => {
         this.newArrivals.set(res.content);
         this.newArrivalsLoading.set(false);
       },
       error: () => {
-        this.newArrivalsError.set('Error al cargar productos');
+        this.newArrivalsError.set('Error al cargar productos recientes');
         this.newArrivalsLoading.set(false);
-      },
-    });
-
-    this.categoryService.getAll().subscribe({
-      next: (res) => {
-        this.categories.set(res.content);
-        this.categoriesLoading.set(false);
-      },
-      error: () => {
-        this.categoriesError.set('Error al cargar categorías');
-        this.categoriesLoading.set(false);
       },
     });
   }

@@ -6,6 +6,7 @@ import {
   ProductResponse,
   ProductImageResponse,
   PagedResponse,
+  TopProductEntry,
 } from '../models';
 
 @Injectable({ providedIn: 'root' })
@@ -16,23 +17,36 @@ export class ProductService {
   getAll(
     page = 0,
     size = 20,
-    sort?: string,
+    sortBy?: string,
     filters?: {
       name?: string;
       category?: string;
       brand?: string;
-      minPrice?: number;
-      maxPrice?: number;
     },
   ) {
     let params = new HttpParams().set('page', page).set('size', size);
-    if (sort) params = params.set('sort', sort);
+    if (sortBy) {
+      // Map legacy sorting formats to the new API specs
+      let mappedSort = sortBy;
+      if (sortBy === 'price,asc') mappedSort = 'price-asc';
+      else if (sortBy === 'price,desc') mappedSort = 'price-desc';
+      else if (sortBy === 'createdAt,desc') mappedSort = 'recent';
+      else if (sortBy === 'name,asc') mappedSort = 'name';
+
+      params = params.set('sortBy', mappedSort);
+    }
     if (filters?.name) params = params.set('name', filters.name);
     if (filters?.category) params = params.set('category', filters.category);
     if (filters?.brand) params = params.set('brand', filters.brand);
-    if (filters?.minPrice) params = params.set('minPrice', filters.minPrice.toString());
-    if (filters?.maxPrice) params = params.set('maxPrice', filters.maxPrice.toString());
     return this.http.get<PagedResponse<ProductResponse>>(this.apiUrl, { params });
+  }
+
+  getPopular() {
+    return this.http.get<TopProductEntry[]>(`${this.apiUrl}/popular`);
+  }
+
+  getMostFavorited() {
+    return this.http.get<ProductResponse[]>(`${this.apiUrl}/most-favorited`);
   }
 
   getById(id: string) {

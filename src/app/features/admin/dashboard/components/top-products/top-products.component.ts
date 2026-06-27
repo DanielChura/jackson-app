@@ -11,7 +11,7 @@ import type { TopProductEntry, LoadState } from '../../../../../core/models';
 @Component({
   selector: 'app-top-products',
   standalone: true,
-  host: { class: 'block' },
+  host: { class: 'block h-full' },
   imports: [SpinnerComponent],
   templateUrl: './top-products.component.html',
 })

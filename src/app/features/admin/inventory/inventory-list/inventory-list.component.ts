@@ -45,7 +45,7 @@ export class InventoryListComponent {
 
   load() {
     this.loading.set(true);
-    this.inventoryService.getAll(this.page(), 20).subscribe({
+    this.inventoryService.getAll(this.page(), 10).subscribe({
       next: (res) => {
         this.movements.set(res.content);
         this.totalPages.set(res.totalPages);

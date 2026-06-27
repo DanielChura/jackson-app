@@ -22,7 +22,7 @@ import { renderOrdersByStatusChart, colorFor, labelFor } from './orders-by-statu
 @Component({
   selector: 'app-orders-by-status',
   standalone: true,
-  host: { class: 'block' },
+  host: { class: 'block h-full' },
   imports: [SpinnerComponent],
   templateUrl: './orders-by-status.component.html',
 })
