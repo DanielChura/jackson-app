@@ -111,11 +111,10 @@ export const routes: Routes = [
         ],
       },
       {
-        path: 'orders',
+        path: 'account',
+        canActivate: [authGuard],
         loadComponent: () =>
-          import('./features/orders/order-list/order-list.component').then(
-            (c) => c.OrderListComponent,
-          ),
+          import('./features/account/account.component').then((c) => c.AccountComponent),
       },
       {
         path: '**',

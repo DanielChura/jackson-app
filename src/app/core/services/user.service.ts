@@ -16,6 +16,10 @@ export class UserService {
     return this.http.get<UserResponse>(`${this.apiUrl}/${id}`);
   }
 
+  getMe() {
+    return this.http.get<UserResponse>(`${this.apiUrl}/me`);
+  }
+
   update(id: string, payload: CreateUserRequest) {
     return this.http.put<UserResponse>(`${this.apiUrl}/${id}`, payload);
   }

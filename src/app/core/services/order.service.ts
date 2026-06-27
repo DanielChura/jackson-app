@@ -18,6 +18,12 @@ export class OrderService {
     return this.http.get<PagedResponse<OrderResponse>>(`${this.apiUrl}?page=${page}&size=${size}`);
   }
 
+  getMyOrders(page = 0, size = 5) {
+    return this.http.get<PagedResponse<OrderResponse>>(
+      `${this.apiUrl}/me?page=${page}&size=${size}`,
+    );
+  }
+
   getByUser(userId: string, page = 0, size = 20) {
     return this.http.get<PagedResponse<OrderResponse>>(
       `${this.apiUrl}/user/${userId}?page=${page}&size=${size}`,
