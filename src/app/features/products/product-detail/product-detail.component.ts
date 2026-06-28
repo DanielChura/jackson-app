@@ -9,7 +9,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import type { ProductResponse } from '../../../core/models';
 import { ProductCarouselComponent } from '../../../shared/components/product-carousel/product-carousel.component';
-import { ProductInfoComponent } from "./product-info/product-info.component";
+import { ProductInfoComponent } from './product-info/product-info.component';
 
 @Component({
   selector: 'app-product-detail',
@@ -30,17 +30,11 @@ export class ProductDetailComponent {
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
 
-  /** Active thumbnail index for the gallery */
   readonly activeImageIndex = signal(0);
 
-  /** Quantity selector */
-  readonly qty = signal(1);
-
-  /** Related products */
   readonly relatedProducts = signal<ProductResponse[]>([]);
   readonly relatedLoading = signal(true);
 
-  /** Placeholder rows for the specs table (shown before specs data is available) */
   readonly specPlaceholders = Array.from({ length: 6 });
 
   constructor() {
@@ -56,7 +50,6 @@ export class ProductDetailComponent {
         this.product.set(res);
         this.loading.set(false);
 
-        // Load related products from the same category (excluding the current product)
         const categoryName = res.category?.name;
         this.productService
           .getAll(0, 6, 'price-desc', {
@@ -88,14 +81,6 @@ export class ProductDetailComponent {
     this.activeImageIndex.set(index);
   }
 
-  increaseQty(stock: number) {
-    if (this.qty() < stock) this.qty.update((q) => q + 1);
-  }
-
-  decreaseQty() {
-    if (this.qty() > 1) this.qty.update((q) => q - 1);
-  }
-
   addToCart() {
     const user = this.auth.currentUser();
     if (!user) {
@@ -107,17 +92,15 @@ export class ProductDetailComponent {
 
     this.cartService.getMine().subscribe({
       next: (cart) => {
-        this.cartService
-          .addItem({ cartId: cart.id, productId: p.id, quantity: this.qty() })
-          .subscribe({
-            next: (updated) => {
-              this.cartService.count.set(updated.items.length);
-              this.toast.show('Producto agregado al carrito', 'success');
-            },
-            error: () => {
-              this.toast.show('Error al agregar al carrito', 'error');
-            },
-          });
+        this.cartService.addItem({ cartId: cart.id, productId: p.id, quantity: 1 }).subscribe({
+          next: (updated) => {
+            this.cartService.count.set(updated.items.length);
+            this.toast.show('Producto agregado al carrito', 'success');
+          },
+          error: () => {
+            this.toast.show('Error al agregar al carrito', 'error');
+          },
+        });
       },
       error: () => {
         this.toast.show('Error al obtener el carrito', 'error');

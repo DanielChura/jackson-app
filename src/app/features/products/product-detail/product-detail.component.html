@@ -14,16 +14,9 @@
     </nav>
   </div>
   @if (product(); as p) {
-    <app-product-info
-      [p]="p"
-      [qty]="qty()"
-      (increase)="increaseQty(p.stock)"
-      (decrease)="decreaseQty()"
-      (addToCart)="addToCart()"
-      (toggleFavorite)="toggleFavorite()"
-    />
+    <app-product-info [p]="p" (addToCart)="addToCart()" (toggleFavorite)="toggleFavorite()" />
   }
-  <div class="px-6 py-6">
+  <div class="px-6 py-10">
     <app-product-carousel
       [products]="relatedProducts()"
       [title]="'Productos relacionados'"
